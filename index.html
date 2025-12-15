@@ -1,0 +1,737 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tanzimat Reforms Monopoly</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #3949ab;
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            color: #1a237e;
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .subtitle {
+            color: #5c6bc0;
+            font-size: 1.2rem;
+            font-style: italic;
+        }
+
+        .game-area {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 900px) {
+            .game-area {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .player-info {
+            background: #e8eaf6;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .stat-box {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #3949ab;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .board-space {
+            background: #f5f5f5;
+            border: 2px solid #3949ab;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .board-space:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(57, 73, 171, 0.2);
+            background: #e8eaf6;
+        }
+
+        .space-category {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .category-did-you-know { background: #4caf50; }
+        .category-true-false { background: #ff9800; }
+        .category-what-next { background: #2196f3; }
+        .category-two-truths { background: #9c27b0; }
+
+        .space-title {
+            font-weight: bold;
+            color: #1a237e;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+
+        .space-description {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+
+        .card-display {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            color: #1a237e;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e8eaf6;
+            width: 100%;
+        }
+
+        .card-text {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .answer-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .answer-btn {
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: #e8eaf6;
+            color: #3949ab;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .answer-btn:hover {
+            background: #3949ab;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3949ab 0%, #283593 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(57, 73, 171, 0.4);
+        }
+
+        .btn-secondary {
+            background: #e8eaf6;
+            color: #3949ab;
+        }
+
+        .btn-secondary:hover {
+            background: #c5cae9;
+            transform: translateY(-3px);
+        }
+
+        .fact-result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: bold;
+            text-align: center;
+            display: none;
+        }
+
+        .correct {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border: 2px solid #4caf50;
+        }
+
+        .incorrect {
+            background: #ffebee;
+            color: #c62828;
+            border: 2px solid #f44336;
+        }
+
+        .game-log {
+            background: #f5f5f5;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .log-title {
+            font-weight: bold;
+            color: #1a237e;
+            margin-bottom: 10px;
+        }
+
+        .log-entry {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+            font-size: 0.9rem;
+        }
+
+        .category-key {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .key-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .key-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎲 Tanzimat Reforms Monopoly</h1>
+            <p class="subtitle">Learn about Ottoman modernization through interactive gameplay!</p>
+        </header>
+
+        <div class="player-info">
+            <h2>Scholar: <span id="playerName">Sultan's Reformer</span></h2>
+            <div class="stats">
+                <div class="stat-box">
+                    <div class="stat-value" id="knowledgePoints">150</div>
+                    <div class="stat-label">Knowledge Points</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="modernizationLevel">1</div>
+                    <div class="stat-label">Modernization Level</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="turnCount">0</div>
+                    <div class="stat-label">Turns Completed</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-area">
+            <div class="left-panel">
+                <h3>Reform Path (Click a space to land on it)</h3>
+                
+                <!-- Game Board Spaces -->
+                <div class="board-space" data-space="1" data-category="did-you-know">
+                    <div class="space-category category-did-you-know">DID YOU KNOW?</div>
+                    <div class="space-title">The Rose Garden Edict</div>
+                    <div class="space-description">1839 - Start of the Tanzimat</div>
+                </div>
+
+                <div class="board-space" data-space="2" data-category="true-false">
+                    <div class="space-category category-true-false">TRUE OR FALSE?</div>
+                    <div class="space-title">Military Reforms</div>
+                    <div class="space-description">European-style army training</div>
+                </div>
+
+                <div class="board-space" data-space="3" data-category="what-next">
+                    <div class="space-category category-what-next">WHAT HAPPENED NEXT?</div>
+                    <div class="space-title">Secular Education</div>
+                    <div class="space-description">New schools established</div>
+                </div>
+
+                <div class="board-space" data-space="4" data-category="two-truths">
+                    <div class="space-category category-two-truths">TWO TRUTHS & A LIE</div>
+                    <div class="space-title">Legal Equality</div>
+                    <div class="space-description">Challenging traditional laws</div>
+                </div>
+
+                <div class="board-space" data-space="5" data-category="did-you-know">
+                    <div class="space-category category-did-you-know">DID YOU KNOW?</div>
+                    <div class="space-title">Foreign Influence</div>
+                    <div class="space-description">European pressure for change</div>
+                </div>
+
+                <div class="board-space" data-space="6" data-category="true-false">
+                    <div class="space-category category-true-false">TRUE OR FALSE?</div>
+                    <div class="space-title">Economic Modernization</div>
+                    <div class="space-description">Banking and infrastructure</div>
+                </div>
+            </div>
+
+            <div class="right-panel">
+                <div class="card-display">
+                    <div class="card-title" id="currentCategory">Welcome to Tanzimat Reforms!</div>
+                    <div class="card-content">
+                        <div class="card-text" id="cardText">
+                            Click on a Reform Path space to begin your journey through the Tanzimat era. 
+                            Each space presents a fact in one of four formats. Answer correctly to earn Knowledge Points!
+                        </div>
+                        
+                        <div class="answer-options" id="answerOptions" style="display: none;">
+                            <!-- Answer buttons will be generated here -->
+                        </div>
+                        
+                        <div class="fact-result" id="factResult">
+                            <!-- Result message appears here -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <button class="btn btn-primary" id="rollDiceBtn">🎲 Roll Dice & Move</button>
+                    <button class="btn btn-secondary" id="nextTurnBtn" style="display: none;">Next Turn</button>
+                </div>
+
+                <div class="game-log">
+                    <div class="log-title">Reform Journal:</div>
+                    <div id="logEntries">
+                        <div class="log-entry">Welcome to the Tanzimat Reforms game!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="category-key">
+            <div class="key-item">
+                <div class="key-color category-did-you-know"></div>
+                <span>Did You Know? - Straight Facts</span>
+            </div>
+            <div class="key-item">
+                <div class="key-color category-true-false"></div>
+                <span>True or False? - Quiz Challenge</span>
+            </div>
+            <div class="key-item">
+                <div class="key-color category-what-next"></div>
+                <span>What Happened Next? - Historical Sequence</span>
+            </div>
+            <div class="key-item">
+                <div class="key-color category-two-truths"></div>
+                <span>Two Truths & a Lie - The Detective</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Game State
+        const gameState = {
+            knowledgePoints: 150,
+            modernizationLevel: 1,
+            turnCount: 0,
+            currentSpace: 0,
+            currentCard: null,
+            gameActive: true
+        };
+
+        // All the facts organized by category
+        const facts = {
+            'did-you-know': [
+                {
+                    text: "The first major edict of the Tanzimat was called the Gülhane Hatt-ı Şerif (Rose Garden Edict), and it was read aloud in 1839 in an open park to symbolize its promise to the public.",
+                    points: 25
+                },
+                {
+                    text: "A key leader of the reforms, Mustafa Reşid Pasha, was the Ottoman ambassador to Paris and London, and he directly modeled many new laws after European legal codes he saw there.",
+                    points: 30
+                },
+                {
+                    text: "The Tanzimat period saw the establishment of the first modern postal service and telegraph network in the Ottoman Empire, physically connecting the provinces to Istanbul like never before.",
+                    points: 20
+                }
+            ],
+            'true-false': [
+                {
+                    text: "The primary goal of the Tanzimat Reforms was to dismantle the Ottoman Empire and create independent nation-states.",
+                    answer: false,
+                    explanation: "FALSE. The primary goal was to SAVE the Empire by centralizing power, modernizing institutions, and creating equal subjects to ensure loyalty and strength.",
+                    points: 40
+                },
+                {
+                    text: "Sultan Mahmud II's destruction of the Janissary corps in 1826 was a necessary precursor that cleared the way for the Tanzimat military reforms.",
+                    answer: true,
+                    explanation: "TRUE. Eliminating the ultra-conservative Janissary army was crucial to begin creating a new, European-style military.",
+                    points: 35
+                },
+                {
+                    text: "The reforms successfully ended all legal distinctions between Muslim and non-Muslim subjects in everyday practice.",
+                    answer: false,
+                    explanation: "FALSE. While officially proclaiming equality, deep-seated social traditions meant Muslim privilege persisted in many areas.",
+                    points: 45
+                }
+            ],
+            'what-next': [
+                {
+                    setup: "The 1839 Rose Garden Edict promised equality and modern laws to all Ottoman citizens...",
+                    options: [
+                        "This led to immediate European recognition of Ottoman superiority.",
+                        "This led to the creation of new, secular courts that operated alongside traditional Islamic courts.",
+                        "This caused the immediate collapse of the traditional education system."
+                    ],
+                    correct: 1,
+                    explanation: "This led to the creation of new, secular courts (Nizamiye) that operated alongside traditional Islamic courts, creating a complex dual legal system.",
+                    points: 50
+                },
+                {
+                    setup: "The state built new secular schools and sent bright students to study in France...",
+                    options: [
+                        "All students returned to become loyal government officials.",
+                        "Many returned as critics of the Sultan's autocracy, forming the 'Young Ottomans' movement.",
+                        "They abandoned their studies and stayed in Europe permanently."
+                    ],
+                    correct: 1,
+                    explanation: "Many returned as critics of the Sultan's autocracy, forming the 'Young Ottomans' movement that demanded a constitutional government.",
+                    points: 55
+                }
+            ],
+            'two-truths': [
+                {
+                    statements: [
+                        "Sultan Mahmud II centralized power by crushing the Janissaries and local governors.",
+                        "Mustafa Reşid Pasha believed reforms should be implemented slowly over a century.",
+                        "Tanzimat Sultans used European-style uniforms to project modern authority."
+                    ],
+                    lieIndex: 1,
+                    explanation: "The lie is #2. Reşid Pasha believed in RAPID, sweeping change to catch up with Europe and save the Empire from immediate collapse.",
+                    points: 60
+                },
+                {
+                    statements: [
+                        "The jizya (poll tax on non-Muslims) was abolished and replaced with a military exemption tax.",
+                        "All subjects, regardless of religion, became eligible for conscription into the new modern army.",
+                        "New land laws aimed to give individual farmers clear title deeds to increase tax revenue."
+                    ],
+                    lieIndex: 1,
+                    explanation: "The lie is #2. While non-Muslims were officially made eligible for conscription in 1856, it was almost never enforced in practice.",
+                    points: 65
+                }
+            ]
+        };
+
+        // DOM Elements
+        const boardSpaces = document.querySelectorAll('.board-space');
+        const knowledgePointsEl = document.getElementById('knowledgePoints');
+        const modernizationLevelEl = document.getElementById('modernizationLevel');
+        const turnCountEl = document.getElementById('turnCount');
+        const currentCategoryEl = document.getElementById('currentCategory');
+        const cardTextEl = document.getElementById('cardText');
+        const answerOptionsEl = document.getElementById('answerOptions');
+        const factResultEl = document.getElementById('factResult');
+        const rollDiceBtn = document.getElementById('rollDiceBtn');
+        const nextTurnBtn = document.getElementById('nextTurnBtn');
+        const logEntriesEl = document.getElementById('logEntries');
+
+        // Event Listeners
+        boardSpaces.forEach(space => {
+            space.addEventListener('click', () => landOnSpace(space));
+        });
+
+        rollDiceBtn.addEventListener('click', rollDice);
+        nextTurnBtn.addEventListener('click', nextTurn);
+
+        // Update display
+        function updateDisplay() {
+            knowledgePointsEl.textContent = gameState.knowledgePoints;
+            modernizationLevelEl.textContent = gameState.modernizationLevel;
+            turnCountEl.textContent = gameState.turnCount;
+        }
+
+        // Roll dice and move
+        function rollDice() {
+            if (!gameState.gameActive) return;
+            
+            const diceRoll = Math.floor(Math.random() * 6) + 1;
+            gameState.currentSpace = (gameState.currentSpace + diceRoll) % boardSpaces.length;
+            
+            addLog(`🎲 Rolled a ${diceRoll}! Moving to space ${gameState.currentSpace + 1}`);
+            
+            // Highlight the new space
+            boardSpaces.forEach((space, index) => {
+                space.style.opacity = index === gameState.currentSpace ? '1' : '0.6';
+            });
+            
+            // Enable clicking on current space
+            const currentSpace = boardSpaces[gameState.currentSpace];
+            setTimeout(() => {
+                currentSpace.click();
+            }, 500);
+        }
+
+        // Land on a space
+        function landOnSpace(space) {
+            const category = space.dataset.category;
+            gameState.currentCard = getRandomFact(category);
+            
+            displayCard(category, gameState.currentCard);
+            nextTurnBtn.style.display = 'block';
+            rollDiceBtn.style.display = 'none';
+        }
+
+        // Get random fact from category
+        function getRandomFact(category) {
+            const categoryFacts = facts[category];
+            return categoryFacts[Math.floor(Math.random() * categoryFacts.length)];
+        }
+
+        // Display card based on category
+        function displayCard(category, card) {
+            answerOptionsEl.style.display = 'none';
+            factResultEl.style.display = 'none';
+            answerOptionsEl.innerHTML = '';
+            
+            // Update category title
+            const categoryNames = {
+                'did-you-know': 'Did You Know?',
+                'true-false': 'True or False?',
+                'what-next': 'What Happened Next?',
+                'two-truths': 'Two Truths & a Lie'
+            };
+            
+            currentCategoryEl.textContent = categoryNames[category];
+            
+            // Display content based on category
+            switch(category) {
+                case 'did-you-know':
+                    cardTextEl.textContent = card.text;
+                    answerOptionsEl.innerHTML = `
+                        <button class="answer-btn" onclick="answerDidYouKnow()">Got it! (Earn ${card.points} points)</button>
+                    `;
+                    answerOptionsEl.style.display = 'block';
+                    break;
+                    
+                case 'true-false':
+                    cardTextEl.textContent = card.text;
+                    answerOptionsEl.innerHTML = `
+                        <button class="answer-btn" onclick="answerTrueFalse(true)">True</button>
+                        <button class="answer-btn" onclick="answerTrueFalse(false)">False</button>
+                    `;
+                    answerOptionsEl.style.display = 'block';
+                    break;
+                    
+                case 'what-next':
+                    cardTextEl.textContent = card.setup;
+                    answerOptionsEl.innerHTML = card.options.map((option, index) => `
+                        <button class="answer-btn" onclick="answerWhatNext(${index})">${option}</button>
+                    `).join('');
+                    answerOptionsEl.style.display = 'block';
+                    break;
+                    
+                case 'two-truths':
+                    cardTextEl.innerHTML = `
+                        <strong>Which statement is the LIE?</strong><br><br>
+                        ${card.statements.map((stmt, idx) => 
+                            `${idx + 1}. ${stmt}<br><br>`
+                        ).join('')}
+                    `;
+                    answerOptionsEl.innerHTML = card.statements.map((stmt, index) => `
+                        <button class="answer-btn" onclick="answerTwoTruths(${index})">Statement ${index + 1}</button>
+                    `).join('');
+                    answerOptionsEl.style.display = 'block';
+                    break;
+            }
+        }
+
+        // Answer handlers
+        function answerDidYouKnow() {
+            gameState.knowledgePoints += gameState.currentCard.points;
+            showResult(true, `Correct! +${gameState.currentCard.points} Knowledge Points`);
+            addLog(`📚 Learned: ${gameState.currentCard.text.substring(0, 50)}...`);
+        }
+
+        function answerTrueFalse(userAnswer) {
+            const isCorrect = userAnswer === gameState.currentCard.answer;
+            if (isCorrect) {
+                gameState.knowledgePoints += gameState.currentCard.points;
+                showResult(true, `Correct! ${gameState.currentCard.explanation} +${gameState.currentCard.points} Points`);
+                addLog(`✅ True/False correct: ${gameState.currentCard.text.substring(0, 40)}...`);
+            } else {
+                showResult(false, `Incorrect. ${gameState.currentCard.explanation}`);
+                addLog(`❌ True/False incorrect: ${gameState.currentCard.text.substring(0, 40)}...`);
+            }
+        }
+
+        function answerWhatNext(selectedIndex) {
+            const isCorrect = selectedIndex === gameState.currentCard.correct;
+            if (isCorrect) {
+                gameState.knowledgePoints += gameState.currentCard.points;
+                showResult(true, `Correct! ${gameState.currentCard.explanation} +${gameState.currentCard.points} Points`);
+                addLog(`🔮 Predicted correctly: ${gameState.currentCard.setup.substring(0, 40)}...`);
+            } else {
+                showResult(false, `Incorrect. ${gameState.currentCard.explanation}`);
+                addLog(`🔮 Prediction wrong: ${gameState.currentCard.setup.substring(0, 40)}...`);
+            }
+        }
+
+        function answerTwoTruths(selectedIndex) {
+            const isCorrect = selectedIndex === gameState.currentCard.lieIndex;
+            if (isCorrect) {
+                gameState.knowledgePoints += gameState.currentCard.points;
+                showResult(true, `Correct detective work! ${gameState.currentCard.explanation} +${gameState.currentCard.points} Points`);
+                addLog(`🕵️‍♂️ Found the lie!`);
+            } else {
+                showResult(false, `Not quite. ${gameState.currentCard.explanation}`);
+                addLog(`🕵️‍♂️ Wrong choice on Two Truths & a Lie`);
+            }
+        }
+
+        // Show result
+        function showResult(isCorrect, message) {
+            factResultEl.textContent = message;
+            factResultEl.className = 'fact-result ' + (isCorrect ? 'correct' : 'incorrect');
+            factResultEl.style.display = 'block';
+            
+            // Check for level up
+            if (gameState.knowledgePoints >= 200 && gameState.modernizationLevel === 1) {
+                gameState.modernizationLevel = 2;
+                addLog("🎉 Level Up! Reached Modernization Level 2!");
+            } else if (gameState.knowledgePoints >= 300 && gameState.modernizationLevel === 2) {
+                gameState.modernizationLevel = 3;
+                addLog("🎉 Level Up! Reached Modernization Level 3 (Constitutional Era)!");
+            }
+            
+            updateDisplay();
+        }
+
+        // Next turn
+        function nextTurn() {
+            gameState.turnCount++;
+            nextTurnBtn.style.display = 'none';
+            rollDiceBtn.style.display = 'block';
+            
+            // Reset card display
+            currentCategoryEl.textContent = 'Ready for Next Turn';
+            cardTextEl.textContent = 'Click "Roll Dice & Move" to continue your Tanzimat journey!';
+            answerOptionsEl.style.display = 'none';
+            factResultEl.style.display = 'none';
+            
+            updateDisplay();
+        }
+
+        // Add log entry
+        function addLog(message) {
+            const logEntry = document.createElement('div');
+            logEntry.className = 'log-entry';
+            logEntry.textContent = `Turn ${gameState.turnCount + 1}: ${message}`;
+            logEntriesEl.prepend(logEntry);
+            
+            // Keep only last 5 entries
+            const entries = logEntriesEl.querySelectorAll('.log-entry');
+            if (entries.length > 5) {
+                entries[entries.length - 1].remove();
+            }
+        }
+
+        // Initialize game
+        updateDisplay();
+        addLog("Game started. Land on spaces to learn about Tanzimat Reforms!");
+    </script>
+</body>
+</html>
