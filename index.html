@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tanzimat Reforms: The Reform Ladder</title>
+    <title>Tanzimat Reforms Monopoly</title>
     <style>
         * {
             margin: 0;
@@ -13,7 +13,7 @@
         }
 
         body {
-            background: linear-gradient(135deg, #0d47a1 0%, #1a237e 100%);
+            background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
             color: #333;
             min-height: 100vh;
             padding: 20px;
@@ -126,121 +126,204 @@
             }
         }
 
-        /* Chutes and Ladders Board */
+        /* Monopoly Board Container */
         .board-container {
             position: relative;
             background: #f5f5f5;
             border-radius: 15px;
-            padding: 30px;
+            padding: 20px;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-            min-height: 600px;
+            overflow: hidden;
+            min-height: 700px;
         }
 
-        .chutes-ladders-board {
-            display: grid;
-            grid-template-columns: repeat(10, 1fr);
-            grid-template-rows: repeat(10, 1fr);
-            gap: 5px;
-            width: 600px;
-            height: 600px;
+        .board-title {
+            text-align: center;
+            color: #1a237e;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        /* Classic Monopoly Board Layout - FIXED DIMENSIONS */
+        .monopoly-board {
+            width: 600px; /* SMALLER for better fit */
+            height: 600px; /* SMALLER for better fit */
             margin: 0 auto;
-            background: #e3f2fd;
-            padding: 10px;
+            position: relative;
+            background: #bbdefb;
             border-radius: 10px;
             border: 3px solid #1a237e;
-            position: relative;
         }
 
+        /* Board Cells - Fixed dimensions */
         .board-cell {
+            position: absolute;
             background: white;
-            border: 2px solid #bbdefb;
+            border: 1px solid #90a4ae;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 5px;
             text-align: center;
-            position: relative;
-            border-radius: 5px;
-            font-size: 0.8rem;
+            padding: 3px;
             transition: all 0.3s ease;
+            overflow: hidden;
+            font-size: 0.6rem;
+            line-height: 1.1;
         }
 
         .board-cell:hover {
             transform: scale(1.05);
-            z-index: 1;
-            box-shadow: 0 0 10px rgba(0,0,0,0.2);
-            background: #e8eaf6;
+            z-index: 10;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
         }
 
         .board-cell.active {
-            border-color: #ff9800;
+            border: 2px solid #ff9800;
             background: #fff3e0;
         }
 
         .cell-number {
             position: absolute;
-            top: 2px;
-            left: 2px;
-            font-size: 0.7rem;
+            top: 1px;
+            left: 1px;
+            font-size: 0.6rem;
             color: #666;
             font-weight: bold;
+            background: rgba(255,255,255,0.8);
+            border-radius: 50%;
+            width: 14px;
+            height: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .cell-title {
-            font-size: 0.7rem;
+            font-size: 0.6rem;
             font-weight: bold;
-            margin-bottom: 2px;
+            margin-bottom: 1px;
             color: #1a237e;
         }
 
         .cell-description {
-            font-size: 0.6rem;
+            font-size: 0.5rem;
             opacity: 0.8;
         }
 
+        /* Corner cells */
+        .corner-cell {
+            width: 80px; /* SMALLER */
+            height: 80px; /* SMALLER */
+            background: linear-gradient(135deg, #3949ab 0%, #283593 100%);
+            color: white;
+            font-weight: bold;
+            border: 2px solid #1a237e;
+            z-index: 5;
+        }
+
+        .corner-cell .cell-title {
+            color: white;
+            font-size: 0.8rem;
+        }
+
+        /* Property cells */
+        .property-cell {
+            width: 60px; /* SMALLER */
+            height: 75px; /* SMALLER */
+        }
+
+        /* Horizontal properties */
+        .horizontal-cell {
+            width: 73.75px; /* (600 - 160) / 8 = 55, wait let me recalculate */
+            height: 60px; /* SMALLER */
+        }
+
+        /* Center area */
+        .board-center {
+            position: absolute;
+            top: 80px; /* Match corner height */
+            left: 80px; /* Match corner width */
+            width: 440px; /* 600 - 2*80 = 440 */
+            height: 440px; /* 600 - 2*80 = 440 */
+            background: #e3f2fd;
+            border: 2px dashed #1a237e;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            z-index: 1;
+        }
+
+        .center-title {
+            font-size: 1.3rem;
+            color: #1a237e;
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .center-subtitle {
+            font-size: 0.9rem;
+            color: #5c6bc0;
+            text-align: center;
+            max-width: 80%;
+        }
+
+        /* Player tokens */
         .player-token {
-            width: 20px;
-            height: 20px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
             position: absolute;
-            bottom: 3px;
-            right: 3px;
             border: 2px solid white;
             box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-            z-index: 2;
+            z-index: 20;
         }
 
-        /* Ladders */
-        .ladder {
-            position: absolute;
-            background: #4caf50;
-            border-radius: 3px;
-            z-index: 1;
+        /* Color coding for properties */
+        .property-did-you-know {
+            border-top: 4px solid #4caf50;
         }
 
-        .ladder-horizontal {
-            height: 6px;
+        .property-true-false {
+            border-top: 4px solid #ff9800;
         }
 
-        .ladder-vertical {
-            width: 6px;
+        .property-what-next {
+            border-top: 4px solid #2196f3;
         }
 
-        /* Chutes */
-        .chute {
-            position: absolute;
-            background: #f44336;
-            border-radius: 3px;
-            z-index: 1;
+        .property-two-truths {
+            border-top: 4px solid #9c27b0;
         }
 
-        .chute-horizontal {
-            height: 6px;
+        /* Special cells */
+        .chance-cell {
+            background: #fff3e0;
+            border-top: 4px solid #ff9800;
         }
 
-        .chute-vertical {
-            width: 6px;
+        .community-chest-cell {
+            background: #f3e5f5;
+            border-top: 4px solid #9c27b0;
+        }
+
+        .railroad-cell {
+            background: #e0f2f1;
+            border-top: 4px solid #00695c;
+        }
+
+        .utility-cell {
+            background: #fce4ec;
+            border-top: 4px solid #c2185b;
+        }
+
+        .tax-cell {
+            background: #ffebee;
+            border-top: 4px solid #f44336;
         }
 
         /* Dice Area */
@@ -248,7 +331,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 20px;
+            gap: 15px;
             margin: 20px 0;
             padding: 20px;
             background: #e8eaf6;
@@ -261,14 +344,14 @@
         }
 
         .dice {
-            width: 80px;
-            height: 80px;
+            width: 60px;
+            height: 60px;
             background: white;
-            border-radius: 15px;
+            border-radius: 10px;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 2.5rem;
+            font-size: 1.8rem;
             font-weight: bold;
             color: #1a237e;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
@@ -284,11 +367,6 @@
             0% { transform: rotate(0deg) scale(1); }
             50% { transform: rotate(180deg) scale(1.1); }
             100% { transform: rotate(360deg) scale(1); }
-        }
-
-        .dice:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
         }
 
         /* Players Panel */
@@ -432,14 +510,14 @@
         }
 
         .btn {
-            padding: 15px 30px;
+            padding: 12px 25px;
             border: none;
             border-radius: 10px;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
-            min-width: 180px;
+            min-width: 160px;
         }
 
         .btn-primary {
@@ -549,11 +627,6 @@
             border-radius: 50%;
         }
 
-        .question-locked {
-            pointer-events: none;
-            opacity: 0.7;
-        }
-
         .winner-banner {
             position: fixed;
             top: 50%;
@@ -589,13 +662,29 @@
             background: #e0e0e0 !important;
             border-color: #9e9e9e !important;
         }
+
+        .property-owned {
+            position: relative;
+        }
+
+        .property-owned::after {
+            content: '';
+            position: absolute;
+            bottom: 3px;
+            right: 3px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: currentColor;
+            opacity: 0.6;
+        }
     </style>
 </head>
 <body>
     <!-- Player Setup Modal -->
     <div class="player-setup" id="playerSetup">
         <div class="setup-content">
-            <h2>🎭 Setup Your Tanzimat Reform Ladder</h2>
+            <h2>🎭 Setup Your Tanzimat Reforms Monopoly</h2>
             <div class="player-input-group">
                 <label for="playerCount">Number of Reformers (2-4)</label>
                 <select id="playerCount">
@@ -607,7 +696,7 @@
             <div id="playerForms">
                 <!-- Player forms will be generated here -->
             </div>
-            <button class="btn btn-primary" id="startGameBtn" style="width: 100%; margin-top: 20px;">Start Reform Journey</button>
+            <button class="btn btn-primary" id="startGameBtn" style="width: 100%; margin-top: 20px;">Start Reform Game</button>
         </div>
     </div>
 
@@ -620,24 +709,36 @@
 
     <div class="container" id="gameContainer" style="display: none;">
         <header>
-            <h1>🪜 Tanzimat Reform Ladder</h1>
-            <p class="subtitle">Climb the ladder of Ottoman modernization! Beware of setbacks!</p>
+            <h1>🏛️ Tanzimat Reforms Monopoly</h1>
+            <p class="subtitle">Buy properties, answer questions, and lead the Ottoman Empire to modernization!</p>
         </header>
 
         <div class="game-layout">
             <div class="board-container">
-                <div class="chutes-ladders-board" id="gameBoard">
+                <h3 class="board-title">The Tanzimat Reform Board</h3>
+                <div class="monopoly-board" id="gameBoard">
+                    <!-- Center area -->
+                    <div class="board-center">
+                        <div class="center-title">TANZİMAT REFORMS</div>
+                        <div class="center-subtitle">1839-1876</div>
+                        <div style="margin-top: 20px; font-size: 0.8rem; color: #666;">
+                            <p>Roll dice to move around the board</p>
+                            <p>Answer questions to earn Knowledge Points</p>
+                            <p>Buy properties to establish reform influence</p>
+                        </div>
+                    </div>
                     <!-- Board cells will be generated by JavaScript -->
                 </div>
                 
                 <div class="dice-area">
                     <h3>Current Reformer: <span id="currentPlayerName">-</span></h3>
                     <div class="dice-container">
-                        <div class="dice" id="dice">⚀</div>
+                        <div class="dice" id="dice1">⚀</div>
+                        <div class="dice" id="dice2">⚀</div>
                     </div>
                     <div class="controls">
                         <button class="btn btn-primary" id="rollDiceBtn" disabled>🎲 Roll Dice</button>
-                        <button class="btn btn-secondary" id="nextTurnBtn" style="display: none;" disabled>Continue Reform</button>
+                        <button class="btn btn-secondary" id="nextTurnBtn" style="display: none;" disabled>End Turn</button>
                     </div>
                     <div id="diceResult" style="font-size: 1.2rem; font-weight: bold; color: #1a237e;"></div>
                 </div>
@@ -652,8 +753,8 @@
                     <div class="card-title" id="currentCategory">Welcome to Tanzimat Reforms!</div>
                     <div class="card-content">
                         <div class="card-text" id="cardText">
-                            Click "Roll Dice" to begin your climb up the Reform Ladder. 
-                            Answer questions correctly to advance, but beware of setbacks!
+                            Click "Roll Dice" to begin your journey around the Reform Board. 
+                            Buy properties, answer questions, and become the greatest reformer!
                         </div>
                         
                         <div class="answer-options" id="answerOptions" style="display: none;">
@@ -669,7 +770,7 @@
                 <div class="game-log">
                     <div class="log-title">Reform Chronicle:</div>
                     <div id="logEntries">
-                        <div class="log-entry">Welcome to the Tanzimat Reform Ladder game!</div>
+                        <div class="log-entry">Welcome to the Tanzimat Reforms Monopoly game!</div>
                     </div>
                 </div>
             </div>
@@ -678,19 +779,19 @@
         <div class="category-key">
             <div class="key-item">
                 <div class="key-color" style="background: #4caf50;"></div>
-                <span>🪜 Ladder - Progress Forward</span>
-            </div>
-            <div class="key-item">
-                <div class="key-color" style="background: #f44336;"></div>
-                <span>🛝 Chute - Setback</span>
-            </div>
-            <div class="key-item">
-                <div class="key-color" style="background: #2196f3;"></div>
-                <span>❓ Question Space</span>
+                <span>Did You Know? Properties</span>
             </div>
             <div class="key-item">
                 <div class="key-color" style="background: #ff9800;"></div>
-                <span>⚡ Event Space</span>
+                <span>True/False? Properties</span>
+            </div>
+            <div class="key-item">
+                <div class="key-color" style="background: #2196f3;"></div>
+                <span>What Happened Next? Properties</span>
+            </div>
+            <div class="key-item">
+                <div class="key-color" style="background: #9c27b0;"></div>
+                <span>Two Truths & a Lie Properties</span>
             </div>
         </div>
     </div>
@@ -699,131 +800,255 @@
         // Game Configuration
         const PLAYER_COLORS = ['#FF5252', '#4CAF50', '#2196F3', '#FF9800'];
         const PLAYER_NAMES = ['Mustafa Reşid Pasha', 'Sultan Abdülmecid I', 'Sultan Mahmud II', 'Young Ottoman'];
-        const STARTING_KNOWLEDGE = 100; // Fixed starting knowledge
+        const STARTING_KNOWLEDGE = 150;
+        const STARTING_MONEY = 1500;
         
-        // Chutes and Ladders Board Configuration (100 spaces)
-        const BOARD_SPACES = Array.from({length: 100}, (_, i) => {
-            const spaceNum = i + 1;
-            let type = 'normal';
-            let category = null;
-            let title = '';
-            let description = '';
+        // Board dimensions - SMALLER for perfect fit
+        const BOARD_WIDTH = 600;
+        const BOARD_HEIGHT = 600;
+        const CORNER_SIZE = 80; // Smaller corners
+        const PROPERTY_WIDTH = 60; // Smaller vertical properties
+        const PROPERTY_HEIGHT = 75; // Smaller vertical properties
+        const HORIZONTAL_CELLS_PER_SIDE = 9; // 9 cells per side (excluding corners)
+        const HORIZONTAL_WIDTH = (BOARD_WIDTH - (2 * CORNER_SIZE)) / HORIZONTAL_CELLS_PER_SIDE; // Calculate dynamically
+        const HORIZONTAL_HEIGHT = 60; // Smaller horizontal properties
+        
+        console.log("Horizontal width calculation:", HORIZONTAL_WIDTH); // Should be 48.888...
+
+        // Monopoly Board Configuration (40 spaces)
+        const BOARD_SPACES = [
+            // Corner spaces (positions 0, 10, 20, 30)
+            { 
+                position: 0, type: 'corner', name: 'GO', 
+                description: 'Collect 200 KP', 
+                action: 'collect', amount: 200 
+            },
+            { 
+                position: 10, type: 'corner', name: 'JAIL', 
+                description: 'Janissary Crisis', 
+                action: 'jail' 
+            },
+            { 
+                position: 20, type: 'corner', name: 'FREE PARK', 
+                description: 'Reform Rest', 
+                action: 'free' 
+            },
+            { 
+                position: 30, type: 'corner', name: 'GO TO JAIL', 
+                description: 'Go to Janissary Crisis', 
+                action: 'gotojail' 
+            },
             
-            // Define ladders (progress)
-            const ladders = {
-                4: 25,   // Early Military Reform → New Army
-                13: 46,  // First Schools → University
-                22: 63,  // Legal Code → Court System
-                33: 49,  // Tax Reform → Treasury
-                41: 79,  // Postal Service → Telegraph
-                50: 69,  // Railway Start → Network
-                62: 81,  // Constitution Draft → Promulgation
-                74: 92,  // Industrial School → Factory
-                88: 94   // Press Law → Newspapers
-            };
+            // Bottom row (positions 1-9) - Horizontal, right to left
+            { 
+                position: 1, type: 'property', name: 'Rose Garden', 
+                category: 'did-you-know', price: 60, rent: 2,
+                group: 'did-you-know', color: '#4caf50'
+            },
+            { 
+                position: 2, type: 'community-chest', name: 'Reform Card', 
+                description: 'Draw a card', 
+                action: 'community-chest' 
+            },
+            { 
+                position: 3, type: 'property', name: 'Military', 
+                category: 'did-you-know', price: 60, rent: 4,
+                group: 'did-you-know', color: '#4caf50'
+            },
+            { 
+                position: 4, type: 'tax', name: 'Reform Tax', 
+                description: 'Pay 200 KP', 
+                action: 'pay', amount: 200 
+            },
+            { 
+                position: 5, type: 'railroad', name: 'Telegraph', 
+                description: 'Rent: 25', 
+                action: 'railroad', price: 200, rent: 25 
+            },
+            { 
+                position: 6, type: 'property', name: 'Legal Code', 
+                category: 'true-false', price: 100, rent: 6,
+                group: 'true-false', color: '#ff9800'
+            },
+            { 
+                position: 7, type: 'chance', name: 'Chance', 
+                description: 'Draw a card', 
+                action: 'chance' 
+            },
+            { 
+                position: 8, type: 'property', name: 'Education', 
+                category: 'true-false', price: 100, rent: 6,
+                group: 'true-false', color: '#ff9800'
+            },
+            { 
+                position: 9, type: 'property', name: 'Tax Reform', 
+                category: 'true-false', price: 120, rent: 8,
+                group: 'true-false', color: '#ff9800'
+            },
             
-            // Define chutes (setbacks)
-            const chutes = {
-                16: 6,   // Janissary Revolt → Start over
-                28: 10,  // Traditionalist Opposition → Lost progress
-                47: 26,  // Economic Crisis → Austerity
-                56: 37,  // Foreign Pressure → Concessions
-                64: 40,  // Bureaucratic Resistance → Delays
-                75: 52,  // Religious Opposition → Compromise
-                87: 66,  // Debt Crisis → Foreign Control
-                95: 70,  // Nationalist Uprising → Repression
-                99: 78   // Final Setback → Major Delay
-            };
+            // Left side (positions 11-19) - Vertical, bottom to top
+            { 
+                position: 11, type: 'property', name: 'Secular Schools', 
+                category: 'what-next', price: 140, rent: 10,
+                group: 'what-next', color: '#2196f3'
+            },
+            { 
+                position: 12, type: 'utility', name: 'Newspapers', 
+                description: 'Utility', 
+                action: 'utility', price: 150 
+            },
+            { 
+                position: 13, type: 'property', name: 'Postal Service', 
+                category: 'what-next', price: 140, rent: 10,
+                group: 'what-next', color: '#2196f3'
+            },
+            { 
+                position: 14, type: 'property', name: 'Telegraph Lines', 
+                category: 'what-next', price: 160, rent: 12,
+                group: 'what-next', color: '#2196f3'
+            },
+            { 
+                position: 15, type: 'railroad', name: 'Railway', 
+                description: 'Rent: 25', 
+                action: 'railroad', price: 200, rent: 25 
+            },
+            { 
+                position: 16, type: 'property', name: 'Banking', 
+                category: 'two-truths', price: 180, rent: 14,
+                group: 'two-truths', color: '#9c27b0'
+            },
+            { 
+                position: 17, type: 'community-chest', name: 'Reform Card', 
+                description: 'Draw a card', 
+                action: 'community-chest' 
+            },
+            { 
+                position: 18, type: 'property', name: 'Industrial', 
+                category: 'two-truths', price: 180, rent: 14,
+                group: 'two-truths', color: '#9c27b0'
+            },
+            { 
+                position: 19, type: 'property', name: 'Factories', 
+                category: 'two-truths', price: 200, rent: 16,
+                group: 'two-truths', color: '#9c27b0'
+            },
             
-            // Define special spaces
-            if (ladders[spaceNum]) {
-                type = 'ladder';
-                title = 'Reform Success!';
-                description = 'Climb to space ' + ladders[spaceNum];
-            } else if (chutes[spaceNum]) {
-                type = 'chute';
-                title = 'Setback!';
-                description = 'Slide to space ' + chutes[spaceNum];
-            } else if ([3, 8, 15, 20, 30, 35, 42, 55, 60, 68, 72, 80, 85, 90, 98].includes(spaceNum)) {
-                type = 'question';
-                category = getCategoryForSpace(spaceNum);
-                title = getTitleForSpace(spaceNum);
-                description = 'Answer to proceed';
-            } else if ([5, 12, 21, 32, 44, 51, 61, 73, 82, 96].includes(spaceNum)) {
-                type = 'event';
-                title = getEventTitle(spaceNum);
-                description = 'Historical Event';
+            // Top row (positions 21-29) - Horizontal, left to right
+            { 
+                position: 21, type: 'property', name: 'New Courts', 
+                category: 'did-you-know', price: 220, rent: 18,
+                group: 'did-you-know', color: '#4caf50'
+            },
+            { 
+                position: 22, type: 'chance', name: 'Chance', 
+                description: 'Draw a card', 
+                action: 'chance' 
+            },
+            { 
+                position: 23, type: 'property', name: 'Land Code', 
+                category: 'did-you-know', price: 220, rent: 18,
+                group: 'did-you-know', color: '#4caf50'
+            },
+            { 
+                position: 24, type: 'property', name: 'Conscription', 
+                category: 'did-you-know', price: 240, rent: 20,
+                group: 'did-you-know', color: '#4caf50'
+            },
+            { 
+                position: 25, type: 'railroad', name: 'Steamships', 
+                description: 'Rent: 25', 
+                action: 'railroad', price: 200, rent: 25 
+            },
+            { 
+                position: 26, type: 'property', name: 'Foreign Policy', 
+                category: 'true-false', price: 260, rent: 22,
+                group: 'true-false', color: '#ff9800'
+            },
+            { 
+                position: 27, type: 'property', name: 'Western Ed', 
+                category: 'true-false', price: 260, rent: 22,
+                group: 'true-false', color: '#ff9800'
+            },
+            { 
+                position: 28, type: 'utility', name: 'Post Office', 
+                description: 'Utility', 
+                action: 'utility', price: 150 
+            },
+            { 
+                position: 29, type: 'property', name: 'Bureaucracy', 
+                category: 'true-false', price: 280, rent: 24,
+                group: 'true-false', color: '#ff9800'
+            },
+            
+            // Right side (positions 31-39) - Vertical, top to bottom
+            { 
+                position: 31, type: 'property', name: 'Constitution', 
+                category: 'what-next', price: 300, rent: 26,
+                group: 'what-next', color: '#2196f3'
+            },
+            { 
+                position: 32, type: 'property', name: 'Parliament', 
+                category: 'what-next', price: 300, rent: 26,
+                group: 'what-next', color: '#2196f3'
+            },
+            { 
+                position: 33, type: 'community-chest', name: 'Reform Card', 
+                description: 'Draw a card', 
+                action: 'community-chest' 
+            },
+            { 
+                position: 34, type: 'property', name: 'Press Freedom', 
+                category: 'what-next', price: 320, rent: 28,
+                group: 'what-next', color: '#2196f3'
+            },
+            { 
+                position: 35, type: 'railroad', name: 'Road Network', 
+                description: 'Rent: 25', 
+                action: 'railroad', price: 200, rent: 25 
+            },
+            { 
+                position: 36, type: 'chance', name: 'Chance', 
+                description: 'Draw a card', 
+                action: 'chance' 
+            },
+            { 
+                position: 37, type: 'property', name: 'Modern Army', 
+                category: 'two-truths', price: 350, rent: 35,
+                group: 'two-truths', color: '#9c27b0'
+            },
+            { 
+                position: 38, type: 'tax', name: 'Luxury Tax', 
+                description: 'Pay 100 KP', 
+                action: 'pay', amount: 100 
+            },
+            { 
+                position: 39, type: 'property', name: 'Final Reforms', 
+                category: 'two-truths', price: 400, rent: 50,
+                group: 'two-truths', color: '#9c27b0'
             }
-            
-            return {
-                number: spaceNum,
-                type: type,
-                category: category,
-                title: title || `Space ${spaceNum}`,
-                description: description,
-                ladderTo: ladders[spaceNum],
-                chuteTo: chutes[spaceNum],
-                answered: false // Track if question has been answered
-            };
-        });
+        ];
 
-        function getCategoryForSpace(spaceNum) {
-            const categories = ['did-you-know', 'true-false', 'what-next', 'two-truths'];
-            return categories[spaceNum % 4];
-        }
+        // Community Chest Cards
+        const COMMUNITY_CHEST_CARDS = [
+            { text: "Your reform proposals are accepted! Advance to GO.", action: "move", target: 0, collect: 200 },
+            { text: "Bank error in your favor. Collect 100 Knowledge Points.", action: "collect", amount: 100 },
+            { text: "Pay school fees. Lose 50 Knowledge Points.", action: "pay", amount: 50 },
+            { text: "You have won a reform competition. Collect 150 Knowledge Points.", action: "collect", amount: 150 }
+        ];
 
-        function getTitleForSpace(spaceNum) {
-            const titles = [
-                "Military Reform", "Tax Equalization", "Legal Code", "Education System",
-                "Bureaucracy", "Infrastructure", "Foreign Policy", "Economy",
-                "Conscription", "Land Reform", "Judicial System", "Banking",
-                "Secularization", "Industrialization", "Constitution", "Modernization"
-            ];
-            return titles[spaceNum % 16];
-        }
+        // Chance Cards
+        const CHANCE_CARDS = [
+            { text: "Advance to the Rose Garden Edict.", action: "move", target: 1 },
+            { text: "Foreign investors support your reforms. Collect 150 Knowledge Points.", action: "collect", amount: 150 },
+            { text: "Go back 3 spaces.", action: "move", amount: -3 },
+            { text: "Your reform committee has matured. Collect 100 Knowledge Points.", action: "collect", amount: 100 }
+        ];
 
-        function getEventTitle(spaceNum) {
-            const events = [
-                "Rose Garden Edict 1839", "Janissary Destruction 1826", "London Straits 1841",
-                "Crimean War 1853", "Islahat Fermani 1856", "Debt Crisis 1875",
-                "First Parliament 1877", "Düyun-u Umumiye 1881", "Young Turk Revolution 1908"
-            ];
-            return events[spaceNum % 9];
-        }
-
-        // Expanded facts database with more questions
+        // Facts database
         const facts = {
             'did-you-know': [
                 {
-                    text: "The Gülhane Hatt-ı Şerif (Rose Garden Edict) of 1839 was read in an open park to symbolize its public nature, promising equal treatment regardless of religion.",
-                    points: 25
-                },
-                {
-                    text: "Mustafa Reşid Pasha, architect of early Tanzimat, served as ambassador to Paris and London, directly importing European legal concepts.",
-                    points: 30
-                },
-                {
-                    text: "The first modern postal service in the Ottoman Empire was established in 1840, revolutionizing communication between provinces and Istanbul.",
-                    points: 20
-                },
-                {
-                    text: "New secular schools called 'rüşdiye' were opened alongside traditional madrasas, creating a dual education system.",
-                    points: 25
-                },
-                {
-                    text: "The Land Code of 1858 aimed to create private property rights but often strengthened large landowners instead of peasants.",
-                    points: 30
-                },
-                {
-                    text: "Ottoman students sent to Europe for education returned as the 'Young Ottomans,' demanding constitutional government.",
-                    points: 35
-                },
-                {
-                    text: "The first Ottoman railway connected İzmit to Istanbul in 1873, built with British investment and technology.",
-                    points: 20
-                },
-                {
-                    text: "New law codes mixed French commercial law with traditional Islamic law, creating legal confusion but also innovation.",
+                    text: "The Gülhane Hatt-ı Şerif (Rose Garden Edict) of 1839 was read in an open park to symbolize its public nature.",
                     points: 25
                 }
             ],
@@ -831,159 +1056,33 @@
                 {
                     text: "The Tanzimat reforms successfully eliminated all religious discrimination in the Ottoman Empire.",
                     answer: false,
-                    explanation: "FALSE. While laws proclaimed equality, social practice and tradition maintained significant Muslim privilege.",
+                    explanation: "FALSE. While laws proclaimed equality, social practice maintained significant Muslim privilege.",
                     points: 40
-                },
-                {
-                    text: "Sultan Mahmud II destroyed the Janissary corps in 1826 to clear the way for a modern European-style army.",
-                    answer: true,
-                    explanation: "TRUE. The 'Auspicious Incident' eliminated conservative military opposition to reform.",
-                    points: 35
-                },
-                {
-                    text: "All Ottoman subjects became eligible for military conscription regardless of religion after 1856.",
-                    answer: false,
-                    explanation: "FALSE. Non-Muslims could pay a military exemption tax instead, maintaining religious distinctions.",
-                    points: 45
-                },
-                {
-                    text: "The reforms were entirely initiated by Ottoman elites without European pressure.",
-                    answer: false,
-                    explanation: "FALSE. European powers, especially Britain and France, pressured for reforms to protect Christian minorities.",
-                    points: 40
-                },
-                {
-                    text: "Tanzimat created the first Ottoman central bank in 1856.",
-                    answer: true,
-                    explanation: "TRUE. The Ottoman Bank was established with British and French capital to stabilize finances.",
-                    points: 50
-                },
-                {
-                    text: "The reforms abolished the millet system completely.",
-                    answer: false,
-                    explanation: "FALSE. The millet system was reformed but not abolished; religious communities kept some autonomy.",
-                    points: 45
-                },
-                {
-                    text: "New secular courts (Nizamiye) operated alongside traditional Islamic courts.",
-                    answer: true,
-                    explanation: "TRUE. This created a complex dual legal system that sometimes conflicted.",
-                    points: 40
-                },
-                {
-                    text: "All Tanzimat reforms were completed by 1876 when the first constitution was proclaimed.",
-                    answer: false,
-                    explanation: "FALSE. Reform efforts continued into the 20th century, facing resistance and setbacks.",
-                    points: 55
                 }
             ],
             'what-next': [
                 {
                     setup: "After the 1839 Rose Garden Edict promised equality and modern administration...",
                     options: [
-                        "European powers immediately recognized Ottoman sovereignty over all territories.",
+                        "European powers immediately recognized Ottoman sovereignty.",
                         "New secular courts and modern schools were established despite resistance.",
-                        "The Empire collapsed within five years due to traditionalist revolt."
+                        "The Empire collapsed within five years."
                     ],
                     correct: 1,
-                    explanation: "New institutions were created, but implementation faced constant resistance from conservatives and traditional elites.",
+                    explanation: "New institutions were created, but implementation faced resistance.",
                     points: 50
-                },
-                {
-                    setup: "When the Ottoman state sent students to study engineering and medicine in France...",
-                    options: [
-                        "They all returned to become loyal bureaucrats in the Sultan's government.",
-                        "Many returned as critics demanding constitutional limits on the Sultan's power.",
-                        "Most stayed in Europe and never returned to the Ottoman Empire."
-                    ],
-                    correct: 1,
-                    explanation: "Western-educated intellectuals formed the 'Young Ottomans' movement pushing for parliamentary government.",
-                    points: 55
-                },
-                {
-                    setup: "Following the Crimean War (1853-1856), which exposed Ottoman military weakness...",
-                    options: [
-                        "The Empire abandoned all modernization efforts as too expensive.",
-                        "Reforms accelerated with European support, leading to the 1856 Islahat Fermani.",
-                        "Russia took direct control of Ottoman reform implementation."
-                    ],
-                    correct: 1,
-                    explanation: "The 1856 Reform Edict expanded promises of equality under pressure from Britain and France.",
-                    points: 60
-                },
-                {
-                    setup: "After establishing the first Ottoman parliament in 1877...",
-                    options: [
-                        "It functioned smoothly for decades as a democratic institution.",
-                        "Sultan Abdülhamid II suspended it within a year and restored autocracy.",
-                        "It immediately declared independence from the Ottoman Empire."
-                    ],
-                    correct: 1,
-                    explanation: "The parliament was short-lived; Abdülhamid II suspended it and ruled autocratically for 30 years.",
-                    points: 65
-                },
-                {
-                    setup: "When the Ottoman Empire declared bankruptcy in 1875...",
-                    options: [
-                        "All foreign debt was forgiven by European creditors.",
-                        "The Düyun-u Umumiye (Public Debt Administration) was established under European control.",
-                        "The Empire stopped all infrastructure projects indefinitely."
-                    ],
-                    correct: 1,
-                    explanation: "European creditors took control of major revenue sources, limiting Ottoman financial independence.",
-                    points: 70
                 }
             ],
             'two-truths': [
                 {
                     statements: [
-                        "Sultan Mahmud II centralized power by crushing the Janissaries and regional governors.",
-                        "Reformers planned gradual change over a century to avoid social disruption.",
-                        "European-style uniforms and titles were adopted to project modern authority."
+                        "Sultan Mahmud II centralized power by crushing the Janissaries.",
+                        "Reformers planned gradual change over a century.",
+                        "European-style uniforms were adopted to project modern authority."
                     ],
                     lieIndex: 1,
-                    explanation: "The lie is #2. Reformers wanted RAPID transformation to catch up with Europe, not gradual change.",
+                    explanation: "The lie is #2. Reformers wanted RAPID transformation.",
                     points: 60
-                },
-                {
-                    statements: [
-                        "The jizya tax on non-Muslims was replaced with a military exemption tax.",
-                        "All subjects became equally eligible for military service in practice.",
-                        "New land laws aimed to create clear property titles to increase tax revenue."
-                    ],
-                    lieIndex: 1,
-                    explanation: "The lie is #2. While legally eligible, non-Muslim military service remained rare in practice.",
-                    points: 65
-                },
-                {
-                    statements: [
-                        "The first Ottoman law school opened in 1859, teaching French legal codes.",
-                        "Women gained equal inheritance rights under the new family laws.",
-                        "Mixed commercial courts included European judges for cases involving foreigners."
-                    ],
-                    lieIndex: 1,
-                    explanation: "The lie is #2. Women's rights saw little improvement; traditional Islamic inheritance laws largely continued.",
-                    points: 70
-                },
-                {
-                    statements: [
-                        "Telegraph lines connected Istanbul to Baghdad by 1861.",
-                        "Industrial factories produced most of the Empire's manufactured goods by 1880.",
-                        "Railway construction relied heavily on European capital and engineers."
-                    ],
-                    lieIndex: 1,
-                    explanation: "The lie is #2. Despite some factories, the Empire remained largely agricultural and imported manufactured goods.",
-                    points: 75
-                },
-                {
-                    statements: [
-                        "The 1876 Constitution promised freedom of press and assembly.",
-                        "All adult males gained voting rights regardless of property qualifications.",
-                        "The constitution declared Islam as the state religion while guaranteeing religious freedom."
-                    ],
-                    lieIndex: 1,
-                    explanation: "The lie is #2. Voting was limited to propertied males, excluding most of the population.",
-                    points: 80
                 }
             ]
         };
@@ -996,7 +1095,14 @@
             currentCard: null,
             currentSpace: null,
             diceRolled: false,
-            questionAnswered: false
+            questionAnswered: false,
+            properties: BOARD_SPACES.filter(space => space.type === 'property').map(prop => ({
+                ...prop,
+                owner: null,
+                mortgaged: false
+            })),
+            communityChestDeck: [...COMMUNITY_CHEST_CARDS],
+            chanceDeck: [...CHANCE_CARDS]
         };
 
         // DOM Elements
@@ -1007,7 +1113,8 @@
         const startGameBtn = document.getElementById('startGameBtn');
         const gameBoard = document.getElementById('gameBoard');
         const playersPanel = document.getElementById('playersPanel');
-        const dice = document.getElementById('dice');
+        const dice1 = document.getElementById('dice1');
+        const dice2 = document.getElementById('dice2');
         const rollDiceBtn = document.getElementById('rollDiceBtn');
         const nextTurnBtn = document.getElementById('nextTurnBtn');
         const currentPlayerNameEl = document.getElementById('currentPlayerName');
@@ -1040,66 +1147,133 @@
                     </div>
                 `;
                 
-                // Add event listener for color preview
                 document.getElementById(`playerColor${i}`).addEventListener('change', (e) => {
                     document.getElementById(`colorPreview${i}`).style.background = e.target.value;
                 });
             }
         }
 
-        // Generate the board
+        // Generate the Monopoly board with perfect positioning
         function generateBoard() {
-            gameBoard.innerHTML = '';
-            
-            // Create 10x10 grid (snake pattern like Chutes and Ladders)
-            for (let row = 9; row >= 0; row--) {
-                const isReverseRow = row % 2 === 1; // Odd rows go right-to-left
-                
-                for (let col = 0; col < 10; col++) {
-                    const cellIndex = isReverseRow ? row * 10 + (9 - col) : row * 10 + col;
-                    const space = BOARD_SPACES[cellIndex];
-                    
-                    const cell = document.createElement('div');
-                    cell.className = `board-cell`;
-                    cell.dataset.index = cellIndex;
-                    cell.id = `cell-${cellIndex}`;
-                    
-                    cell.innerHTML = `
-                        <div class="cell-number">${space.number}</div>
-                        <div class="cell-title">${space.title}</div>
-                        ${space.description ? `<div class="cell-description">${space.description}</div>` : ''}
-                    `;
-                    
-                    // Add visual indicators
-                    if (space.type === 'ladder') {
-                        cell.style.background = '#e8f5e9';
-                        cell.style.borderColor = '#4caf50';
-                    } else if (space.type === 'chute') {
-                        cell.style.background = '#ffebee';
-                        cell.style.borderColor = '#f44336';
-                    } else if (space.type === 'question') {
-                        cell.style.background = '#e3f2fd';
-                        cell.style.borderColor = '#2196f3';
-                    } else if (space.type === 'event') {
-                        cell.style.background = '#fff3e0';
-                        cell.style.borderColor = '#ff9800';
-                    }
-                    
-                    gameBoard.appendChild(cell);
+            // Clear existing cells except center
+            document.querySelectorAll('.board-cell').forEach(cell => {
+                if (!cell.classList.contains('board-center')) {
+                    cell.remove();
                 }
-            }
+            });
             
-            // Draw ladders and chutes
-            drawLaddersAndChutes();
+            // Create board cells in Monopoly layout
+            BOARD_SPACES.forEach((space) => {
+                const cell = document.createElement('div');
+                cell.className = `board-cell`;
+                cell.dataset.position = space.position;
+                cell.id = `cell-${space.position}`;
+                
+                // Add specific classes based on space type
+                if (space.type === 'corner') {
+                    cell.classList.add('corner-cell');
+                } else if (space.type === 'property') {
+                    cell.classList.add('property-cell');
+                    cell.classList.add(`property-${space.category.replace('-', '')}`);
+                } else if (space.type === 'chance') {
+                    cell.classList.add('horizontal-cell', 'chance-cell');
+                } else if (space.type === 'community-chest') {
+                    cell.classList.add('horizontal-cell', 'community-chest-cell');
+                } else if (space.type === 'railroad') {
+                    cell.classList.add('horizontal-cell', 'railroad-cell');
+                } else if (space.type === 'utility') {
+                    cell.classList.add('horizontal-cell', 'utility-cell');
+                } else if (space.type === 'tax') {
+                    cell.classList.add('horizontal-cell', 'tax-cell');
+                }
+                
+                // Add content
+                cell.innerHTML = `
+                    <div class="cell-number">${space.position}</div>
+                    <div class="cell-title">${space.name}</div>
+                    ${space.description ? `<div class="cell-description">${space.description}</div>` : ''}
+                    ${space.price ? `<div class="cell-description">KP ${space.price}</div>` : ''}
+                `;
+                
+                // Position the cell on the board
+                positionCell(cell, space.position);
+                
+                gameBoard.appendChild(cell);
+            });
             
             // Update player tokens
             updatePlayerTokens();
         }
 
-        // Draw visual ladders and chutes
-        function drawLaddersAndChutes() {
-            // This is a simplified visual representation
-            // In a full implementation, you'd draw SVG lines between cells
+        // Position cells on Monopoly board with EXACT coordinates
+        function positionCell(cell, position) {
+            const availableWidth = BOARD_WIDTH - (2 * CORNER_SIZE);
+            const cellWidth = availableWidth / 9; // 9 cells per side
+            
+            // Bottom row (positions 1-9) - Horizontal, right to left
+            if (position >= 1 && position <= 9) {
+                // Position 1 should be just left of GO corner
+                // Position 9 should be just right of JAIL corner
+                const cellIndex = position - 1; // 0-8
+                const x = BOARD_WIDTH - CORNER_SIZE - (cellIndex * cellWidth) - cellWidth;
+                cell.style.left = `${x}px`;
+                cell.style.bottom = '0px';
+                cell.style.width = `${cellWidth}px`;
+                cell.style.height = `${HORIZONTAL_HEIGHT}px`;
+            }
+            // Left side (positions 11-19) - Vertical, bottom to top
+            else if (position >= 11 && position <= 19) {
+                const cellIndex = position - 11; // 0-8
+                const availableHeight = BOARD_HEIGHT - (2 * CORNER_SIZE);
+                const cellHeight = availableHeight / 9;
+                const y = BOARD_HEIGHT - CORNER_SIZE - (cellIndex * cellHeight) - cellHeight;
+                cell.style.left = '0px';
+                cell.style.bottom = `${y}px`;
+                cell.style.width = `${PROPERTY_WIDTH}px`;
+                cell.style.height = `${cellHeight}px`;
+            }
+            // Top row (positions 21-29) - Horizontal, left to right
+            else if (position >= 21 && position <= 29) {
+                const cellIndex = position - 21; // 0-8
+                const x = CORNER_SIZE + (cellIndex * cellWidth);
+                cell.style.left = `${x}px`;
+                cell.style.top = '0px';
+                cell.style.width = `${cellWidth}px`;
+                cell.style.height = `${HORIZONTAL_HEIGHT}px`;
+            }
+            // Right side (positions 31-39) - Vertical, top to bottom
+            else if (position >= 31 && position <= 39) {
+                const cellIndex = position - 31; // 0-8
+                const availableHeight = BOARD_HEIGHT - (2 * CORNER_SIZE);
+                const cellHeight = availableHeight / 9;
+                const y = CORNER_SIZE + (cellIndex * cellHeight);
+                cell.style.right = '0px';
+                cell.style.top = `${y}px`;
+                cell.style.width = `${PROPERTY_WIDTH}px`;
+                cell.style.height = `${cellHeight}px`;
+            }
+            // Corner positions
+            else if (position === 0) { // GO - Bottom right
+                cell.style.right = '0px';
+                cell.style.bottom = '0px';
+                cell.style.width = `${CORNER_SIZE}px`;
+                cell.style.height = `${CORNER_SIZE}px`;
+            } else if (position === 10) { // JAIL - Bottom left
+                cell.style.left = '0px';
+                cell.style.bottom = '0px';
+                cell.style.width = `${CORNER_SIZE}px`;
+                cell.style.height = `${CORNER_SIZE}px`;
+            } else if (position === 20) { // FREE PARK - Top left
+                cell.style.left = '0px';
+                cell.style.top = '0px';
+                cell.style.width = `${CORNER_SIZE}px`;
+                cell.style.height = `${CORNER_SIZE}px`;
+            } else if (position === 30) { // GO TO JAIL - Top right
+                cell.style.right = '0px';
+                cell.style.top = '0px';
+                cell.style.width = `${CORNER_SIZE}px`;
+                cell.style.height = `${CORNER_SIZE}px`;
+            }
         }
 
         // Update player tokens on board
@@ -1114,7 +1288,18 @@
                     const token = document.createElement('div');
                     token.className = 'player-token';
                     token.style.background = player.color;
-                    token.style.left = `${15 + playerIndex * 20}px`; // Stagger tokens
+                    
+                    // Position token based on player index
+                    const positions = [
+                        {top: '3px', left: '3px'},
+                        {top: '3px', right: '3px'},
+                        {bottom: '3px', left: '3px'},
+                        {bottom: '3px', right: '3px'}
+                    ];
+                    
+                    const pos = positions[playerIndex % positions.length];
+                    Object.assign(token.style, pos);
+                    
                     cell.appendChild(token);
                     
                     // Highlight current player's cell
@@ -1144,19 +1329,19 @@
                     <div class="player-stats">
                         <div class="stat-item">
                             <span>Position:</span>
-                            <span class="stat-value">${player.position + 1}</span>
+                            <span class="stat-value">${player.position}</span>
                         </div>
                         <div class="stat-item">
                             <span>Knowledge:</span>
                             <span class="stat-value">${player.knowledgePoints}</span>
                         </div>
                         <div class="stat-item">
-                            <span>Level:</span>
-                            <span class="stat-value">${player.modernizationLevel}</span>
+                            <span>Money:</span>
+                            <span class="stat-value">${player.money}</span>
                         </div>
                         <div class="stat-item">
-                            <span>Correct:</span>
-                            <span class="stat-value">${player.correctAnswers || 0}</span>
+                            <span>Properties:</span>
+                            <span class="stat-value">${player.propertiesOwned || 0}</span>
                         </div>
                     </div>
                 `;
@@ -1174,12 +1359,26 @@
                     name: document.getElementById(`playerName${i}`).value,
                     color: document.getElementById(`playerColor${i}`).value,
                     knowledgePoints: STARTING_KNOWLEDGE,
-                    modernizationLevel: 1,
-                    position: 0, // Start at position 0 (space 1)
+                    money: STARTING_MONEY,
+                    position: 0,
                     turnCount: 0,
-                    correctAnswers: 0
+                    correctAnswers: 0,
+                    propertiesOwned: 0,
+                    getOutOfJailFree: false,
+                    inJail: false,
+                    jailTurns: 0
                 });
             }
+            
+            // Reset properties
+            gameState.properties.forEach(prop => {
+                prop.owner = null;
+                prop.mortgaged = false;
+            });
+            
+            // Shuffle decks
+            shuffleArray(gameState.communityChestDeck);
+            shuffleArray(gameState.chanceDeck);
             
             gameState.currentPlayerIndex = 0;
             gameState.gameActive = true;
@@ -1193,8 +1392,17 @@
             updatePlayerCards();
             updateCurrentPlayerDisplay();
             
-            addLog(`Reform journey begins! ${playerCount} reformers competing to modernize the Empire.`);
+            addLog(`Reform Monopoly begins! ${playerCount} reformers competing.`);
             enableRollDice();
+        }
+
+        // Shuffle array
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
         }
 
         // Update current player display
@@ -1220,30 +1428,42 @@
             
             const currentPlayer = gameState.players[gameState.currentPlayerIndex];
             
+            // Check if player is in jail
+            if (currentPlayer.inJail) {
+                handleJailTurn(currentPlayer);
+                return;
+            }
+            
             // Disable roll button during animation
             rollDiceBtn.disabled = true;
             rollDiceBtn.textContent = 'Rolling...';
             
-            // Add rolling animation
-            dice.classList.add('rolling');
+            // Add rolling animation to both dice
+            dice1.classList.add('rolling');
+            dice2.classList.add('rolling');
             
             // Roll animation for 1 second
             await new Promise(resolve => setTimeout(resolve, 1000));
             
-            // Generate dice value (1-6)
-            const diceValue = Math.floor(Math.random() * 6) + 1;
+            // Generate dice values
+            const dice1Value = Math.floor(Math.random() * 6) + 1;
+            const dice2Value = Math.floor(Math.random() * 6) + 1;
+            const total = dice1Value + dice2Value;
             
             // Update dice display
-            dice.textContent = getDiceFace(diceValue);
-            diceResultEl.textContent = `${currentPlayer.name} rolled a ${diceValue}!`;
+            dice1.textContent = getDiceFace(dice1Value);
+            dice2.textContent = getDiceFace(dice2Value);
             
             // Remove rolling animation
-            dice.classList.remove('rolling');
+            dice1.classList.remove('rolling');
+            dice2.classList.remove('rolling');
+            
+            diceResultEl.textContent = `${currentPlayer.name} rolled ${dice1Value} + ${dice2Value} = ${total}!`;
             
             gameState.diceRolled = true;
             
             // Move player
-            moveCurrentPlayer(diceValue);
+            moveCurrentPlayer(total, dice1Value === dice2Value);
         }
 
         // Get dice face Unicode character
@@ -1252,101 +1472,301 @@
             return faces[value - 1];
         }
 
+        // Handle jail turn
+        function handleJailTurn(player) {
+            player.jailTurns++;
+            
+            if (player.jailTurns >= 3) {
+                player.money -= 50;
+                player.inJail = false;
+                player.jailTurns = 0;
+                addLog(`${player.name} pays 50 KP to get out of Janissary Crisis!`);
+                enableRollDice();
+            } else {
+                const dice1Value = Math.floor(Math.random() * 6) + 1;
+                const dice2Value = Math.floor(Math.random() * 6) + 1;
+                
+                dice1.textContent = getDiceFace(dice1Value);
+                dice2.textContent = getDiceFace(dice2Value);
+                
+                if (dice1Value === dice2Value) {
+                    player.inJail = false;
+                    player.jailTurns = 0;
+                    addLog(`${player.name} rolls doubles and gets out of Janissary Crisis!`);
+                    moveCurrentPlayer(dice1Value + dice2Value, true);
+                } else {
+                    addLog(`${player.name} fails to roll doubles. Still in Janissary Crisis.`);
+                    gameState.diceRolled = true;
+                    enableNextTurn();
+                }
+            }
+            
+            updatePlayerCards();
+        }
+
         // Move current player
-        function moveCurrentPlayer(spaces) {
+        function moveCurrentPlayer(spaces, rolledDoubles = false) {
             const currentPlayer = gameState.players[gameState.currentPlayerIndex];
             const oldPosition = currentPlayer.position;
             
             // Calculate new position
-            let newPosition = currentPlayer.position + spaces;
-            
-            // Check if reached or passed 100
-            if (newPosition >= 99) {
-                newPosition = 99; // Last space
-                endGame(currentPlayer);
-                return;
-            }
-            
+            let newPosition = (currentPlayer.position + spaces) % 40;
             currentPlayer.position = newPosition;
+            
+            // Check if passed GO
+            if (newPosition < oldPosition) {
+                currentPlayer.money += 200;
+                addLog(`${currentPlayer.name} passed GO and collected 200 Knowledge Points!`);
+            }
             
             // Update display
             updatePlayerTokens();
             updatePlayerCards();
             
-            addLog(`${currentPlayer.name} moves ${spaces} spaces to position ${newPosition + 1}`);
-            
-            // Check for ladder or chute
-            const space = BOARD_SPACES[newPosition];
-            if (space.type === 'ladder') {
-                currentPlayer.position = space.ladderTo - 1; // Convert to 0-based index
-                addLog(`🪜 ${currentPlayer.name} climbs a reform ladder to position ${space.ladderTo}!`);
-                updatePlayerTokens();
-            } else if (space.type === 'chute') {
-                currentPlayer.position = space.chuteTo - 1; // Convert to 0-based index
-                addLog(`🛝 ${currentPlayer.name} slides down a setback chute to position ${space.chuteTo}!`);
-                updatePlayerTokens();
-            }
+            addLog(`${currentPlayer.name} moves to position ${newPosition}`);
             
             // Land on space
-            setTimeout(() => landOnSpace(currentPlayer.position), 500);
+            setTimeout(() => landOnSpace(newPosition, rolledDoubles), 500);
         }
 
         // Land on a space
-        function landOnSpace(spaceIndex) {
-            const space = BOARD_SPACES[spaceIndex];
+        function landOnSpace(position, rolledDoubles) {
+            const space = BOARD_SPACES.find(s => s.position === position);
             const currentPlayer = gameState.players[gameState.currentPlayerIndex];
             
+            if (!space) {
+                enableNextTurn();
+                return;
+            }
+            
             // Mark current space
-            gameState.currentSpace = spaceIndex;
+            gameState.currentSpace = space;
             
             // Handle different space types
-            if (space.type === 'question' && !space.answered) {
-                // Question space - only if not already answered
-                gameState.currentCard = getRandomFact(space.category);
-                displayCard(space.category, gameState.currentCard);
-                nextTurnBtn.style.display = 'none';
-                rollDiceBtn.style.display = 'none';
-            } else if (space.type === 'event') {
-                // Event space
-                handleEventSpace(space);
+            if (space.type === 'property') {
+                handlePropertySpace(space, currentPlayer);
+            } else if (space.type === 'corner') {
+                handleCornerSpace(space, currentPlayer);
+            } else if (space.type === 'chance') {
+                drawChanceCard(currentPlayer);
+            } else if (space.type === 'community-chest') {
+                drawCommunityChestCard(currentPlayer);
+            } else if (space.type === 'railroad' || space.type === 'utility') {
+                handleRailroadUtilitySpace(space, currentPlayer);
+            } else if (space.type === 'tax') {
+                handleTaxSpace(space, currentPlayer);
             } else {
-                // Normal space or already answered question
                 cardTextEl.innerHTML = `
-                    <h3>${space.title}</h3>
-                    <p>${space.description || 'Continue your reform journey.'}</p>
-                    ${space.answered ? '<p><em>(Question already answered)</em></p>' : ''}
+                    <h3>${space.name}</h3>
+                    <p>${space.description}</p>
                 `;
+                
+                if (rolledDoubles) {
+                    addLog(`${currentPlayer.name} rolled doubles! Gets another turn.`);
+                    enableRollDice();
+                } else {
+                    enableNextTurn();
+                }
+            }
+        }
+
+        // Handle property space
+        function handlePropertySpace(space, player) {
+            const property = gameState.properties.find(p => p.position === space.position);
+            
+            if (!property) {
+                enableNextTurn();
+                return;
+            }
+            
+            if (!property.owner) {
+                cardTextEl.innerHTML = `
+                    <h3>${space.name}</h3>
+                    <p>${space.description}</p>
+                    <p><strong>Price:</strong> ${space.price} Knowledge Points</p>
+                    <p>Would you like to purchase this property?</p>
+                    <div style="margin-top: 20px;">
+                        <button class="answer-btn" onclick="buyProperty(${space.position})">Buy Property (${space.price} KP)</button>
+                        <button class="answer-btn" onclick="skipProperty()" style="margin-top: 10px;">Skip</button>
+                    </div>
+                `;
+            } else if (property.owner === gameState.currentPlayerIndex) {
+                cardTextEl.innerHTML = `
+                    <h3>${space.name}</h3>
+                    <p>You own this property!</p>
+                `;
+                enableNextTurn();
+            } else {
+                const owner = gameState.players[property.owner];
+                const rent = space.rent;
+                
+                player.money -= rent;
+                owner.money += rent;
+                
+                cardTextEl.innerHTML = `
+                    <h3>${space.name}</h3>
+                    <p>Owned by ${owner.name}</p>
+                    <p>You pay ${rent} Knowledge Points in rent!</p>
+                `;
+                
+                addLog(`${player.name} pays ${rent} KP rent to ${owner.name} for ${space.name}`);
+                updatePlayerCards();
                 enableNextTurn();
             }
         }
 
-        // Handle event space
-        function handleEventSpace(space) {
-            const currentPlayer = gameState.players[gameState.currentPlayerIndex];
-            const events = [
-                { effect: 'gain', points: 30, message: 'Reform momentum builds!' },
-                { effect: 'lose', points: 20, message: 'Conservative opposition slows progress' },
-                { effect: 'gain', points: 50, message: 'Foreign investment aids development!' },
-                { effect: 'lose', points: 30, message: 'Economic crisis hits' },
-                { effect: 'gain', points: 40, message: 'Diplomatic success!' }
-            ];
+        // Buy property
+        function buyProperty(position) {
+            const player = gameState.players[gameState.currentPlayerIndex];
+            const property = gameState.properties.find(p => p.position === position);
+            const space = BOARD_SPACES.find(s => s.position === position);
             
-            const event = events[Math.floor(Math.random() * events.length)];
+            if (!property || !space) return;
             
-            if (event.effect === 'gain') {
-                currentPlayer.knowledgePoints += event.points;
-                showResult(true, `${event.message} +${event.points} Knowledge Points`);
+            if (player.money >= space.price) {
+                player.money -= space.price;
+                property.owner = gameState.currentPlayerIndex;
+                player.propertiesOwned = (player.propertiesOwned || 0) + 1;
+                
+                const cell = document.getElementById(`cell-${position}`);
+                if (cell) {
+                    cell.classList.add('property-owned');
+                    cell.style.borderLeft = `4px solid ${player.color}`;
+                }
+                
+                addLog(`${player.name} buys ${space.name} for ${space.price} KP!`);
+                updatePlayerCards();
+                
+                showPropertyQuestion(space);
             } else {
-                currentPlayer.knowledgePoints = Math.max(0, currentPlayer.knowledgePoints - event.points);
-                showResult(false, `${event.message} -${event.points} Knowledge Points`);
+                cardTextEl.innerHTML = `
+                    <h3>Insufficient Funds!</h3>
+                    <p>You need ${space.price} KP but only have ${player.money} KP.</p>
+                `;
+                setTimeout(enableNextTurn, 2000);
+            }
+        }
+
+        // Skip property
+        function skipProperty() {
+            enableNextTurn();
+        }
+
+        // Show property question
+        function showPropertyQuestion(space) {
+            if (!space.category) {
+                enableNextTurn();
+                return;
+            }
+            
+            gameState.currentCard = getRandomFact(space.category);
+            if (!gameState.currentCard) {
+                enableNextTurn();
+                return;
+            }
+            
+            displayCard(space.category, gameState.currentCard);
+            nextTurnBtn.style.display = 'none';
+            rollDiceBtn.style.display = 'none';
+        }
+
+        // Handle corner space
+        function handleCornerSpace(space, player) {
+            if (space.position === 0) {
+                player.money += 200;
+                addLog(`${player.name} lands on GO and collects 200 KP!`);
+            } else if (space.position === 10) {
+                // Just visiting
+            } else if (space.position === 20) {
+                const freeParkMoney = 100;
+                player.money += freeParkMoney;
+                addLog(`${player.name} collects ${freeParkMoney} KP from Free Park!`);
+            } else if (space.position === 30) {
+                player.position = 10;
+                player.inJail = true;
+                player.jailTurns = 0;
+                addLog(`${player.name} goes to Janissary Crisis!`);
+                updatePlayerTokens();
             }
             
             cardTextEl.innerHTML = `
-                <h3>${space.title}</h3>
+                <h3>${space.name}</h3>
                 <p>${space.description}</p>
-                <p><strong>Event:</strong> ${event.message}</p>
+            `;
+            updatePlayerCards();
+            enableNextTurn();
+        }
+
+        // Draw chance card
+        function drawChanceCard(player) {
+            if (gameState.chanceDeck.length === 0) {
+                gameState.chanceDeck = [...CHANCE_CARDS];
+                shuffleArray(gameState.chanceDeck);
+            }
+            
+            const card = gameState.chanceDeck.pop();
+            cardTextEl.innerHTML = `
+                <h3>Chance</h3>
+                <p>${card.text}</p>
             `;
             
+            if (card.action === 'collect') {
+                player.money += card.amount;
+                addLog(`${player.name} collects ${card.amount} KP!`);
+            } else if (card.action === 'pay') {
+                player.money -= card.amount;
+                addLog(`${player.name} pays ${card.amount} KP!`);
+            }
+            
+            updatePlayerCards();
+            setTimeout(enableNextTurn, 2000);
+        }
+
+        // Draw community chest card
+        function drawCommunityChestCard(player) {
+            if (gameState.communityChestDeck.length === 0) {
+                gameState.communityChestDeck = [...COMMUNITY_CHEST_CARDS];
+                shuffleArray(gameState.communityChestDeck);
+            }
+            
+            const card = gameState.communityChestDeck.pop();
+            cardTextEl.innerHTML = `
+                <h3>Community Reform</h3>
+                <p>${card.text}</p>
+            `;
+            
+            if (card.action === 'collect') {
+                player.money += card.amount;
+                addLog(`${player.name} collects ${card.amount} KP!`);
+            } else if (card.action === 'pay') {
+                player.money -= card.amount;
+                addLog(`${player.name} pays ${card.amount} KP!`);
+            }
+            
+            updatePlayerCards();
+            setTimeout(enableNextTurn, 2000);
+        }
+
+        // Handle railroad/utility space
+        function handleRailroadUtilitySpace(space, player) {
+            cardTextEl.innerHTML = `
+                <h3>${space.name}</h3>
+                <p>${space.description}</p>
+            `;
+            enableNextTurn();
+        }
+
+        // Handle tax space
+        function handleTaxSpace(space, player) {
+            player.money -= space.amount;
+            
+            cardTextEl.innerHTML = `
+                <h3>${space.name}</h3>
+                <p>${space.description}</p>
+                <p>You pay ${space.amount} Knowledge Points!</p>
+            `;
+            
+            addLog(`${player.name} pays ${space.amount} KP in taxes!`);
             updatePlayerCards();
             enableNextTurn();
         }
@@ -1357,7 +1777,6 @@
             factResultEl.style.display = 'none';
             answerOptionsEl.innerHTML = '';
             
-            // Update category title
             const categoryNames = {
                 'did-you-know': 'Did You Know?',
                 'true-false': 'True or False?',
@@ -1367,12 +1786,11 @@
             
             currentCategoryEl.textContent = categoryNames[category];
             
-            // Display content based on category
             switch(category) {
                 case 'did-you-know':
                     cardTextEl.textContent = card.text;
                     answerOptionsEl.innerHTML = `
-                        <button class="answer-btn" onclick="answerQuestion(true)" id="answerBtn">Learn This (Earn ${card.points} points)</button>
+                        <button class="answer-btn" onclick="answerQuestion()">Learn This (Earn ${card.points} points)</button>
                     `;
                     answerOptionsEl.style.display = 'block';
                     break;
@@ -1408,7 +1826,6 @@
                     break;
             }
             
-            // Disable answer buttons after clicking
             setTimeout(() => {
                 document.querySelectorAll('.answer-btn').forEach(btn => {
                     btn.addEventListener('click', function() {
@@ -1425,7 +1842,7 @@
         }
 
         // Answer handlers
-        function answerQuestion(isCorrect) {
+        function answerQuestion() {
             if (gameState.questionAnswered) return;
             
             const currentPlayer = gameState.players[gameState.currentPlayerIndex];
@@ -1434,16 +1851,9 @@
             currentPlayer.knowledgePoints += card.points;
             currentPlayer.correctAnswers = (currentPlayer.correctAnswers || 0) + 1;
             
-            // Mark space as answered
-            if (gameState.currentSpace !== null) {
-                BOARD_SPACES[gameState.currentSpace].answered = true;
-                document.getElementById(`cell-${gameState.currentSpace}`).classList.add('space-answered');
-            }
+            showResult(true, `Knowledge gained! +${card.points} Knowledge Points`);
+            addLog(`${currentPlayer.name} earns ${card.points} KP for correct answer!`);
             
-            showResult(true, `Knowledge gained! +${card.points} Points`);
-            addLog(`${currentPlayer.name} learned about ${BOARD_SPACES[gameState.currentSpace]?.title || 'reforms'}`);
-            
-            checkLevelUp(currentPlayer);
             updatePlayerCards();
             gameState.questionAnswered = true;
             
@@ -1461,20 +1871,13 @@
                 currentPlayer.knowledgePoints += card.points;
                 currentPlayer.correctAnswers = (currentPlayer.correctAnswers || 0) + 1;
                 
-                // Mark space as answered
-                if (gameState.currentSpace !== null) {
-                    BOARD_SPACES[gameState.currentSpace].answered = true;
-                    document.getElementById(`cell-${gameState.currentSpace}`).classList.add('space-answered');
-                }
-                
-                showResult(true, `Correct! ${card.explanation} +${card.points} Points`);
-                addLog(`${currentPlayer.name} answered True/False correctly!`);
+                showResult(true, `Correct! ${card.explanation} +${card.points} Knowledge Points`);
+                addLog(`${currentPlayer.name} answers True/False correctly!`);
             } else {
                 showResult(false, `Incorrect. ${card.explanation}`);
-                addLog(`${currentPlayer.name} answered True/False incorrectly.`);
+                addLog(`${currentPlayer.name} answers True/False incorrectly.`);
             }
             
-            checkLevelUp(currentPlayer);
             updatePlayerCards();
             gameState.questionAnswered = true;
             
@@ -1492,20 +1895,13 @@
                 currentPlayer.knowledgePoints += card.points;
                 currentPlayer.correctAnswers = (currentPlayer.correctAnswers || 0) + 1;
                 
-                // Mark space as answered
-                if (gameState.currentSpace !== null) {
-                    BOARD_SPACES[gameState.currentSpace].answered = true;
-                    document.getElementById(`cell-${gameState.currentSpace}`).classList.add('space-answered');
-                }
-                
-                showResult(true, `Correct! ${card.explanation} +${card.points} Points`);
-                addLog(`${currentPlayer.name} predicted historical sequence correctly!`);
+                showResult(true, `Correct! ${card.explanation} +${card.points} Knowledge Points`);
+                addLog(`${currentPlayer.name} predicts historical sequence correctly!`);
             } else {
                 showResult(false, `Incorrect. ${card.explanation}`);
-                addLog(`${currentPlayer.name} made wrong historical prediction.`);
+                addLog(`${currentPlayer.name} makes wrong historical prediction.`);
             }
             
-            checkLevelUp(currentPlayer);
             updatePlayerCards();
             gameState.questionAnswered = true;
             
@@ -1523,38 +1919,17 @@
                 currentPlayer.knowledgePoints += card.points;
                 currentPlayer.correctAnswers = (currentPlayer.correctAnswers || 0) + 1;
                 
-                // Mark space as answered
-                if (gameState.currentSpace !== null) {
-                    BOARD_SPACES[gameState.currentSpace].answered = true;
-                    document.getElementById(`cell-${gameState.currentSpace}`).classList.add('space-answered');
-                }
-                
-                showResult(true, `Correct detective work! ${card.explanation} +${card.points} Points`);
-                addLog(`${currentPlayer.name} found the lie successfully!`);
+                showResult(true, `Correct detective work! ${card.explanation} +${card.points} Knowledge Points`);
+                addLog(`${currentPlayer.name} finds the lie successfully!`);
             } else {
                 showResult(false, `Not quite. ${card.explanation}`);
-                addLog(`${currentPlayer.name} chose wrong in Two Truths & a Lie`);
+                addLog(`${currentPlayer.name} chooses wrong in Two Truths & a Lie`);
             }
             
-            checkLevelUp(currentPlayer);
             updatePlayerCards();
             gameState.questionAnswered = true;
             
             setTimeout(enableNextTurn, 1500);
-        }
-
-        // Check for level up
-        function checkLevelUp(player) {
-            if (player.knowledgePoints >= 200 && player.modernizationLevel === 1) {
-                player.modernizationLevel = 2;
-                addLog(`🎉 ${player.name} reached Modernization Level 2!`);
-            } else if (player.knowledgePoints >= 350 && player.modernizationLevel === 2) {
-                player.modernizationLevel = 3;
-                addLog(`🎉 ${player.name} reached Modernization Level 3 (Constitutional Era)!`);
-            } else if (player.knowledgePoints >= 500 && player.modernizationLevel === 3) {
-                player.modernizationLevel = 4;
-                addLog(`🎉 ${player.name} reached Modernization Level 4 (Industrial Revolution)!`);
-            }
         }
 
         // Show result
@@ -1576,19 +1951,16 @@
             const currentPlayer = gameState.players[gameState.currentPlayerIndex];
             currentPlayer.turnCount++;
             
-            // Move to next player
             gameState.currentPlayerIndex = (gameState.currentPlayerIndex + 1) % gameState.players.length;
             
-            // Reset for next turn
             nextTurnBtn.style.display = 'none';
             rollDiceBtn.style.display = 'block';
             currentCategoryEl.textContent = 'Ready for Next Turn';
-            cardTextEl.textContent = `${gameState.players[gameState.currentPlayerIndex].name}'s turn. Click "Roll Dice" to continue the reform journey!`;
+            cardTextEl.textContent = `${gameState.players[gameState.currentPlayerIndex].name}'s turn. Click "Roll Dice" to continue!`;
             answerOptionsEl.style.display = 'none';
             factResultEl.style.display = 'none';
             diceResultEl.textContent = '';
             
-            // Update display
             updateCurrentPlayerDisplay();
             updatePlayerCards();
             enableRollDice();
@@ -1596,28 +1968,11 @@
             addLog(`${gameState.players[gameState.currentPlayerIndex].name}'s turn to roll!`);
         }
 
-        // End game
-        function endGame(winner) {
-            gameState.gameActive = false;
-            rollDiceBtn.disabled = true;
-            nextTurnBtn.disabled = true;
-            
-            winnerMessage.textContent = `${winner.name} has successfully implemented the Tanzimat Reforms and reached modernization!`;
-            winnerBanner.style.display = 'block';
-            
-            addLog(`🏆 ${winner.name} wins the reform race with ${winner.knowledgePoints} knowledge points!`);
-        }
-
         // Reset game
         function resetGame() {
             winnerBanner.style.display = 'none';
             playerSetup.style.display = 'flex';
             gameContainer.style.display = 'none';
-            
-            // Reset board spaces
-            BOARD_SPACES.forEach(space => {
-                space.answered = false;
-            });
         }
 
         // Add log entry
@@ -1627,7 +1982,6 @@
             logEntry.textContent = message;
             logEntriesEl.prepend(logEntry);
             
-            // Keep only last 8 entries
             const entries = logEntriesEl.querySelectorAll('.log-entry');
             if (entries.length > 8) {
                 entries[entries.length - 1].remove();
