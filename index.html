@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Tanzimat Reforms Monopoly | Ottoman Empire Edition</title>
+    <title>Tanzimat Reforms Monopoly | Fixed Board</title>
     <style>
         * {
             margin: 0;
@@ -21,20 +21,16 @@
             align-items: center;
         }
 
-        /* MAIN CONTAINER */
         .game-wrapper {
             max-width: 1500px;
             width: 100%;
             margin: 0 auto;
             background: rgba(245, 240, 225, 0.97);
             border-radius: 48px;
-            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.3);
-            backdrop-filter: blur(2px);
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.5);
             overflow: hidden;
-            transition: all 0.3s;
         }
 
-        /* HEADER */
         .game-header {
             background: linear-gradient(135deg, #8B5A2B 0%, #5D3A1A 100%);
             padding: 20px 30px;
@@ -47,17 +43,14 @@
             letter-spacing: 2px;
             color: #FFE6B3;
             text-shadow: 3px 3px 0 #4A2A0E;
-            font-weight: 800;
         }
 
         .subtitle {
             color: #FFD966;
             font-style: italic;
-            font-size: 1rem;
-            margin-top: 8px;
         }
 
-        /* SETUP MODAL */
+        /* Setup Modal */
         .setup-modal {
             position: fixed;
             top: 0;
@@ -87,9 +80,6 @@
             font-size: 2rem;
             text-align: center;
             margin-bottom: 20px;
-            border-bottom: 2px solid #E6B422;
-            display: inline-block;
-            width: 100%;
         }
 
         .player-input-group {
@@ -109,7 +99,6 @@
             border-radius: 40px;
             border: 1px solid #CDAA7A;
             background: white;
-            font-size: 1rem;
         }
 
         .color-preview {
@@ -128,20 +117,13 @@
             padding: 14px;
             font-weight: bold;
             font-size: 1.2rem;
-            color: #2D1B0A;
             border-radius: 50px;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
             width: 100%;
             margin-top: 10px;
         }
 
-        .btn-gold:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 18px rgba(0,0,0,0.3);
-        }
-
-        /* LAYOUT */
+        /* Game Layout */
         .game-layout {
             display: grid;
             grid-template-columns: 2fr 1.2fr;
@@ -154,7 +136,6 @@
             .monopoly-board { transform: scale(0.9); }
         }
 
-        /* BOARD FIXED SIZE */
         .board-container {
             background: #E3D5B5;
             border-radius: 36px;
@@ -180,7 +161,7 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
 
-        /* CELL STYLES */
+        /* Cell Styles */
         .board-cell {
             position: absolute;
             display: flex;
@@ -193,10 +174,9 @@
             border-radius: 8px;
             font-size: 0.65rem;
             font-weight: 500;
-            transition: all 0.2s;
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
             padding: 4px 2px;
             word-break: break-word;
+            transition: all 0.2s;
             cursor: pointer;
         }
 
@@ -236,7 +216,6 @@
         .cell-title { font-weight: bold; font-size: 0.7rem; color: #3E2A1F; margin-bottom: 2px; }
         .cell-description { font-size: 0.55rem; opacity: 0.8; }
 
-        /* CENTER AREA */
         .board-center {
             position: absolute;
             top: 80px;
@@ -251,14 +230,12 @@
             justify-content: center;
             text-align: center;
             z-index: 5;
-            box-shadow: inset 0 0 0 4px #FFF2D7, 0 5px 15px rgba(0,0,0,0.2);
+            box-shadow: inset 0 0 0 4px #FFF2D7;
         }
 
         .center-title { font-size: 1.6rem; font-weight: 800; color: #8B5A2B; }
-        .center-subtitle { font-size: 1rem; color: #6B3E1A; margin-bottom: 10px; }
-        .center-text { font-size: 0.7rem; color: #3e2a1f; }
+        .center-subtitle { font-size: 1rem; color: #6B3E1A; }
 
-        /* PLAYER TOKENS */
         .player-token {
             position: absolute;
             width: 16px;
@@ -267,10 +244,9 @@
             border: 2px solid white;
             box-shadow: 0 1px 4px black;
             z-index: 30;
-            transition: all 0.2s;
         }
 
-        /* RIGHT PANEL */
+        /* Right Panel */
         .right-panel {
             display: flex;
             flex-direction: column;
@@ -284,7 +260,6 @@
             display: flex;
             flex-direction: column;
             gap: 12px;
-            box-shadow: 0 8px 18px rgba(0,0,0,0.2);
         }
 
         .player-card {
@@ -293,10 +268,9 @@
             padding: 12px 15px;
             border-left: 8px solid;
             transition: all 0.2s;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         }
 
-        .player-card.active { background: #FFF3D1; transform: translateX(5px); box-shadow: 0 5px 12px rgba(0,0,0,0.15); }
+        .player-card.active { background: #FFF3D1; transform: translateX(5px); }
 
         .player-header {
             display: flex;
@@ -305,11 +279,10 @@
             margin-bottom: 8px;
         }
         .player-color-dot { width: 18px; height: 18px; border-radius: 50%; border: 1px solid #aaa; }
-        .player-name { font-weight: bold; font-size: 1rem; color: #4A2A0E; }
+        .player-name { font-weight: bold; color: #4A2A0E; }
         .player-stats { display: flex; justify-content: space-between; font-size: 0.8rem; flex-wrap: wrap; gap: 5px; }
         .stat { background: #F3E9D2; padding: 2px 8px; border-radius: 20px; }
 
-        /* DICE & CONTROLS */
         .dice-area {
             background: #EADCB8;
             border-radius: 30px;
@@ -333,7 +306,6 @@
             font-size: 3rem;
             font-weight: bold;
             box-shadow: 0 5px 0 #B4925A;
-            transition: 0.1s linear;
         }
         .rolling { animation: shake 0.4s infinite; }
         @keyframes shake {
@@ -348,27 +320,23 @@
             padding: 12px 25px;
             border-radius: 60px;
             font-weight: bold;
-            font-size: 1rem;
             cursor: pointer;
-            transition: 0.2s;
             margin: 6px;
         }
         .btn-primary { background: #6B3E1A; color: #FFE6B3; }
-        .btn-primary:hover:not(:disabled) { background: #8B5A2B; transform: scale(1.02);}
+        .btn-primary:hover:not(:disabled) { background: #8B5A2B; }
         .btn-secondary { background: #CDAA7A; color: #2D1B0A; }
 
-        /* CARD DISPLAY */
         .card-display {
             background: #FFF9F0;
             border-radius: 28px;
             padding: 20px;
             min-height: 280px;
-            box-shadow: inset 0 1px 4px #EEDDBB, 0 8px 18px rgba(0,0,0,0.1);
         }
         .card-title { font-size: 1.5rem; font-weight: bold; color: #8B5A2B; border-bottom: 2px solid #E6B422; margin-bottom: 15px; }
         .card-text { font-size: 1rem; line-height: 1.4; margin-bottom: 20px; }
         .answer-options { display: flex; flex-direction: column; gap: 10px; }
-        .answer-btn { background: #E6B422; border: none; padding: 10px; border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.1s; }
+        .answer-btn { background: #E6B422; border: none; padding: 10px; border-radius: 50px; font-weight: bold; cursor: pointer; }
         .answer-btn:hover { background: #C98A2E; color: white; }
         .fact-result { margin-top: 15px; padding: 10px; border-radius: 20px; text-align: center; font-weight: bold; display: none; }
         .correct { background: #C8E6C9; color: #2E7D32; border-left: 5px solid #4CAF50; }
@@ -397,7 +365,6 @@
             border-radius: 60px;
             text-align: center;
             z-index: 2001;
-            box-shadow: 0 20px 35px black;
             display: none;
         }
         footer {
@@ -455,7 +422,7 @@
             <div class="players-panel" id="playersPanel"></div>
             <div class="card-display">
                 <div class="card-title" id="cardCategoryTitle">Reform Edict</div>
-                <div class="card-text" id="cardTextDisplay">Welcome to the Tanzimat! Roll the dice, purchase reforms, answer historical questions, and become the most influential reformer.</div>
+                <div class="card-text" id="cardTextDisplay">Welcome to the Tanzimat! Roll the dice, purchase reforms, answer historical questions.</div>
                 <div class="answer-options" id="answerContainer"></div>
                 <div class="fact-result" id="resultMessage"></div>
             </div>
@@ -469,32 +436,21 @@
 </div>
 
 <script>
-    // ---------- GLOBAL CONFIG ----------
-    const BOARD_SIZE = 600, CORNER = 80;
-    const HORIZONTAL_CELL_COUNT = 9;
-    const CELL_WIDTH = (BOARD_SIZE - CORNER * 2) / HORIZONTAL_CELL_COUNT; // 48.888px
-    const VERTICAL_CELL_HEIGHT = (BOARD_SIZE - CORNER * 2) / 9;
-    const PROPERTY_VERTICAL_WIDTH = 65;
-    const HORIZONTAL_HEIGHT = 58;
-
-    const COLORS = ['#E53935', '#2E7D32', '#1E88E5', '#FDD835'];
-    const DEFAULT_NAMES = ['Mustafa Reşid Pasha', 'Sultan Abdülmecid', 'Ali Pasha', 'Fuat Pasha'];
-
-    // Board Spaces (40 positions)
-    const BOARD_DATA = [
+    // ========== BOARD DATA ==========
+    const BOARD_SPACES = [
         { pos:0, type:'corner', name:'GO', desc:'Collect 200 KP', action:'go', value:200 },
-        { pos:1, type:'property', name:'Rose Garden', category:'did-you-know', price:80, rent:20, group:'did' },
-        { pos:2, type:'community-chest', name:'Reform Decree', desc:'Draw Card' },
+        { pos:1, type:'property', name:'Rose Garden', category:'did-you-know', price:80, rent:20 },
+        { pos:2, type:'community-chest', name:'Reform Decree' },
         { pos:3, type:'property', name:'Military Schools', category:'did-you-know', price:80, rent:20 },
         { pos:4, type:'tax', name:'Reform Tax', desc:'Pay 150 KP', value:150 },
         { pos:5, type:'railroad', name:'Telegraph Lines', price:200, rent:40 },
         { pos:6, type:'property', name:'Legal Code', category:'true-false', price:100, rent:25 },
-        { pos:7, type:'chance', name:'Chance', desc:'Fate of Empire' },
+        { pos:7, type:'chance', name:'Chance' },
         { pos:8, type:'property', name:'Public Education', category:'true-false', price:100, rent:25 },
         { pos:9, type:'property', name:'Tax Collection', category:'true-false', price:120, rent:30 },
         { pos:10, type:'corner', name:'JANISSARY CRISIS', desc:'Jail', action:'jail' },
         { pos:11, type:'property', name:'Secular Courts', category:'what-next', price:140, rent:35 },
-        { pos:12, type:'utility', name:'Official Gazette', price:150, rent:20 },
+        { pos:12, type:'utility', name:'Official Gazette', price:150 },
         { pos:13, type:'property', name:'Postal Reform', category:'what-next', price:140, rent:35 },
         { pos:14, type:'property', name:'Infrastructure', category:'what-next', price:160, rent:40 },
         { pos:15, type:'railroad', name:'Steamship Co.', price:200, rent:40 },
@@ -510,7 +466,7 @@
         { pos:25, type:'railroad', name:'Railway Network', price:200, rent:40 },
         { pos:26, type:'property', name:'Foreign Policy', category:'true-false', price:260, rent:65 },
         { pos:27, type:'property', name:'Westernization', category:'true-false', price:260, rent:65 },
-        { pos:28, type:'utility', name:'Imperial Post', price:150, rent:20 },
+        { pos:28, type:'utility', name:'Imperial Post', price:150 },
         { pos:29, type:'property', name:'Bureaucracy', category:'true-false', price:280, rent:70 },
         { pos:30, type:'corner', name:'GO TO JAIL', desc:'Go to Janissary Crisis', action:'gotojail' },
         { pos:31, type:'property', name:'Constitution', category:'what-next', price:300, rent:75 },
@@ -524,29 +480,13 @@
         { pos:39, type:'property', name:'Imperial Edict', category:'two-truths', price:400, rent:100 }
     ];
 
-    // Question Bank (Tanzimat themed)
     const QUESTION_SET = {
         'did-you-know': [{ text:"The Gülhane Edict was announced in a rose garden to symbolize transparency.", points:35 }],
-        'true-false': [{ text:"The Tanzimat reforms abolished all forms of religious discrimination instantly in 1839.", answer:false, explanation:"False. Equality was proclaimed but implementation faced resistance.", points:45 }],
+        'true-false': [{ text:"The Tanzimat reforms abolished all religious discrimination instantly in 1839.", answer:false, explanation:"False. Equality was proclaimed but faced resistance.", points:45 }],
         'what-next': [{ setup:"After the 1839 Edict promised equal rights...", options:["Janissaries supported reforms","New secular courts & schools emerged","Ottoman Empire collapsed"], correct:1, explanation:"Modern institutions were founded.", points:55 }],
         'two-truths': [{ statements:["Sultan Mahmud II crushed Janissaries","Reforms aimed for slow change","European-style uniforms adopted"], lieIndex:1, explanation:"Reformers wanted rapid modernization.", points:65 }]
     };
 
-    let players = [];
-    let currentPlayerIdx = 0;
-    let gameActive = false;
-    let rolledDoubles = false;
-    let awaitingAction = false;
-    let currentSpaceData = null;
-    let pendingBuyPosition = null;
-    let extraTurnFlag = false;
-    let propertiesOwned = [];
-    let chanceDeck = [], chestDeck = [];
-
-    // Helper: Shuffle
-    function shuffle(arr) { for (let i=arr.length-1;i>0;i--) { let j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; } return arr; }
-
-    // Cards
     const CHANCE_CARDS = [
         { text:"Advance to GO", action:'moveTo', target:0, gain:200 },
         { text:"Foreign investment: Collect 150 KP", action:'collect', amount:150 },
@@ -560,74 +500,250 @@
         { text:"Win contest: +150 KP", action:'collect', amount:150 }
     ];
 
+    let players = [];
+    let currentPlayerIdx = 0;
+    let gameActive = false;
+    let awaitingAction = false;
+    let extraTurnFlag = false;
+    let propertiesOwned = [];
+    let chanceDeck = [], chestDeck = [];
+
+    function shuffle(arr) { for(let i=arr.length-1;i>0;i--) { let j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; } return arr; }
     function initDecks() { chanceDeck = shuffle([...CHANCE_CARDS]); chestDeck = shuffle([...CHEST_CARDS]); }
 
-    // ----- BOARD RENDERING (FIX ORIENTATION) -----
+    // ========== BOARD GENERATION (FIXED ORIENTATION) ==========
+    const BOARD_SIZE = 600, CORNER = 80;
+    const SIDE_LEN = BOARD_SIZE - 2*CORNER; // 440
+    const CELL_W = SIDE_LEN / 9;   // ~48.888
+    const CELL_H = SIDE_LEN / 9;   // same for vertical sides
+    const PROP_VW = 65;            // width for vertical cells (left/right)
+    const PROP_VH = CELL_H;        // height for vertical cells
+    const HORIZ_H = 58;            // height for horizontal cells
+
     function renderBoard() {
         const boardDiv = document.getElementById('monopolyBoard');
-        boardDiv.innerHTML = `<div class="board-center"><div class="center-title">TANZİMAT</div><div class="center-subtitle">1839-1876</div><div class="center-text">Modernization • Justice • Prosperity</div></div>`;
-        BOARD_DATA.forEach(space => {
+        boardDiv.innerHTML = `<div class="board-center"><div class="center-title">TANZİMAT</div><div class="center-subtitle">1839-1876</div></div>`;
+
+        // Helper to create cell
+        const addCell = (space, left, top, width, height, isVertical = false) => {
             const cell = document.createElement('div');
             cell.className = `board-cell ${space.type}-cell`;
-            if (space.type === 'property') cell.classList.add(`property-${space.category.replace('-','')}`);
+            if (space.type === 'property') cell.classList.add(`property-${space.category?.replace('-','')}`);
             if (space.type === 'corner') cell.classList.add('corner-cell');
             cell.id = `cell-${space.pos}`;
+            cell.style.left = `${left}px`;
+            cell.style.top = `${top}px`;
+            cell.style.width = `${width}px`;
+            cell.style.height = `${height}px`;
+            if (isVertical) {
+                // Ensure text is always horizontal (no rotation)
+                cell.style.writingMode = 'horizontal-tb';
+            }
             cell.innerHTML = `<div class="cell-number">${space.pos}</div><div class="cell-title">${space.name}</div><div class="cell-description">${space.desc || (space.price ? space.price+' KP' : '')}</div>`;
-            positionCellOnBoard(cell, space.pos);
             boardDiv.appendChild(cell);
-        });
-        updateAllTokens();
-    }
+        };
 
-    function positionCellOnBoard(cell, pos) {
-        const w = CELL_WIDTH, h = HORIZONTAL_HEIGHT, vw = PROPERTY_VERTICAL_WIDTH, vh = VERTICAL_CELL_HEIGHT;
-        if (pos>=1 && pos<=9) { // bottom row right to left
-            let idx = pos-1;
-            let x = BOARD_SIZE - CORNER - (idx * w) - w;
-            cell.style.left = `${x}px`; cell.style.bottom = '0px';
-            cell.style.width = `${w}px`; cell.style.height = `${h}px`;
-        } else if (pos>=11 && pos<=19) { // LEFT SIDE (FIXED orientation: text readable, no upside-down)
-            let idx = pos-11;
-            let y = BOARD_SIZE - CORNER - (idx * vh) - vh;
-            cell.style.left = '0px'; cell.style.bottom = `${y}px`;
-            cell.style.width = `${vw}px`; cell.style.height = `${vh}px`;
-            // ensure text remains normal (no rotation)
-            cell.style.writingMode = 'horizontal-tb';
-        } else if (pos>=21 && pos<=29) { // TOP row
-            let idx = pos-21;
-            let x = CORNER + (idx * w);
-            cell.style.left = `${x}px`; cell.style.top = '0px';
-            cell.style.width = `${w}px`; cell.style.height = `${h}px`;
-        } else if (pos>=31 && pos<=39) { // RIGHT side
-            let idx = pos-31;
-            let y = CORNER + (idx * vh);
-            cell.style.right = '0px'; cell.style.top = `${y}px`;
-            cell.style.width = `${vw}px`; cell.style.height = `${vh}px`;
-        } else if (pos===0) { cell.style.right='0'; cell.style.bottom='0'; cell.style.width=`${CORNER}px`; cell.style.height=`${CORNER}px`; }
-        else if (pos===10) { cell.style.left='0'; cell.style.bottom='0'; cell.style.width=`${CORNER}px`; cell.style.height=`${CORNER}px`; }
-        else if (pos===20) { cell.style.left='0'; cell.style.top='0'; cell.style.width=`${CORNER}px`; cell.style.height=`${CORNER}px`; }
-        else if (pos===30) { cell.style.right='0'; cell.style.top='0'; cell.style.width=`${CORNER}px`; cell.style.height=`${CORNER}px`; }
+        // 1. Bottom row (positions 1-9) from right to left
+        for (let i = 0; i < 9; i++) {
+            const pos = 9 - i;  // 9,8,7,...,1
+            const space = BOARD_SPACES.find(s => s.pos === pos);
+            if (!space) continue;
+            const left = BOARD_SIZE - CORNER - (i+1)*CELL_W;
+            const top = BOARD_SIZE - CORNER;
+            addCell(space, left, top, CELL_W, HORIZ_H);
+        }
+
+        // 2. Left column (positions 11-19) from bottom to top
+        for (let i = 0; i < 9; i++) {
+            const pos = 11 + i; // 11,12,...,19
+            const space = BOARD_SPACES.find(s => s.pos === pos);
+            if (!space) continue;
+            const left = 0;
+            const top = BOARD_SIZE - CORNER - (i+1)*CELL_H;
+            addCell(space, left, top, PROP_VW, CELL_H, true);
+        }
+
+        // 3. Top row (positions 21-29) from left to right
+        for (let i = 0; i < 9; i++) {
+            const pos = 21 + i;
+            const space = BOARD_SPACES.find(s => s.pos === pos);
+            if (!space) continue;
+            const left = CORNER + i*CELL_W;
+            const top = 0;
+            addCell(space, left, top, CELL_W, HORIZ_H);
+        }
+
+        // 4. Right column (positions 31-39) from top to bottom
+        for (let i = 0; i < 9; i++) {
+            const pos = 31 + i;
+            const space = BOARD_SPACES.find(s => s.pos === pos);
+            if (!space) continue;
+            const left = BOARD_SIZE - PROP_VW;
+            const top = CORNER + i*CELL_H;
+            addCell(space, left, top, PROP_VW, CELL_H, true);
+        }
+
+        // Corners
+        const corners = [0,10,20,30];
+        corners.forEach(pos => {
+            const space = BOARD_SPACES.find(s => s.pos === pos);
+            if (!space) return;
+            let left, top;
+            if (pos === 0) { left = BOARD_SIZE - CORNER; top = BOARD_SIZE - CORNER; }
+            else if (pos === 10) { left = 0; top = BOARD_SIZE - CORNER; }
+            else if (pos === 20) { left = 0; top = 0; }
+            else { left = BOARD_SIZE - CORNER; top = 0; }
+            addCell(space, left, top, CORNER, CORNER);
+        });
+
+        updateAllTokens();
     }
 
     function updateAllTokens() {
         document.querySelectorAll('.player-token').forEach(t => t.remove());
         players.forEach((p, idx) => {
             const cell = document.getElementById(`cell-${p.position}`);
-            if(cell) {
+            if (cell) {
                 const tok = document.createElement('div');
                 tok.className = 'player-token';
                 tok.style.background = p.color;
                 const offsets = [{top:'3px',left:'3px'},{top:'3px',right:'3px'},{bottom:'3px',left:'3px'},{bottom:'3px',right:'3px'}];
-                Object.assign(tok.style, offsets[idx%4]);
+                Object.assign(tok.style, offsets[idx % 4]);
                 cell.appendChild(tok);
             }
         });
         document.querySelectorAll('.board-cell').forEach(c => c.classList.remove('active'));
-        const activeCell = document.getElementById(`cell-${players[currentPlayerIdx].position}`);
-        if(activeCell) activeCell.classList.add('active');
+        const activeCell = document.getElementById(`cell-${players[currentPlayerIdx]?.position}`);
+        if (activeCell) activeCell.classList.add('active');
     }
 
-    // UI update
+    // Game logic (simplified but functional)
+    function getPropertyOwner(pos) { return propertiesOwned.find(p=>p.pos===pos)?.owner ?? null; }
+
+    function buyPropertyAction(pos) {
+        let player = players[currentPlayerIdx];
+        let space = BOARD_SPACES.find(s=>s.pos===pos);
+        if (player.kp >= space.price && getPropertyOwner(pos)===null) {
+            player.kp -= space.price;
+            propertiesOwned.push({pos, owner:currentPlayerIdx, price:space.price, rent:space.rent});
+            player.properties = (player.properties||0)+1;
+            addLog(`${player.name} bought ${space.name} for ${space.price} KP!`);
+            updateUI();
+            showPropertyQuestion(space);
+        } else { addLog(`Cannot afford ${space.name}`); endTurnOrExtra(); }
+    }
+
+    function showPropertyQuestion(space) {
+        if (!space.category) { endTurnOrExtra(); return; }
+        let q = QUESTION_SET[space.category]?.[0];
+        if (!q) { endTurnOrExtra(); return; }
+        document.getElementById('cardCategoryTitle').innerHTML = `📜 ${space.category.replace('-',' ').toUpperCase()}`;
+        let html = '';
+        if (space.category === 'did-you-know') html = `<p>${q.text}</p><button class="answer-btn" onclick="answerGeneric(${q.points}, true)">📖 Learn (Earn ${q.points} KP)</button>`;
+        else if (space.category === 'true-false') html = `<p>${q.text}</p><button class="answer-btn" onclick="answerTF(true, '${q.explanation}', ${q.points})">✔️ True</button><button class="answer-btn" onclick="answerTF(false, '${q.explanation}', ${q.points})">❌ False</button>`;
+        else if (space.category === 'what-next') html = `<p>${q.setup}</p>${q.options.map((opt,i)=>`<button class="answer-btn" onclick="answerWN(${i},${q.correct},'${q.explanation}',${q.points})">${opt}</button>`).join('')}`;
+        else if (space.category === 'two-truths') html = `<p>Which is the lie?</p>${q.statements.map((s,i)=>`<button class="answer-btn" onclick="answerTT(${i},${q.lieIndex},'${q.explanation}',${q.points})">${s}</button>`).join('')}`;
+        document.getElementById('cardTextDisplay').innerHTML = html;
+        document.getElementById('answerContainer').innerHTML = '';
+        awaitingAction = true;
+    }
+
+    window.answerGeneric = (points) => { if(!awaitingAction) return; players[currentPlayerIdx].kp += points; addLog(`+${points} KP`); showResult(true, `+${points} KP`); awaitingAction=false; endTurnOrExtra(); updateUI(); };
+    window.answerTF = (ans, exp, pts) => { if(!awaitingAction) return; let correct = (ans===true); if(correct) players[currentPlayerIdx].kp += pts; showResult(correct, exp + (correct?` +${pts} KP`:'')); awaitingAction=false; endTurnOrExtra(); updateUI(); };
+    window.answerWN = (sel, cor, exp, pts) => { if(!awaitingAction) return; let ok = (sel===cor); if(ok) players[currentPlayerIdx].kp += pts; showResult(ok, exp+(ok?` +${pts} KP`:'')); awaitingAction=false; endTurnOrExtra(); updateUI(); };
+    window.answerTT = (sel, lie, exp, pts) => { if(!awaitingAction) return; let ok = (sel===lie); if(ok) players[currentPlayerIdx].kp += pts; showResult(ok, exp+(ok?` +${pts} KP`:'')); awaitingAction=false; endTurnOrExtra(); updateUI(); };
+    function showResult(correct, msg) { let div = document.getElementById('resultMessage'); div.innerText = msg; div.className = `fact-result ${correct?'correct':'incorrect'}`; div.style.display='block'; setTimeout(()=>div.style.display='none',1800); }
+
+    function endTurnOrExtra() {
+        if (extraTurnFlag && !awaitingAction) { extraTurnFlag = false; addLog(`${players[currentPlayerIdx].name} gets another turn!`); enableRoll(); return; }
+        if (!awaitingAction) { currentPlayerIdx = (currentPlayerIdx+1)%players.length; updateUI(); updateAllTokens(); enableRoll(); addLog(`👉 ${players[currentPlayerIdx].name}'s turn`); }
+    }
+
+    async function movePlayer(steps) {
+        let player = players[currentPlayerIdx];
+        let old = player.position;
+        let newPos = (old + steps) % 40;
+        player.position = newPos;
+        if (newPos < old && old+steps >= 40) { player.kp += 200; addLog(`Passed GO +200 KP`); }
+        updateAllTokens(); updateUI();
+        addLog(`${player.name} moves to ${BOARD_SPACES.find(s=>s.pos===newPos)?.name}`);
+        await handleLanding(newPos);
+    }
+
+    async function handleLanding(pos) {
+        let space = BOARD_SPACES.find(s=>s.pos===pos);
+        let player = players[currentPlayerIdx];
+        if (!space) { endTurnOrExtra(); return; }
+        if (space.type === 'corner') {
+            if (space.action === 'go') player.kp += space.value;
+            else if (space.action === 'free') player.kp += space.value;
+            else if (space.action === 'gotojail') { player.position = 10; player.inJail = true; player.jailTurns=0; updateAllTokens(); addLog(`Go to Janissary Crisis!`); }
+            endTurnOrExtra();
+        } else if (space.type === 'property') {
+            let owner = getPropertyOwner(pos);
+            if (owner === null) {
+                document.getElementById('cardCategoryTitle').innerHTML = `🏷️ Buy ${space.name}`;
+                document.getElementById('cardTextDisplay').innerHTML = `<p>Price: ${space.price} KP</p><button class="answer-btn" onclick="buyPropertyAction(${pos})">Buy</button><button class="answer-btn" onclick="endTurnOrExtra()">Skip</button>`;
+                awaitingAction = true;
+            } else if (owner === currentPlayerIdx) { endTurnOrExtra(); }
+            else { let rent = space.rent; player.kp -= rent; players[owner].kp += rent; addLog(`${player.name} pays ${rent} KP to ${players[owner].name}`); updateUI(); endTurnOrExtra(); }
+        } else if (space.type === 'tax') { player.kp -= space.value; addLog(`Paid ${space.value} KP tax`); updateUI(); endTurnOrExtra(); }
+        else if (space.type === 'chance') drawCard('chance');
+        else if (space.type === 'community-chest') drawCard('chest');
+        else endTurnOrExtra();
+        updateUI(); updateAllTokens();
+    }
+
+    function drawCard(type) {
+        let deck = type==='chance' ? chanceDeck : chestDeck;
+        if (deck.length===0) deck = shuffle(type==='chance'?[...CHANCE_CARDS]:[...CHEST_CARDS]);
+        let card = deck.pop();
+        document.getElementById('cardCategoryTitle').innerHTML = type==='chance' ? '🎲 CHANCE' : '📜 COMMUNITY';
+        document.getElementById('cardTextDisplay').innerHTML = `<p>${card.text}</p><button class="answer-btn" onclick="resolveCard('${card.action}', ${card.amount||card.steps||card.target}, ${card.gain||0})">OK</button>`;
+        awaitingAction = true;
+        window.pendingCard = card;
+    }
+    window.resolveCard = (action, val, gain) => {
+        let player = players[currentPlayerIdx];
+        if (action==='collect') player.kp += val;
+        else if (action==='pay') player.kp -= val;
+        else if (action==='moveTo') { player.position = val; if(gain) player.kp += gain; updateAllTokens(); }
+        else if (action==='moveSteps') { player.position = (player.position + val + 40)%40; updateAllTokens(); }
+        addLog(`Card effect applied`); updateUI(); awaitingAction=false; endTurnOrExtra();
+    };
+
+    async function rollAction() {
+        if (awaitingAction || !gameActive) return;
+        let player = players[currentPlayerIdx];
+        if (player.inJail) {
+            let d1 = Math.floor(Math.random()*6)+1, d2 = Math.floor(Math.random()*6)+1;
+            document.getElementById('diceA').innerHTML = ['⚀','⚁','⚂','⚃','⚄','⚅'][d1-1];
+            document.getElementById('diceB').innerHTML = ['⚀','⚁','⚂','⚃','⚄','⚅'][d2-1];
+            if (d1===d2) { player.inJail=false; addLog(`Escapes jail!`); movePlayer(d1+d2); }
+            else { player.jailTurns = (player.jailTurns||0)+1; if(player.jailTurns>=3){ player.kp-=50; player.inJail=false; addLog(`Pay 50 to leave jail.`); } else addLog(`Still in jail.`); endTurnOrExtra(); }
+            updateUI(); return;
+        }
+        document.getElementById('rollTurnBtn').disabled = true;
+        let d1 = Math.floor(Math.random()*6)+1, d2 = Math.floor(Math.random()*6)+1;
+        let total = d1+d2;
+        let doubles = d1===d2;
+        document.getElementById('diceA').classList.add('rolling');
+        document.getElementById('diceB').classList.add('rolling');
+        setTimeout(()=>{
+            document.getElementById('diceA').classList.remove('rolling');
+            document.getElementById('diceB').classList.remove('rolling');
+            document.getElementById('diceA').innerHTML = ['⚀','⚁','⚂','⚃','⚄','⚅'][d1-1];
+            document.getElementById('diceB').innerHTML = ['⚀','⚁','⚂','⚃','⚄','⚅'][d2-1];
+            document.getElementById('diceFeedback').innerText = `Rolled ${d1}+${d2}=${total}`;
+            if (doubles) extraTurnFlag = true;
+            movePlayer(total);
+            document.getElementById('rollTurnBtn').disabled = false;
+        }, 400);
+    }
+
+    function enableRoll() { document.getElementById('rollTurnBtn').style.display = 'inline-block'; document.getElementById('endTurnBtn').style.display = 'none'; awaitingAction = false; }
+    function nextTurnMan() { if (!awaitingAction) endTurnOrExtra(); }
+
     function updateUI() {
         const panel = document.getElementById('playersPanel');
         panel.innerHTML = '';
@@ -635,157 +751,23 @@
             const activeClass = idx===currentPlayerIdx ? 'active' : '';
             panel.innerHTML += `<div class="player-card ${activeClass}" style="border-left-color:${p.color}">
                 <div class="player-header"><div class="player-color-dot" style="background:${p.color}"></div><div class="player-name">${p.name} ${idx===currentPlayerIdx?'👑':''}</div></div>
-                <div class="player-stats"><span class="stat">💰 KP: ${p.kp}</span><span class="stat">📜 Props: ${p.properties}</span><span class="stat">📍 Pos: ${p.position}</span></div>
+                <div class="player-stats"><span class="stat">💰 KP: ${p.kp}</span><span class="stat">📜 Props: ${p.properties||0}</span><span class="stat">📍 Pos: ${p.position}</span></div>
             </div>`;
         });
         document.getElementById('activePlayerName').innerText = players[currentPlayerIdx].name;
     }
 
-    function addLog(msg) { const logDiv = document.getElementById('logArea'); const entry = document.createElement('div'); entry.className='log-entry'; entry.innerText = msg; logDiv.prepend(entry); if(logDiv.children.length>8) logDiv.removeChild(logDiv.lastChild); }
+    function addLog(msg) { let logDiv = document.getElementById('logArea'); let entry = document.createElement('div'); entry.className='log-entry'; entry.innerText = msg; logDiv.prepend(entry); if(logDiv.children.length>8) logDiv.removeChild(logDiv.lastChild); }
 
-    // Property ownership & rent
-    function getPropertyOwner(pos) { return propertiesOwned.find(p=>p.pos===pos)?.owner ?? null; }
-    function buyPropertyAction(pos) {
-        let player = players[currentPlayerIdx];
-        let space = BOARD_DATA.find(s=>s.pos===pos);
-        if(player.kp >= space.price && getPropertyOwner(pos)===null) {
-            player.kp -= space.price;
-            let prop = propertiesOwned.find(p=>p.pos===pos);
-            if(prop) prop.owner = currentPlayerIdx; else propertiesOwned.push({pos, owner:currentPlayerIdx, price:space.price, rent:space.rent});
-            player.properties = (player.properties||0)+1;
-            addLog(`${player.name} bought ${space.name} for ${space.price} KP!`);
-            updateUI();
-            // after purchase, show question
-            showPropertyQuestion(space);
-        } else { addLog(`Cannot afford ${space.name}`); endTurnOrExtra(); }
-    }
-    function showPropertyQuestion(space) {
-        if(!space.category) { endTurnOrExtra(); return; }
-        let cat = space.category;
-        let question = QUESTION_SET[cat] ? QUESTION_SET[cat][0] : null;
-        if(!question) { endTurnOrExtra(); return; }
-        document.getElementById('cardCategoryTitle').innerHTML = `📜 ${cat.replace('-',' ').toUpperCase()}`;
-        let html = '';
-        if(cat==='did-you-know') html = `<p>${question.text}</p><button class="answer-btn" onclick="answerGenericQuestion(${question.points}, true)">📖 Learn (Earn ${question.points} KP)</button>`;
-        else if(cat==='true-false') html = `<p>${question.text}</p><button class="answer-btn" onclick="answerTF(true, '${question.explanation}', ${question.points})">✔️ True</button><button class="answer-btn" onclick="answerTF(false, '${question.explanation}', ${question.points})">❌ False</button>`;
-        else if(cat==='what-next') html = `<p>${question.setup}</p>${question.options.map((opt,i)=>`<button class="answer-btn" onclick="answerWN(${i},${question.correct},'${question.explanation}',${question.points})">${opt}</button>`).join('')}`;
-        else if(cat==='two-truths') html = `<p>Which is the lie?</p>${question.statements.map((s,i)=>`<button class="answer-btn" onclick="answerTT(${i},${question.lieIndex},'${question.explanation}',${question.points})">${s}</button>`).join('')}`;
-        document.getElementById('cardTextDisplay').innerHTML = html;
-        document.getElementById('answerContainer').innerHTML = '';
-        awaitingAction = true;
-    }
-    window.answerGenericQuestion = (points, correct) => { if(!awaitingAction) return; players[currentPlayerIdx].kp += points; addLog(`${players[currentPlayerIdx].name} earned ${points} KP!`); showResultMessage(true, `Correct! +${points} KP`); awaitingAction=false; endTurnOrExtra(); updateUI(); };
-    window.answerTF = (answer, explanation, points) => { if(!awaitingAction) return; let correct = (answer===true); if(correct) players[currentPlayerIdx].kp += points; showResultMessage(correct, explanation + (correct?` +${points} KP`:' No points')); addLog(`${players[currentPlayerIdx].name} answered ${correct?'correctly':'incorrectly'} on True/False`); awaitingAction=false; endTurnOrExtra(); updateUI(); };
-    window.answerWN = (selected, correctIdx, explanation, points) => { if(!awaitingAction) return; let ok = (selected===correctIdx); if(ok) players[currentPlayerIdx].kp += points; showResultMessage(ok, explanation+(ok?` +${points} KP`:'')); awaitingAction=false; endTurnOrExtra(); updateUI(); };
-    window.answerTT = (selected, lieIdx, explanation, points) => { if(!awaitingAction) return; let ok = (selected===lieIdx); if(ok) players[currentPlayerIdx].kp += points; showResultMessage(ok, explanation+(ok?` +${points} KP`:'')); awaitingAction=false; endTurnOrExtra(); updateUI(); };
-    function showResultMessage(isCorrect, msg) { let resDiv = document.getElementById('resultMessage'); resDiv.innerText = msg; resDiv.className = `fact-result ${isCorrect?'correct':'incorrect'}`; resDiv.style.display='block'; setTimeout(()=>resDiv.style.display='none',1800); }
-
-    // Space resolution
-    async function handleLanding(pos) {
-        let space = BOARD_DATA.find(s=>s.pos===pos);
-        let player = players[currentPlayerIdx];
-        if(!space) { endTurnOrExtra(); return; }
-        if(space.type==='corner') {
-            if(space.action==='go') { player.kp += space.value; addLog(`${player.name} collects ${space.value} KP from GO.`); }
-            else if(space.action==='jail') { /* just visiting */ }
-            else if(space.action==='free') { player.kp += space.value; addLog(`Free Park grants ${space.value} KP.`); }
-            else if(space.action==='gotojail') { player.position=10; player.inJail=true; player.jailTurns=0; addLog(`${player.name} goes to Janissary Crisis!`); updateAllTokens(); updateUI(); }
-            endTurnOrExtra();
-        } 
-        else if(space.type==='property') {
-            let ownerIdx = getPropertyOwner(pos);
-            if(ownerIdx===null) {
-                document.getElementById('cardCategoryTitle').innerHTML = `🏷️ Buy ${space.name}`;
-                document.getElementById('cardTextDisplay').innerHTML = `<p>Price: ${space.price} KP. Do you wish to acquire this reform?</p><button class="answer-btn" onclick="buyPropertyAction(${pos})">Buy (${space.price} KP)</button><button class="answer-btn" onclick="endTurnOrExtra()">Skip</button>`;
-                document.getElementById('answerContainer').innerHTML = '';
-                awaitingAction = true;
-            } else if(ownerIdx===currentPlayerIdx) { addLog(`You already own ${space.name}`); endTurnOrExtra(); }
-            else { let owner = players[ownerIdx]; let rent = space.rent; player.kp -= rent; owner.kp += rent; addLog(`${player.name} pays ${rent} KP rent to ${owner.name} for ${space.name}`); updateUI(); endTurnOrExtra(); }
-        }
-        else if(space.type==='tax') { player.kp -= space.value; addLog(`${player.name} pays ${space.value} KP tax.`); updateUI(); endTurnOrExtra(); }
-        else if(space.type==='railroad' || space.type==='utility') { let owner = getPropertyOwner(pos); if(owner!==null && owner!==currentPlayerIdx) { let rent = space.rent||30; players[currentPlayerIdx].kp -= rent; players[owner].kp += rent; addLog(`Rent paid: ${rent} KP`); } else addLog(`Land on ${space.name}`); endTurnOrExtra(); }
-        else if(space.type==='chance') { drawCard('chance'); }
-        else if(space.type==='community-chest') { drawCard('chest'); }
-        else endTurnOrExtra();
-        updateUI(); updateAllTokens();
-    }
-
-    function drawCard(type) {
-        let deck = type==='chance' ? chanceDeck : chestDeck;
-        if(deck.length===0) { deck = shuffle(type==='chance'?[...CHANCE_CARDS]:[...CHEST_CARDS]); }
-        let card = deck.pop();
-        let player = players[currentPlayerIdx];
-        document.getElementById('cardCategoryTitle').innerHTML = type==='chance' ? '🎲 CHANCE' : '📜 COMMUNITY REFORM';
-        document.getElementById('cardTextDisplay').innerHTML = `<p>${card.text}</p><button class="answer-btn" onclick="resolveCardAction('${card.action}', ${card.amount || card.steps || card.target}, ${card.gain||0})">Proceed</button>`;
-        document.getElementById('answerContainer').innerHTML = '';
-        window.cardActionPending = card;
-        awaitingAction = true;
-    }
-    window.resolveCardAction = (action, val, gain) => {
-        let player = players[currentPlayerIdx];
-        if(action==='collect') { player.kp += val; addLog(`${player.name} collects ${val} KP.`); }
-        else if(action==='pay') { player.kp -= val; addLog(`${player.name} pays ${val} KP.`); }
-        else if(action==='moveTo') { player.position = val; if(gain) player.kp+=gain; updateAllTokens(); addLog(`${player.name} moves to ${BOARD_DATA.find(s=>s.pos===val)?.name}`); }
-        else if(action==='moveSteps') { let newPos = (player.position + val + 40)%40; player.position = newPos; updateAllTokens(); addLog(`${player.name} moves ${val} steps.`); }
-        updateUI(); awaitingAction=false; endTurnOrExtra();
-    };
-
-    function endTurnOrExtra() {
-        if(extraTurnFlag && !awaitingAction) { extraTurnFlag=false; addLog(`${players[currentPlayerIdx].name} gets another turn (Doubles!)`); enableRoll(); return; }
-        if(!awaitingAction) { currentPlayerIdx = (currentPlayerIdx+1)%players.length; updateUI(); updateAllTokens(); enableRoll(); addLog(`👉 ${players[currentPlayerIdx].name}'s turn`); }
-    }
-
-    // Movement
-    async function movePlayer(steps) {
-        let player = players[currentPlayerIdx];
-        let old = player.position;
-        let newPos = (old + steps) % 40;
-        player.position = newPos;
-        if(newPos < old && old+steps>=40) { player.kp += 200; addLog(`Passed GO +200 KP`); }
-        updateAllTokens(); updateUI();
-        addLog(`${player.name} moves ${steps} spaces to ${BOARD_DATA.find(s=>s.pos===newPos)?.name}`);
-        await handleLanding(newPos);
-    }
-
-    // Dice roll
-    async function rollAction() {
-        if(awaitingAction || !gameActive) return;
-        let player = players[currentPlayerIdx];
-        if(player.inJail) { // jail logic
-            let d1 = Math.floor(Math.random()*6)+1, d2=Math.floor(Math.random()*6)+1;
-            document.getElementById('diceA').innerHTML = ['⚀','⚁','⚂','⚃','⚄','⚅'][d1-1];
-            document.getElementById('diceB').innerHTML = ['⚀','⚁','⚂','⚃','⚄','⚅'][d2-1];
-            if(d1===d2) { player.inJail=false; addLog(`${player.name} rolls doubles! Escapes Janissary Crisis!`); movePlayer(d1+d2); }
-            else { player.jailTurns = (player.jailTurns||0)+1; if(player.jailTurns>=3) { player.kp -= 50; player.inJail=false; addLog(`Pay 50 KP to leave jail.`); } else addLog(`Still in Crisis.`); endTurnOrExtra(); }
-            updateUI(); return;
-        }
-        document.getElementById('rollTurnBtn').disabled = true;
-        let dice1 = Math.floor(Math.random()*6)+1, dice2 = Math.floor(Math.random()*6)+1;
-        let total = dice1+dice2;
-        let double = dice1===dice2;
-        document.getElementById('diceA').classList.add('rolling'); document.getElementById('diceB').classList.add('rolling');
-        setTimeout(()=>{
-            document.getElementById('diceA').classList.remove('rolling'); document.getElementById('diceB').classList.remove('rolling');
-            document.getElementById('diceA').innerHTML = ['⚀','⚁','⚂','⚃','⚄','⚅'][dice1-1];
-            document.getElementById('diceB').innerHTML = ['⚀','⚁','⚂','⚃','⚄','⚅'][dice2-1];
-            document.getElementById('diceFeedback').innerText = `Rolled ${dice1}+${dice2}=${total}`;
-            if(double) extraTurnFlag = true;
-            movePlayer(total);
-            document.getElementById('rollTurnBtn').disabled = false;
-        }, 400);
-    }
-
-    function enableRoll() { document.getElementById('rollTurnBtn').style.display = 'inline-block'; document.getElementById('endTurnBtn').style.display = 'none'; awaitingAction=false; }
-    function nextTurnMan() { if(!awaitingAction) endTurnOrExtra(); }
-
-    // start
     function startGameLogic() {
         const count = parseInt(document.getElementById('playerCountSelect').value);
         players = [];
-        for(let i=0;i<count;i++) {
+        const colors = ['#E53935', '#2E7D32', '#1E88E5', '#FDD835'];
+        const names = ['Mustafa Reşid Pasha', 'Sultan Abdülmecid', 'Ali Pasha', 'Fuat Pasha'];
+        for (let i=0;i<count;i++) {
             let nameInput = document.getElementById(`pname_${i}`);
             let colorInput = document.getElementById(`pcol_${i}`);
-            players.push({ name: nameInput?.value||DEFAULT_NAMES[i], color: colorInput?.value||COLORS[i%COLORS.length], kp: 1500, position:0, properties:0, inJail:false, jailTurns:0 });
+            players.push({ name: nameInput?.value || names[i], color: colorInput?.value || colors[i%colors.length], kp: 1500, position:0, properties:0, inJail:false, jailTurns:0 });
         }
         propertiesOwned = [];
         initDecks();
@@ -796,25 +778,26 @@
         renderBoard();
         updateUI();
         enableRoll();
-        addLog("Tanzimat Monopoly started! Roll dice to begin.");
+        addLog("Tanzimat Monopoly started! Roll dice.");
         document.getElementById('setupModal').style.display = 'none';
         document.getElementById('gameMain').style.display = 'block';
     }
 
-    // Player form generator
     function buildPlayerForms() {
         let count = parseInt(document.getElementById('playerCountSelect').value);
         let container = document.getElementById('dynamicPlayerInputs');
         container.innerHTML = '';
-        for(let i=0;i<count;i++) {
-            container.innerHTML += `<div class="player-input-group"><label>Reformer ${i+1}</label><input id="pname_${i}" value="${DEFAULT_NAMES[i]}" placeholder="Name"><select id="pcol_${i}">${COLORS.map((c,idx)=>`<option value="${c}" ${idx===i?'selected':''}>Color ${idx+1}</option>`).join('')}</select><div class="color-preview" style="background:${COLORS[i]}"></div></div>`;
+        const colors = ['#E53935', '#2E7D32', '#1E88E5', '#FDD835'];
+        const names = ['Mustafa Reşid Pasha', 'Sultan Abdülmecid', 'Ali Pasha', 'Fuat Pasha'];
+        for (let i=0;i<count;i++) {
+            container.innerHTML += `<div class="player-input-group"><label>Reformer ${i+1}</label><input id="pname_${i}" value="${names[i]}" placeholder="Name"><select id="pcol_${i}">${colors.map((c,idx)=>`<option value="${c}" ${idx===i?'selected':''}>Color ${idx+1}</option>`).join('')}</select><div class="color-preview" style="background:${colors[i]}"></div></div>`;
         }
     }
     document.getElementById('playerCountSelect').addEventListener('change', buildPlayerForms);
     document.getElementById('startGameFinalBtn').addEventListener('click', startGameLogic);
-    buildPlayerForms();
     document.getElementById('rollTurnBtn').addEventListener('click', rollAction);
     document.getElementById('endTurnBtn').addEventListener('click', nextTurnMan);
+    buildPlayerForms();
     window.endTurnOrExtra = endTurnOrExtra;
     window.buyPropertyAction = buyPropertyAction;
 </script>
