@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Tanzimat Reforms Monopoly | Fixed Board</title>
+    <title>Tanzimat Reforms Monopoly | Fixed Board Orientation</title>
     <style>
         * {
             margin: 0;
@@ -215,6 +215,28 @@
 
         .cell-title { font-weight: bold; font-size: 0.7rem; color: #3E2A1F; margin-bottom: 2px; }
         .cell-description { font-size: 0.55rem; opacity: 0.8; }
+
+        /* Left side cells: rotate text to be readable from center */
+        .left-side-cell {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .left-side-cell .cell-title,
+        .left-side-cell .cell-description {
+            writing-mode: sideways-lr;
+            text-orientation: mixed;
+            transform: rotate(180deg); /* correct orientation */
+            white-space: nowrap;
+        }
+        /* Right side cells: rotate opposite direction */
+        .right-side-cell .cell-title,
+        .right-side-cell .cell-description {
+            writing-mode: sideways-rl;
+            text-orientation: mixed;
+            white-space: nowrap;
+        }
 
         .board-center {
             position: absolute;
@@ -525,7 +547,7 @@
         boardDiv.innerHTML = `<div class="board-center"><div class="center-title">TANZİMAT</div><div class="center-subtitle">1839-1876</div></div>`;
 
         // Helper to create cell
-        const addCell = (space, left, top, width, height, isVertical = false) => {
+        const addCell = (space, left, top, width, height, side = null) => {
             const cell = document.createElement('div');
             cell.className = `board-cell ${space.type}-cell`;
             if (space.type === 'property') cell.classList.add(`property-${space.category?.replace('-','')}`);
@@ -535,11 +557,19 @@
             cell.style.top = `${top}px`;
             cell.style.width = `${width}px`;
             cell.style.height = `${height}px`;
-            if (isVertical) {
-                // Ensure text is always horizontal (no rotation)
+            
+            // Add side-specific class for text orientation
+            if (side === 'left') cell.classList.add('left-side-cell');
+            if (side === 'right') cell.classList.add('right-side-cell');
+            
+            // For corners and horizontal sides, ensure normal text
+            if (!side) {
                 cell.style.writingMode = 'horizontal-tb';
             }
-            cell.innerHTML = `<div class="cell-number">${space.pos}</div><div class="cell-title">${space.name}</div><div class="cell-description">${space.desc || (space.price ? space.price+' KP' : '')}</div>`;
+            
+            cell.innerHTML = `<div class="cell-number">${space.pos}</div>
+                             <div class="cell-title">${space.name}</div>
+                             <div class="cell-description">${space.desc || (space.price ? space.price+' KP' : '')}</div>`;
             boardDiv.appendChild(cell);
         };
 
@@ -550,7 +580,7 @@
             if (!space) continue;
             const left = BOARD_SIZE - CORNER - (i+1)*CELL_W;
             const top = BOARD_SIZE - CORNER;
-            addCell(space, left, top, CELL_W, HORIZ_H);
+            addCell(space, left, top, CELL_W, HORIZ_H, null);
         }
 
         // 2. Left column (positions 11-19) from bottom to top
@@ -560,7 +590,7 @@
             if (!space) continue;
             const left = 0;
             const top = BOARD_SIZE - CORNER - (i+1)*CELL_H;
-            addCell(space, left, top, PROP_VW, CELL_H, true);
+            addCell(space, left, top, PROP_VW, CELL_H, 'left');
         }
 
         // 3. Top row (positions 21-29) from left to right
@@ -570,7 +600,7 @@
             if (!space) continue;
             const left = CORNER + i*CELL_W;
             const top = 0;
-            addCell(space, left, top, CELL_W, HORIZ_H);
+            addCell(space, left, top, CELL_W, HORIZ_H, null);
         }
 
         // 4. Right column (positions 31-39) from top to bottom
@@ -580,7 +610,7 @@
             if (!space) continue;
             const left = BOARD_SIZE - PROP_VW;
             const top = CORNER + i*CELL_H;
-            addCell(space, left, top, PROP_VW, CELL_H, true);
+            addCell(space, left, top, PROP_VW, CELL_H, 'right');
         }
 
         // Corners
@@ -593,7 +623,7 @@
             else if (pos === 10) { left = 0; top = BOARD_SIZE - CORNER; }
             else if (pos === 20) { left = 0; top = 0; }
             else { left = BOARD_SIZE - CORNER; top = 0; }
-            addCell(space, left, top, CORNER, CORNER);
+            addCell(space, left, top, CORNER, CORNER, null);
         });
 
         updateAllTokens();
