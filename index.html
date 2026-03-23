@@ -1,80 +1,95 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tanzimat Reforms Monopoly</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Tanzimat Reforms Monopoly | Ottoman Empire Edition</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', 'Poppins', 'Roboto', sans-serif;
         }
 
         body {
-            background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
-            color: #333;
+            background: linear-gradient(145deg, #0a1a2b 0%, #0c2a3b 100%);
             min-height: 100vh;
-            padding: 20px;
+            padding: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        .container {
-            max-width: 1400px;
+        /* MAIN CONTAINER */
+        .game-wrapper {
+            max-width: 1500px;
+            width: 100%;
             margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            background: rgba(245, 240, 225, 0.97);
+            border-radius: 48px;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.3);
+            backdrop-filter: blur(2px);
+            overflow: hidden;
+            transition: all 0.3s;
         }
 
-        header {
+        /* HEADER */
+        .game-header {
+            background: linear-gradient(135deg, #8B5A2B 0%, #5D3A1A 100%);
+            padding: 20px 30px;
             text-align: center;
-            margin-bottom: 30px;
-            border-bottom: 3px solid #3949ab;
-            padding-bottom: 20px;
+            border-bottom: 5px solid #E6B422;
         }
 
         h1 {
-            color: #1a237e;
-            font-size: 2.8rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            font-size: 2.4rem;
+            letter-spacing: 2px;
+            color: #FFE6B3;
+            text-shadow: 3px 3px 0 #4A2A0E;
+            font-weight: 800;
         }
 
         .subtitle {
-            color: #5c6bc0;
-            font-size: 1.2rem;
+            color: #FFD966;
             font-style: italic;
+            font-size: 1rem;
+            margin-top: 8px;
         }
 
-        /* Player Setup Modal */
-        .player-setup {
+        /* SETUP MODAL */
+        .setup-modal {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 1000;
+            z-index: 2000;
         }
 
-        .setup-content {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
+        .setup-card {
+            background: #FEF5E7;
+            border-radius: 48px;
+            padding: 30px 35px;
             width: 90%;
-            max-width: 500px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            max-width: 550px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            border: 1px solid #E6B422;
         }
 
-        .setup-content h2 {
-            color: #1a237e;
-            margin-bottom: 20px;
+        .setup-card h2 {
+            color: #6B3E1A;
+            font-size: 2rem;
             text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #E6B422;
+            display: inline-block;
+            width: 100%;
         }
 
         .player-input-group {
@@ -82,1920 +97,726 @@
         }
 
         .player-input-group label {
+            font-weight: bold;
+            color: #5D3A1A;
             display: block;
-            margin-bottom: 8px;
-            color: #333;
-            font-weight: 600;
+            margin-bottom: 6px;
         }
 
-        .player-input-group input,
-        .player-input-group select {
+        .player-input-group input, .player-input-group select {
             width: 100%;
             padding: 12px;
-            border: 2px solid #c5cae9;
-            border-radius: 8px;
+            border-radius: 40px;
+            border: 1px solid #CDAA7A;
+            background: white;
             font-size: 1rem;
         }
 
-        .player-input-group input:focus,
-        .player-input-group select:focus {
-            outline: none;
-            border-color: #3949ab;
-        }
-
-        .player-color-preview {
+        .color-preview {
             width: 30px;
             height: 30px;
             border-radius: 50%;
             display: inline-block;
             margin-left: 10px;
+            vertical-align: middle;
             border: 2px solid #333;
         }
 
-        /* Game Layout */
+        .btn-gold {
+            background: linear-gradient(135deg, #E6B422, #C98A2E);
+            border: none;
+            padding: 14px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #2D1B0A;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.3);
+        }
+
+        /* LAYOUT */
         .game-layout {
             display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 30px;
-            margin-bottom: 30px;
+            grid-template-columns: 2fr 1.2fr;
+            gap: 25px;
+            padding: 25px;
         }
 
-        @media (max-width: 1100px) {
-            .game-layout {
-                grid-template-columns: 1fr;
-            }
+        @media (max-width: 1000px) {
+            .game-layout { grid-template-columns: 1fr; }
+            .monopoly-board { transform: scale(0.9); }
         }
 
-        /* Monopoly Board Container */
+        /* BOARD FIXED SIZE */
         .board-container {
-            position: relative;
-            background: #f5f5f5;
-            border-radius: 15px;
+            background: #E3D5B5;
+            border-radius: 36px;
             padding: 20px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-            overflow: hidden;
-            min-height: 700px;
+            box-shadow: inset 0 0 0 2px #FFF6E5, 0 12px 24px rgba(0,0,0,0.3);
         }
 
         .board-title {
             text-align: center;
-            color: #1a237e;
-            margin-bottom: 20px;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
+            color: #4A2A0E;
+            font-weight: bold;
+            margin-bottom: 15px;
         }
 
-        /* Classic Monopoly Board Layout - FIXED DIMENSIONS */
         .monopoly-board {
-            width: 600px; /* SMALLER for better fit */
-            height: 600px; /* SMALLER for better fit */
-            margin: 0 auto;
             position: relative;
-            background: #bbdefb;
-            border-radius: 10px;
-            border: 3px solid #1a237e;
+            width: 600px;
+            height: 600px;
+            margin: 0 auto;
+            background: #DBCA9F;
+            border-radius: 18px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
 
-        /* Board Cells - Fixed dimensions */
+        /* CELL STYLES */
         .board-cell {
             position: absolute;
-            background: white;
-            border: 1px solid #90a4ae;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 3px;
-            transition: all 0.3s ease;
-            overflow: hidden;
-            font-size: 0.6rem;
-            line-height: 1.1;
-        }
-
-        .board-cell:hover {
-            transform: scale(1.05);
-            z-index: 10;
-            box-shadow: 0 0 10px rgba(0,0,0,0.3);
-        }
-
-        .board-cell.active {
-            border: 2px solid #ff9800;
-            background: #fff3e0;
-        }
-
-        .cell-number {
-            position: absolute;
-            top: 1px;
-            left: 1px;
-            font-size: 0.6rem;
-            color: #666;
-            font-weight: bold;
-            background: rgba(255,255,255,0.8);
-            border-radius: 50%;
-            width: 14px;
-            height: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .cell-title {
-            font-size: 0.6rem;
-            font-weight: bold;
-            margin-bottom: 1px;
-            color: #1a237e;
-        }
-
-        .cell-description {
-            font-size: 0.5rem;
-            opacity: 0.8;
-        }
-
-        /* Corner cells */
-        .corner-cell {
-            width: 80px; /* SMALLER */
-            height: 80px; /* SMALLER */
-            background: linear-gradient(135deg, #3949ab 0%, #283593 100%);
-            color: white;
-            font-weight: bold;
-            border: 2px solid #1a237e;
-            z-index: 5;
-        }
-
-        .corner-cell .cell-title {
-            color: white;
-            font-size: 0.8rem;
-        }
-
-        /* Property cells */
-        .property-cell {
-            width: 60px; /* SMALLER */
-            height: 75px; /* SMALLER */
-        }
-
-        /* Horizontal properties */
-        .horizontal-cell {
-            width: 73.75px; /* (600 - 160) / 8 = 55, wait let me recalculate */
-            height: 60px; /* SMALLER */
-        }
-
-        /* Center area */
-        .board-center {
-            position: absolute;
-            top: 80px; /* Match corner height */
-            left: 80px; /* Match corner width */
-            width: 440px; /* 600 - 2*80 = 440 */
-            height: 440px; /* 600 - 2*80 = 440 */
-            background: #e3f2fd;
-            border: 2px dashed #1a237e;
-            border-radius: 5px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 15px;
-            z-index: 1;
-        }
-
-        .center-title {
-            font-size: 1.3rem;
-            color: #1a237e;
-            font-weight: bold;
-            margin-bottom: 8px;
-            text-align: center;
-        }
-
-        .center-subtitle {
-            font-size: 0.9rem;
-            color: #5c6bc0;
-            text-align: center;
-            max-width: 80%;
-        }
-
-        /* Player tokens */
-        .player-token {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            position: absolute;
-            border: 2px solid white;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-            z-index: 20;
-        }
-
-        /* Color coding for properties */
-        .property-did-you-know {
-            border-top: 4px solid #4caf50;
-        }
-
-        .property-true-false {
-            border-top: 4px solid #ff9800;
-        }
-
-        .property-what-next {
-            border-top: 4px solid #2196f3;
-        }
-
-        .property-two-truths {
-            border-top: 4px solid #9c27b0;
-        }
-
-        /* Special cells */
-        .chance-cell {
-            background: #fff3e0;
-            border-top: 4px solid #ff9800;
-        }
-
-        .community-chest-cell {
-            background: #f3e5f5;
-            border-top: 4px solid #9c27b0;
-        }
-
-        .railroad-cell {
-            background: #e0f2f1;
-            border-top: 4px solid #00695c;
-        }
-
-        .utility-cell {
-            background: #fce4ec;
-            border-top: 4px solid #c2185b;
-        }
-
-        .tax-cell {
-            background: #ffebee;
-            border-top: 4px solid #f44336;
-        }
-
-        /* Dice Area */
-        .dice-area {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 15px;
-            margin: 20px 0;
-            padding: 20px;
-            background: #e8eaf6;
-            border-radius: 15px;
-        }
-
-        .dice-container {
-            display: flex;
-            gap: 20px;
-        }
-
-        .dice {
-            width: 60px;
-            height: 60px;
-            background: white;
-            border-radius: 10px;
-            display: flex;
             justify-content: center;
-            align-items: center;
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #1a237e;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            transition: transform 0.5s ease;
+            text-align: center;
+            background: #FFF9EF;
+            border: 1px solid #B4925A;
+            border-radius: 8px;
+            font-size: 0.65rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+            padding: 4px 2px;
+            word-break: break-word;
             cursor: pointer;
         }
 
-        .dice.rolling {
-            animation: rollDice 0.5s ease-in-out infinite;
+        .board-cell:hover { transform: scale(1.02); z-index: 15; background: #FFF3DF; }
+
+        .corner-cell {
+            background: radial-gradient(circle at 30% 20%, #8B5A2B, #5A3A1A);
+            color: #FFE5B4;
+            font-weight: bold;
+            border: 2px solid #E6B422;
         }
 
-        @keyframes rollDice {
-            0% { transform: rotate(0deg) scale(1); }
-            50% { transform: rotate(180deg) scale(1.1); }
-            100% { transform: rotate(360deg) scale(1); }
+        .property-cell { border-top: 6px solid; }
+        .property-did-you-know { border-top-color: #2E7D32; }
+        .property-true-false { border-top-color: #F57C00; }
+        .property-what-next { border-top-color: #1976D2; }
+        .property-two-truths { border-top-color: #8E24AA; }
+
+        .chance-cell { background: #FCE4EC; border-left: 5px solid #EC407A; }
+        .community-chest-cell { background: #E8F0FE; border-left: 5px solid #42A5F5; }
+        .railroad-cell { background: #E0F2F1; border-bottom: 3px solid #00897B; }
+        .tax-cell { background: #FFEBEE; border-bottom: 3px solid #E53935; }
+        .utility-cell { background: #F3E5F5; border-bottom: 3px solid #8E24AA; }
+
+        .cell-number {
+            position: absolute;
+            top: 2px;
+            left: 4px;
+            font-size: 0.6rem;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            width: 18px;
+            border-radius: 20px;
+            font-weight: bold;
         }
 
-        /* Players Panel */
+        .cell-title { font-weight: bold; font-size: 0.7rem; color: #3E2A1F; margin-bottom: 2px; }
+        .cell-description { font-size: 0.55rem; opacity: 0.8; }
+
+        /* CENTER AREA */
+        .board-center {
+            position: absolute;
+            top: 80px;
+            left: 80px;
+            width: 440px;
+            height: 440px;
+            background: radial-gradient(#F8E7C0, #E0CA9C);
+            border-radius: 28px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            z-index: 5;
+            box-shadow: inset 0 0 0 4px #FFF2D7, 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .center-title { font-size: 1.6rem; font-weight: 800; color: #8B5A2B; }
+        .center-subtitle { font-size: 1rem; color: #6B3E1A; margin-bottom: 10px; }
+        .center-text { font-size: 0.7rem; color: #3e2a1f; }
+
+        /* PLAYER TOKENS */
+        .player-token {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: 0 1px 4px black;
+            z-index: 30;
+            transition: all 0.2s;
+        }
+
+        /* RIGHT PANEL */
+        .right-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
         .players-panel {
-            background: #e8eaf6;
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            background: #F3E9D2;
+            border-radius: 28px;
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.2);
         }
 
         .player-card {
             background: white;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 15px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-            border-left: 4px solid #3949ab;
-            transition: all 0.3s ease;
+            border-radius: 24px;
+            padding: 12px 15px;
+            border-left: 8px solid;
+            transition: all 0.2s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         }
 
-        .player-card.active {
-            border-left: 4px solid #4caf50;
-            background: #f1f8e9;
-            transform: translateX(5px);
-        }
+        .player-card.active { background: #FFF3D1; transform: translateX(5px); box-shadow: 0 5px 12px rgba(0,0,0,0.15); }
 
         .player-header {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 10px;
+            gap: 12px;
+            margin-bottom: 8px;
         }
+        .player-color-dot { width: 18px; height: 18px; border-radius: 50%; border: 1px solid #aaa; }
+        .player-name { font-weight: bold; font-size: 1rem; color: #4A2A0E; }
+        .player-stats { display: flex; justify-content: space-between; font-size: 0.8rem; flex-wrap: wrap; gap: 5px; }
+        .stat { background: #F3E9D2; padding: 2px 8px; border-radius: 20px; }
 
-        .player-color-indicator {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            border: 2px solid #333;
-        }
-
-        .player-name {
-            font-weight: bold;
-            color: #1a237e;
-            font-size: 1.1rem;
-        }
-
-        .player-stats {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            font-size: 0.9rem;
-        }
-
-        .stat-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 4px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .stat-value {
-            font-weight: bold;
-            color: #3949ab;
-        }
-
-        /* Card Display */
-        .card-display {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .card-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+        /* DICE & CONTROLS */
+        .dice-area {
+            background: #EADCB8;
+            border-radius: 30px;
+            padding: 15px;
             text-align: center;
-            padding: 20px 0;
         }
-
-        .card-title {
-            font-size: 1.5rem;
-            color: #1a237e;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #e8eaf6;
-            width: 100%;
-        }
-
-        .card-text {
-            font-size: 1.2rem;
-            line-height: 1.6;
-            color: #333;
-            margin-bottom: 30px;
-            max-height: 200px;
-            overflow-y: auto;
-            padding: 10px;
-        }
-
-        .answer-options {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            width: 100%;
-            margin-top: 20px;
-        }
-
-        .answer-btn {
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            background: #e8eaf6;
-            color: #3949ab;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .answer-btn:hover:not(:disabled) {
-            background: #3949ab;
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        .answer-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .controls {
+        .dice-container {
             display: flex;
             justify-content: center;
             gap: 20px;
-            margin-top: 20px;
+            margin: 15px 0;
+        }
+        .dice {
+            width: 70px;
+            height: 70px;
+            background: white;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: bold;
+            box-shadow: 0 5px 0 #B4925A;
+            transition: 0.1s linear;
+        }
+        .rolling { animation: shake 0.4s infinite; }
+        @keyframes shake {
+            0% { transform: rotate(0deg);}
+            25% { transform: rotate(15deg);}
+            75% { transform: rotate(-15deg);}
+            100% { transform: rotate(0deg);}
         }
 
         .btn {
-            padding: 12px 25px;
             border: none;
-            border-radius: 10px;
+            padding: 12px 25px;
+            border-radius: 60px;
+            font-weight: bold;
             font-size: 1rem;
-            font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s ease;
-            min-width: 160px;
+            transition: 0.2s;
+            margin: 6px;
         }
+        .btn-primary { background: #6B3E1A; color: #FFE6B3; }
+        .btn-primary:hover:not(:disabled) { background: #8B5A2B; transform: scale(1.02);}
+        .btn-secondary { background: #CDAA7A; color: #2D1B0A; }
 
-        .btn-primary {
-            background: linear-gradient(135deg, #3949ab 0%, #283593 100%);
-            color: white;
+        /* CARD DISPLAY */
+        .card-display {
+            background: #FFF9F0;
+            border-radius: 28px;
+            padding: 20px;
+            min-height: 280px;
+            box-shadow: inset 0 1px 4px #EEDDBB, 0 8px 18px rgba(0,0,0,0.1);
         }
-
-        .btn-primary:hover:not(:disabled) {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(57, 73, 171, 0.4);
-        }
-
-        .btn-primary:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .btn-secondary {
-            background: #e8eaf6;
-            color: #3949ab;
-        }
-
-        .btn-secondary:hover:not(:disabled) {
-            background: #c5cae9;
-            transform: translateY(-3px);
-        }
-
-        .btn-secondary:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .fact-result {
-            margin-top: 20px;
-            padding: 15px;
-            border-radius: 10px;
-            font-weight: bold;
-            text-align: center;
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .correct {
-            background: #e8f5e9;
-            color: #2e7d32;
-            border: 2px solid #4caf50;
-        }
-
-        .incorrect {
-            background: #ffebee;
-            color: #c62828;
-            border: 2px solid #f44336;
-        }
+        .card-title { font-size: 1.5rem; font-weight: bold; color: #8B5A2B; border-bottom: 2px solid #E6B422; margin-bottom: 15px; }
+        .card-text { font-size: 1rem; line-height: 1.4; margin-bottom: 20px; }
+        .answer-options { display: flex; flex-direction: column; gap: 10px; }
+        .answer-btn { background: #E6B422; border: none; padding: 10px; border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.1s; }
+        .answer-btn:hover { background: #C98A2E; color: white; }
+        .fact-result { margin-top: 15px; padding: 10px; border-radius: 20px; text-align: center; font-weight: bold; display: none; }
+        .correct { background: #C8E6C9; color: #2E7D32; border-left: 5px solid #4CAF50; }
+        .incorrect { background: #FFCDD2; color: #C62828; border-left: 5px solid #F44336; }
 
         .game-log {
-            background: #f5f5f5;
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 20px;
-            max-height: 200px;
-            overflow-y: auto;
-        }
-
-        .log-title {
-            font-weight: bold;
-            color: #1a237e;
-            margin-bottom: 10px;
-            font-size: 1.1rem;
-        }
-
-        .log-entry {
-            padding: 8px;
-            border-bottom: 1px solid #ddd;
-            font-size: 0.9rem;
-        }
-
-        .log-entry:last-child {
-            border-bottom: none;
-        }
-
-        .category-key {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 20px;
-            flex-wrap: wrap;
+            background: #2C241A;
+            color: #FFE6B3;
+            border-radius: 28px;
             padding: 15px;
-            background: #f8f9fa;
-            border-radius: 10px;
+            max-height: 150px;
+            overflow-y: auto;
+            font-size: 0.8rem;
         }
-
-        .key-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.9rem;
-        }
-
-        .key-color {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-        }
+        .log-title { font-weight: bold; color: #E6B422; margin-bottom: 8px; }
+        .log-entry { border-bottom: 1px solid #5D3A1A; padding: 5px 0; }
 
         .winner-banner {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: linear-gradient(135deg, #4caf50, #2e7d32);
-            color: white;
-            padding: 40px;
-            border-radius: 20px;
+            background: #FBC02D;
+            color: #4A2A0E;
+            padding: 35px;
+            border-radius: 60px;
             text-align: center;
-            z-index: 1001;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            z-index: 2001;
+            box-shadow: 0 20px 35px black;
             display: none;
-            animation: popIn 0.5s ease;
         }
-
-        @keyframes popIn {
-            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
-            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-        }
-
-        .winner-banner h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
-
-        .winner-banner p {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-        }
-
-        .space-answered {
-            background: #e0e0e0 !important;
-            border-color: #9e9e9e !important;
-        }
-
-        .property-owned {
-            position: relative;
-        }
-
-        .property-owned::after {
-            content: '';
-            position: absolute;
-            bottom: 3px;
-            right: 3px;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: currentColor;
-            opacity: 0.6;
+        footer {
+            background: #5D3A1A;
+            padding: 12px;
+            text-align: center;
+            color: #FFDEAD;
         }
     </style>
 </head>
 <body>
-    <!-- Player Setup Modal -->
-    <div class="player-setup" id="playerSetup">
-        <div class="setup-content">
-            <h2>🎭 Setup Your Tanzimat Reforms Monopoly</h2>
-            <div class="player-input-group">
-                <label for="playerCount">Number of Reformers (2-4)</label>
-                <select id="playerCount">
-                    <option value="2">2 Reformers</option>
-                    <option value="3" selected>3 Reformers</option>
-                    <option value="4">4 Reformers</option>
-                </select>
-            </div>
-            <div id="playerForms">
-                <!-- Player forms will be generated here -->
-            </div>
-            <button class="btn btn-primary" id="startGameBtn" style="width: 100%; margin-top: 20px;">Start Reform Game</button>
+<div class="setup-modal" id="setupModal">
+    <div class="setup-card">
+        <h2>🏛️ TANZIMAT COUNCIL</h2>
+        <div class="player-input-group">
+            <label>Number of Reformers (2-4)</label>
+            <select id="playerCountSelect">
+                <option value="2">2 Players</option>
+                <option value="3" selected>3 Players</option>
+                <option value="4">4 Players</option>
+            </select>
         </div>
+        <div id="dynamicPlayerInputs"></div>
+        <button class="btn-gold" id="startGameFinalBtn">⚡ Begin Tanzimat Era ⚡</button>
     </div>
+</div>
 
-    <!-- Winner Banner -->
-    <div class="winner-banner" id="winnerBanner">
-        <h2>🎉 Reform Success! 🎉</h2>
-        <p id="winnerMessage"></p>
-        <button class="btn btn-primary" onclick="resetGame()">Play Again</button>
+<div class="winner-banner" id="winnerBanner">
+    <h2>🎉 DECREE OF VICTORY 🎉</h2>
+    <p id="winnerMsg"></p>
+    <button class="btn-gold" onclick="location.reload()">Play Again</button>
+</div>
+
+<div class="game-wrapper" id="gameMain" style="display: none;">
+    <div class="game-header">
+        <h1>🏰 TANZIMAT REFORMS MONOPOLY 🏰</h1>
+        <div class="subtitle">Modernize the Empire — Buy Reforms — Answer History — Become Grand Vizier</div>
     </div>
-
-    <div class="container" id="gameContainer" style="display: none;">
-        <header>
-            <h1>🏛️ Tanzimat Reforms Monopoly</h1>
-            <p class="subtitle">Buy properties, answer questions, and lead the Ottoman Empire to modernization!</p>
-        </header>
-
-        <div class="game-layout">
-            <div class="board-container">
-                <h3 class="board-title">The Tanzimat Reform Board</h3>
-                <div class="monopoly-board" id="gameBoard">
-                    <!-- Center area -->
-                    <div class="board-center">
-                        <div class="center-title">TANZİMAT REFORMS</div>
-                        <div class="center-subtitle">1839-1876</div>
-                        <div style="margin-top: 20px; font-size: 0.8rem; color: #666;">
-                            <p>Roll dice to move around the board</p>
-                            <p>Answer questions to earn Knowledge Points</p>
-                            <p>Buy properties to establish reform influence</p>
-                        </div>
-                    </div>
-                    <!-- Board cells will be generated by JavaScript -->
+    <div class="game-layout">
+        <div class="board-container">
+            <div class="board-title">⚡ Imperial Reform Board ⚡</div>
+            <div class="monopoly-board" id="monopolyBoard"></div>
+            <div class="dice-area">
+                <h3>🎲 Current Reformer: <span id="activePlayerName" style="font-weight:800;"></span></h3>
+                <div class="dice-container">
+                    <div class="dice" id="diceA">⚀</div>
+                    <div class="dice" id="diceB">⚀</div>
                 </div>
-                
-                <div class="dice-area">
-                    <h3>Current Reformer: <span id="currentPlayerName">-</span></h3>
-                    <div class="dice-container">
-                        <div class="dice" id="dice1">⚀</div>
-                        <div class="dice" id="dice2">⚀</div>
-                    </div>
-                    <div class="controls">
-                        <button class="btn btn-primary" id="rollDiceBtn" disabled>🎲 Roll Dice</button>
-                        <button class="btn btn-secondary" id="nextTurnBtn" style="display: none;" disabled>End Turn</button>
-                    </div>
-                    <div id="diceResult" style="font-size: 1.2rem; font-weight: bold; color: #1a237e;"></div>
-                </div>
-            </div>
-
-            <div class="right-panel">
-                <div class="players-panel" id="playersPanel">
-                    <!-- Player cards will be generated here -->
-                </div>
-
-                <div class="card-display">
-                    <div class="card-title" id="currentCategory">Welcome to Tanzimat Reforms!</div>
-                    <div class="card-content">
-                        <div class="card-text" id="cardText">
-                            Click "Roll Dice" to begin your journey around the Reform Board. 
-                            Buy properties, answer questions, and become the greatest reformer!
-                        </div>
-                        
-                        <div class="answer-options" id="answerOptions" style="display: none;">
-                            <!-- Answer buttons will be generated here -->
-                        </div>
-                        
-                        <div class="fact-result" id="factResult">
-                            <!-- Result message appears here -->
-                        </div>
-                    </div>
-                </div>
-
-                <div class="game-log">
-                    <div class="log-title">Reform Chronicle:</div>
-                    <div id="logEntries">
-                        <div class="log-entry">Welcome to the Tanzimat Reforms Monopoly game!</div>
-                    </div>
-                </div>
+                <button class="btn btn-primary" id="rollTurnBtn">🎲 Roll Dice</button>
+                <button class="btn btn-secondary" id="endTurnBtn" style="display:none;">🔁 End Turn</button>
+                <div id="diceFeedback" style="margin-top: 10px; font-weight: bold;"></div>
             </div>
         </div>
-
-        <div class="category-key">
-            <div class="key-item">
-                <div class="key-color" style="background: #4caf50;"></div>
-                <span>Did You Know? Properties</span>
+        <div class="right-panel">
+            <div class="players-panel" id="playersPanel"></div>
+            <div class="card-display">
+                <div class="card-title" id="cardCategoryTitle">Reform Edict</div>
+                <div class="card-text" id="cardTextDisplay">Welcome to the Tanzimat! Roll the dice, purchase reforms, answer historical questions, and become the most influential reformer.</div>
+                <div class="answer-options" id="answerContainer"></div>
+                <div class="fact-result" id="resultMessage"></div>
             </div>
-            <div class="key-item">
-                <div class="key-color" style="background: #ff9800;"></div>
-                <span>True/False? Properties</span>
-            </div>
-            <div class="key-item">
-                <div class="key-color" style="background: #2196f3;"></div>
-                <span>What Happened Next? Properties</span>
-            </div>
-            <div class="key-item">
-                <div class="key-color" style="background: #9c27b0;"></div>
-                <span>Two Truths & a Lie Properties</span>
+            <div class="game-log">
+                <div class="log-title">📜 Chronicle of Reforms</div>
+                <div id="logArea"></div>
             </div>
         </div>
     </div>
+    <footer>⚜️ Inspired by Monopoly | Tanzimat Era (1839-1876) | Knowledge Points (KP) = Currency ⚜️</footer>
+</div>
 
-    <script>
-        // Game Configuration
-        const PLAYER_COLORS = ['#FF5252', '#4CAF50', '#2196F3', '#FF9800'];
-        const PLAYER_NAMES = ['Mustafa Reşid Pasha', 'Sultan Abdülmecid I', 'Sultan Mahmud II', 'Young Ottoman'];
-        const STARTING_KNOWLEDGE = 150;
-        const STARTING_MONEY = 1500;
-        
-        // Board dimensions - SMALLER for perfect fit
-        const BOARD_WIDTH = 600;
-        const BOARD_HEIGHT = 600;
-        const CORNER_SIZE = 80; // Smaller corners
-        const PROPERTY_WIDTH = 60; // Smaller vertical properties
-        const PROPERTY_HEIGHT = 75; // Smaller vertical properties
-        const HORIZONTAL_CELLS_PER_SIDE = 9; // 9 cells per side (excluding corners)
-        const HORIZONTAL_WIDTH = (BOARD_WIDTH - (2 * CORNER_SIZE)) / HORIZONTAL_CELLS_PER_SIDE; // Calculate dynamically
-        const HORIZONTAL_HEIGHT = 60; // Smaller horizontal properties
-        
-        console.log("Horizontal width calculation:", HORIZONTAL_WIDTH); // Should be 48.888...
+<script>
+    // ---------- GLOBAL CONFIG ----------
+    const BOARD_SIZE = 600, CORNER = 80;
+    const HORIZONTAL_CELL_COUNT = 9;
+    const CELL_WIDTH = (BOARD_SIZE - CORNER * 2) / HORIZONTAL_CELL_COUNT; // 48.888px
+    const VERTICAL_CELL_HEIGHT = (BOARD_SIZE - CORNER * 2) / 9;
+    const PROPERTY_VERTICAL_WIDTH = 65;
+    const HORIZONTAL_HEIGHT = 58;
 
-        // Monopoly Board Configuration (40 spaces)
-        const BOARD_SPACES = [
-            // Corner spaces (positions 0, 10, 20, 30)
-            { 
-                position: 0, type: 'corner', name: 'GO', 
-                description: 'Collect 200 KP', 
-                action: 'collect', amount: 200 
-            },
-            { 
-                position: 10, type: 'corner', name: 'JAIL', 
-                description: 'Janissary Crisis', 
-                action: 'jail' 
-            },
-            { 
-                position: 20, type: 'corner', name: 'FREE PARK', 
-                description: 'Reform Rest', 
-                action: 'free' 
-            },
-            { 
-                position: 30, type: 'corner', name: 'GO TO JAIL', 
-                description: 'Go to Janissary Crisis', 
-                action: 'gotojail' 
-            },
-            
-            // Bottom row (positions 1-9) - Horizontal, right to left
-            { 
-                position: 1, type: 'property', name: 'Rose Garden', 
-                category: 'did-you-know', price: 60, rent: 2,
-                group: 'did-you-know', color: '#4caf50'
-            },
-            { 
-                position: 2, type: 'community-chest', name: 'Reform Card', 
-                description: 'Draw a card', 
-                action: 'community-chest' 
-            },
-            { 
-                position: 3, type: 'property', name: 'Military', 
-                category: 'did-you-know', price: 60, rent: 4,
-                group: 'did-you-know', color: '#4caf50'
-            },
-            { 
-                position: 4, type: 'tax', name: 'Reform Tax', 
-                description: 'Pay 200 KP', 
-                action: 'pay', amount: 200 
-            },
-            { 
-                position: 5, type: 'railroad', name: 'Telegraph', 
-                description: 'Rent: 25', 
-                action: 'railroad', price: 200, rent: 25 
-            },
-            { 
-                position: 6, type: 'property', name: 'Legal Code', 
-                category: 'true-false', price: 100, rent: 6,
-                group: 'true-false', color: '#ff9800'
-            },
-            { 
-                position: 7, type: 'chance', name: 'Chance', 
-                description: 'Draw a card', 
-                action: 'chance' 
-            },
-            { 
-                position: 8, type: 'property', name: 'Education', 
-                category: 'true-false', price: 100, rent: 6,
-                group: 'true-false', color: '#ff9800'
-            },
-            { 
-                position: 9, type: 'property', name: 'Tax Reform', 
-                category: 'true-false', price: 120, rent: 8,
-                group: 'true-false', color: '#ff9800'
-            },
-            
-            // Left side (positions 11-19) - Vertical, bottom to top
-            { 
-                position: 11, type: 'property', name: 'Secular Schools', 
-                category: 'what-next', price: 140, rent: 10,
-                group: 'what-next', color: '#2196f3'
-            },
-            { 
-                position: 12, type: 'utility', name: 'Newspapers', 
-                description: 'Utility', 
-                action: 'utility', price: 150 
-            },
-            { 
-                position: 13, type: 'property', name: 'Postal Service', 
-                category: 'what-next', price: 140, rent: 10,
-                group: 'what-next', color: '#2196f3'
-            },
-            { 
-                position: 14, type: 'property', name: 'Telegraph Lines', 
-                category: 'what-next', price: 160, rent: 12,
-                group: 'what-next', color: '#2196f3'
-            },
-            { 
-                position: 15, type: 'railroad', name: 'Railway', 
-                description: 'Rent: 25', 
-                action: 'railroad', price: 200, rent: 25 
-            },
-            { 
-                position: 16, type: 'property', name: 'Banking', 
-                category: 'two-truths', price: 180, rent: 14,
-                group: 'two-truths', color: '#9c27b0'
-            },
-            { 
-                position: 17, type: 'community-chest', name: 'Reform Card', 
-                description: 'Draw a card', 
-                action: 'community-chest' 
-            },
-            { 
-                position: 18, type: 'property', name: 'Industrial', 
-                category: 'two-truths', price: 180, rent: 14,
-                group: 'two-truths', color: '#9c27b0'
-            },
-            { 
-                position: 19, type: 'property', name: 'Factories', 
-                category: 'two-truths', price: 200, rent: 16,
-                group: 'two-truths', color: '#9c27b0'
-            },
-            
-            // Top row (positions 21-29) - Horizontal, left to right
-            { 
-                position: 21, type: 'property', name: 'New Courts', 
-                category: 'did-you-know', price: 220, rent: 18,
-                group: 'did-you-know', color: '#4caf50'
-            },
-            { 
-                position: 22, type: 'chance', name: 'Chance', 
-                description: 'Draw a card', 
-                action: 'chance' 
-            },
-            { 
-                position: 23, type: 'property', name: 'Land Code', 
-                category: 'did-you-know', price: 220, rent: 18,
-                group: 'did-you-know', color: '#4caf50'
-            },
-            { 
-                position: 24, type: 'property', name: 'Conscription', 
-                category: 'did-you-know', price: 240, rent: 20,
-                group: 'did-you-know', color: '#4caf50'
-            },
-            { 
-                position: 25, type: 'railroad', name: 'Steamships', 
-                description: 'Rent: 25', 
-                action: 'railroad', price: 200, rent: 25 
-            },
-            { 
-                position: 26, type: 'property', name: 'Foreign Policy', 
-                category: 'true-false', price: 260, rent: 22,
-                group: 'true-false', color: '#ff9800'
-            },
-            { 
-                position: 27, type: 'property', name: 'Western Ed', 
-                category: 'true-false', price: 260, rent: 22,
-                group: 'true-false', color: '#ff9800'
-            },
-            { 
-                position: 28, type: 'utility', name: 'Post Office', 
-                description: 'Utility', 
-                action: 'utility', price: 150 
-            },
-            { 
-                position: 29, type: 'property', name: 'Bureaucracy', 
-                category: 'true-false', price: 280, rent: 24,
-                group: 'true-false', color: '#ff9800'
-            },
-            
-            // Right side (positions 31-39) - Vertical, top to bottom
-            { 
-                position: 31, type: 'property', name: 'Constitution', 
-                category: 'what-next', price: 300, rent: 26,
-                group: 'what-next', color: '#2196f3'
-            },
-            { 
-                position: 32, type: 'property', name: 'Parliament', 
-                category: 'what-next', price: 300, rent: 26,
-                group: 'what-next', color: '#2196f3'
-            },
-            { 
-                position: 33, type: 'community-chest', name: 'Reform Card', 
-                description: 'Draw a card', 
-                action: 'community-chest' 
-            },
-            { 
-                position: 34, type: 'property', name: 'Press Freedom', 
-                category: 'what-next', price: 320, rent: 28,
-                group: 'what-next', color: '#2196f3'
-            },
-            { 
-                position: 35, type: 'railroad', name: 'Road Network', 
-                description: 'Rent: 25', 
-                action: 'railroad', price: 200, rent: 25 
-            },
-            { 
-                position: 36, type: 'chance', name: 'Chance', 
-                description: 'Draw a card', 
-                action: 'chance' 
-            },
-            { 
-                position: 37, type: 'property', name: 'Modern Army', 
-                category: 'two-truths', price: 350, rent: 35,
-                group: 'two-truths', color: '#9c27b0'
-            },
-            { 
-                position: 38, type: 'tax', name: 'Luxury Tax', 
-                description: 'Pay 100 KP', 
-                action: 'pay', amount: 100 
-            },
-            { 
-                position: 39, type: 'property', name: 'Final Reforms', 
-                category: 'two-truths', price: 400, rent: 50,
-                group: 'two-truths', color: '#9c27b0'
+    const COLORS = ['#E53935', '#2E7D32', '#1E88E5', '#FDD835'];
+    const DEFAULT_NAMES = ['Mustafa Reşid Pasha', 'Sultan Abdülmecid', 'Ali Pasha', 'Fuat Pasha'];
+
+    // Board Spaces (40 positions)
+    const BOARD_DATA = [
+        { pos:0, type:'corner', name:'GO', desc:'Collect 200 KP', action:'go', value:200 },
+        { pos:1, type:'property', name:'Rose Garden', category:'did-you-know', price:80, rent:20, group:'did' },
+        { pos:2, type:'community-chest', name:'Reform Decree', desc:'Draw Card' },
+        { pos:3, type:'property', name:'Military Schools', category:'did-you-know', price:80, rent:20 },
+        { pos:4, type:'tax', name:'Reform Tax', desc:'Pay 150 KP', value:150 },
+        { pos:5, type:'railroad', name:'Telegraph Lines', price:200, rent:40 },
+        { pos:6, type:'property', name:'Legal Code', category:'true-false', price:100, rent:25 },
+        { pos:7, type:'chance', name:'Chance', desc:'Fate of Empire' },
+        { pos:8, type:'property', name:'Public Education', category:'true-false', price:100, rent:25 },
+        { pos:9, type:'property', name:'Tax Collection', category:'true-false', price:120, rent:30 },
+        { pos:10, type:'corner', name:'JANISSARY CRISIS', desc:'Jail', action:'jail' },
+        { pos:11, type:'property', name:'Secular Courts', category:'what-next', price:140, rent:35 },
+        { pos:12, type:'utility', name:'Official Gazette', price:150, rent:20 },
+        { pos:13, type:'property', name:'Postal Reform', category:'what-next', price:140, rent:35 },
+        { pos:14, type:'property', name:'Infrastructure', category:'what-next', price:160, rent:40 },
+        { pos:15, type:'railroad', name:'Steamship Co.', price:200, rent:40 },
+        { pos:16, type:'property', name:'Banking System', category:'two-truths', price:180, rent:45 },
+        { pos:17, type:'community-chest', name:'Reform Chest' },
+        { pos:18, type:'property', name:'Industry', category:'two-truths', price:180, rent:45 },
+        { pos:19, type:'property', name:'Factory Laws', category:'two-truths', price:200, rent:50 },
+        { pos:20, type:'corner', name:'FREE PARK', desc:'Rest & Collect 100 KP', action:'free', value:100 },
+        { pos:21, type:'property', name:'Land Code', category:'did-you-know', price:220, rent:55 },
+        { pos:22, type:'chance', name:'Chance' },
+        { pos:23, type:'property', name:'Conscription', category:'did-you-know', price:220, rent:55 },
+        { pos:24, type:'property', name:'Modern Army', category:'did-you-know', price:240, rent:60 },
+        { pos:25, type:'railroad', name:'Railway Network', price:200, rent:40 },
+        { pos:26, type:'property', name:'Foreign Policy', category:'true-false', price:260, rent:65 },
+        { pos:27, type:'property', name:'Westernization', category:'true-false', price:260, rent:65 },
+        { pos:28, type:'utility', name:'Imperial Post', price:150, rent:20 },
+        { pos:29, type:'property', name:'Bureaucracy', category:'true-false', price:280, rent:70 },
+        { pos:30, type:'corner', name:'GO TO JAIL', desc:'Go to Janissary Crisis', action:'gotojail' },
+        { pos:31, type:'property', name:'Constitution', category:'what-next', price:300, rent:75 },
+        { pos:32, type:'property', name:'Parliament', category:'what-next', price:300, rent:75 },
+        { pos:33, type:'community-chest', name:'Reform Chest' },
+        { pos:34, type:'property', name:'Press Freedom', category:'what-next', price:320, rent:80 },
+        { pos:35, type:'railroad', name:'Caravan Routes', price:200, rent:40 },
+        { pos:36, type:'chance', name:'Chance' },
+        { pos:37, type:'property', name:'Modern Industry', category:'two-truths', price:350, rent:90 },
+        { pos:38, type:'tax', name:'Luxury Tax', desc:'Pay 100 KP', value:100 },
+        { pos:39, type:'property', name:'Imperial Edict', category:'two-truths', price:400, rent:100 }
+    ];
+
+    // Question Bank (Tanzimat themed)
+    const QUESTION_SET = {
+        'did-you-know': [{ text:"The Gülhane Edict was announced in a rose garden to symbolize transparency.", points:35 }],
+        'true-false': [{ text:"The Tanzimat reforms abolished all forms of religious discrimination instantly in 1839.", answer:false, explanation:"False. Equality was proclaimed but implementation faced resistance.", points:45 }],
+        'what-next': [{ setup:"After the 1839 Edict promised equal rights...", options:["Janissaries supported reforms","New secular courts & schools emerged","Ottoman Empire collapsed"], correct:1, explanation:"Modern institutions were founded.", points:55 }],
+        'two-truths': [{ statements:["Sultan Mahmud II crushed Janissaries","Reforms aimed for slow change","European-style uniforms adopted"], lieIndex:1, explanation:"Reformers wanted rapid modernization.", points:65 }]
+    };
+
+    let players = [];
+    let currentPlayerIdx = 0;
+    let gameActive = false;
+    let rolledDoubles = false;
+    let awaitingAction = false;
+    let currentSpaceData = null;
+    let pendingBuyPosition = null;
+    let extraTurnFlag = false;
+    let propertiesOwned = [];
+    let chanceDeck = [], chestDeck = [];
+
+    // Helper: Shuffle
+    function shuffle(arr) { for (let i=arr.length-1;i>0;i--) { let j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; } return arr; }
+
+    // Cards
+    const CHANCE_CARDS = [
+        { text:"Advance to GO", action:'moveTo', target:0, gain:200 },
+        { text:"Foreign investment: Collect 150 KP", action:'collect', amount:150 },
+        { text:"Go back 3 spaces", action:'moveSteps', steps:-3 },
+        { text:"Reform committee awards you 100 KP", action:'collect', amount:100 }
+    ];
+    const CHEST_CARDS = [
+        { text:"Reform success! Advance to GO.", action:'moveTo', target:0, gain:200 },
+        { text:"Bank error: Collect 100 KP", action:'collect', amount:100 },
+        { text:"Pay school fees: 50 KP", action:'pay', amount:50 },
+        { text:"Win contest: +150 KP", action:'collect', amount:150 }
+    ];
+
+    function initDecks() { chanceDeck = shuffle([...CHANCE_CARDS]); chestDeck = shuffle([...CHEST_CARDS]); }
+
+    // ----- BOARD RENDERING (FIX ORIENTATION) -----
+    function renderBoard() {
+        const boardDiv = document.getElementById('monopolyBoard');
+        boardDiv.innerHTML = `<div class="board-center"><div class="center-title">TANZİMAT</div><div class="center-subtitle">1839-1876</div><div class="center-text">Modernization • Justice • Prosperity</div></div>`;
+        BOARD_DATA.forEach(space => {
+            const cell = document.createElement('div');
+            cell.className = `board-cell ${space.type}-cell`;
+            if (space.type === 'property') cell.classList.add(`property-${space.category.replace('-','')}`);
+            if (space.type === 'corner') cell.classList.add('corner-cell');
+            cell.id = `cell-${space.pos}`;
+            cell.innerHTML = `<div class="cell-number">${space.pos}</div><div class="cell-title">${space.name}</div><div class="cell-description">${space.desc || (space.price ? space.price+' KP' : '')}</div>`;
+            positionCellOnBoard(cell, space.pos);
+            boardDiv.appendChild(cell);
+        });
+        updateAllTokens();
+    }
+
+    function positionCellOnBoard(cell, pos) {
+        const w = CELL_WIDTH, h = HORIZONTAL_HEIGHT, vw = PROPERTY_VERTICAL_WIDTH, vh = VERTICAL_CELL_HEIGHT;
+        if (pos>=1 && pos<=9) { // bottom row right to left
+            let idx = pos-1;
+            let x = BOARD_SIZE - CORNER - (idx * w) - w;
+            cell.style.left = `${x}px`; cell.style.bottom = '0px';
+            cell.style.width = `${w}px`; cell.style.height = `${h}px`;
+        } else if (pos>=11 && pos<=19) { // LEFT SIDE (FIXED orientation: text readable, no upside-down)
+            let idx = pos-11;
+            let y = BOARD_SIZE - CORNER - (idx * vh) - vh;
+            cell.style.left = '0px'; cell.style.bottom = `${y}px`;
+            cell.style.width = `${vw}px`; cell.style.height = `${vh}px`;
+            // ensure text remains normal (no rotation)
+            cell.style.writingMode = 'horizontal-tb';
+        } else if (pos>=21 && pos<=29) { // TOP row
+            let idx = pos-21;
+            let x = CORNER + (idx * w);
+            cell.style.left = `${x}px`; cell.style.top = '0px';
+            cell.style.width = `${w}px`; cell.style.height = `${h}px`;
+        } else if (pos>=31 && pos<=39) { // RIGHT side
+            let idx = pos-31;
+            let y = CORNER + (idx * vh);
+            cell.style.right = '0px'; cell.style.top = `${y}px`;
+            cell.style.width = `${vw}px`; cell.style.height = `${vh}px`;
+        } else if (pos===0) { cell.style.right='0'; cell.style.bottom='0'; cell.style.width=`${CORNER}px`; cell.style.height=`${CORNER}px`; }
+        else if (pos===10) { cell.style.left='0'; cell.style.bottom='0'; cell.style.width=`${CORNER}px`; cell.style.height=`${CORNER}px`; }
+        else if (pos===20) { cell.style.left='0'; cell.style.top='0'; cell.style.width=`${CORNER}px`; cell.style.height=`${CORNER}px`; }
+        else if (pos===30) { cell.style.right='0'; cell.style.top='0'; cell.style.width=`${CORNER}px`; cell.style.height=`${CORNER}px`; }
+    }
+
+    function updateAllTokens() {
+        document.querySelectorAll('.player-token').forEach(t => t.remove());
+        players.forEach((p, idx) => {
+            const cell = document.getElementById(`cell-${p.position}`);
+            if(cell) {
+                const tok = document.createElement('div');
+                tok.className = 'player-token';
+                tok.style.background = p.color;
+                const offsets = [{top:'3px',left:'3px'},{top:'3px',right:'3px'},{bottom:'3px',left:'3px'},{bottom:'3px',right:'3px'}];
+                Object.assign(tok.style, offsets[idx%4]);
+                cell.appendChild(tok);
             }
-        ];
+        });
+        document.querySelectorAll('.board-cell').forEach(c => c.classList.remove('active'));
+        const activeCell = document.getElementById(`cell-${players[currentPlayerIdx].position}`);
+        if(activeCell) activeCell.classList.add('active');
+    }
 
-        // Community Chest Cards
-        const COMMUNITY_CHEST_CARDS = [
-            { text: "Your reform proposals are accepted! Advance to GO.", action: "move", target: 0, collect: 200 },
-            { text: "Bank error in your favor. Collect 100 Knowledge Points.", action: "collect", amount: 100 },
-            { text: "Pay school fees. Lose 50 Knowledge Points.", action: "pay", amount: 50 },
-            { text: "You have won a reform competition. Collect 150 Knowledge Points.", action: "collect", amount: 150 }
-        ];
+    // UI update
+    function updateUI() {
+        const panel = document.getElementById('playersPanel');
+        panel.innerHTML = '';
+        players.forEach((p,idx) => {
+            const activeClass = idx===currentPlayerIdx ? 'active' : '';
+            panel.innerHTML += `<div class="player-card ${activeClass}" style="border-left-color:${p.color}">
+                <div class="player-header"><div class="player-color-dot" style="background:${p.color}"></div><div class="player-name">${p.name} ${idx===currentPlayerIdx?'👑':''}</div></div>
+                <div class="player-stats"><span class="stat">💰 KP: ${p.kp}</span><span class="stat">📜 Props: ${p.properties}</span><span class="stat">📍 Pos: ${p.position}</span></div>
+            </div>`;
+        });
+        document.getElementById('activePlayerName').innerText = players[currentPlayerIdx].name;
+    }
 
-        // Chance Cards
-        const CHANCE_CARDS = [
-            { text: "Advance to the Rose Garden Edict.", action: "move", target: 1 },
-            { text: "Foreign investors support your reforms. Collect 150 Knowledge Points.", action: "collect", amount: 150 },
-            { text: "Go back 3 spaces.", action: "move", amount: -3 },
-            { text: "Your reform committee has matured. Collect 100 Knowledge Points.", action: "collect", amount: 100 }
-        ];
+    function addLog(msg) { const logDiv = document.getElementById('logArea'); const entry = document.createElement('div'); entry.className='log-entry'; entry.innerText = msg; logDiv.prepend(entry); if(logDiv.children.length>8) logDiv.removeChild(logDiv.lastChild); }
 
-        // Facts database
-        const facts = {
-            'did-you-know': [
-                {
-                    text: "The Gülhane Hatt-ı Şerif (Rose Garden Edict) of 1839 was read in an open park to symbolize its public nature.",
-                    points: 25
-                }
-            ],
-            'true-false': [
-                {
-                    text: "The Tanzimat reforms successfully eliminated all religious discrimination in the Ottoman Empire.",
-                    answer: false,
-                    explanation: "FALSE. While laws proclaimed equality, social practice maintained significant Muslim privilege.",
-                    points: 40
-                }
-            ],
-            'what-next': [
-                {
-                    setup: "After the 1839 Rose Garden Edict promised equality and modern administration...",
-                    options: [
-                        "European powers immediately recognized Ottoman sovereignty.",
-                        "New secular courts and modern schools were established despite resistance.",
-                        "The Empire collapsed within five years."
-                    ],
-                    correct: 1,
-                    explanation: "New institutions were created, but implementation faced resistance.",
-                    points: 50
-                }
-            ],
-            'two-truths': [
-                {
-                    statements: [
-                        "Sultan Mahmud II centralized power by crushing the Janissaries.",
-                        "Reformers planned gradual change over a century.",
-                        "European-style uniforms were adopted to project modern authority."
-                    ],
-                    lieIndex: 1,
-                    explanation: "The lie is #2. Reformers wanted RAPID transformation.",
-                    points: 60
-                }
-            ]
-        };
+    // Property ownership & rent
+    function getPropertyOwner(pos) { return propertiesOwned.find(p=>p.pos===pos)?.owner ?? null; }
+    function buyPropertyAction(pos) {
+        let player = players[currentPlayerIdx];
+        let space = BOARD_DATA.find(s=>s.pos===pos);
+        if(player.kp >= space.price && getPropertyOwner(pos)===null) {
+            player.kp -= space.price;
+            let prop = propertiesOwned.find(p=>p.pos===pos);
+            if(prop) prop.owner = currentPlayerIdx; else propertiesOwned.push({pos, owner:currentPlayerIdx, price:space.price, rent:space.rent});
+            player.properties = (player.properties||0)+1;
+            addLog(`${player.name} bought ${space.name} for ${space.price} KP!`);
+            updateUI();
+            // after purchase, show question
+            showPropertyQuestion(space);
+        } else { addLog(`Cannot afford ${space.name}`); endTurnOrExtra(); }
+    }
+    function showPropertyQuestion(space) {
+        if(!space.category) { endTurnOrExtra(); return; }
+        let cat = space.category;
+        let question = QUESTION_SET[cat] ? QUESTION_SET[cat][0] : null;
+        if(!question) { endTurnOrExtra(); return; }
+        document.getElementById('cardCategoryTitle').innerHTML = `📜 ${cat.replace('-',' ').toUpperCase()}`;
+        let html = '';
+        if(cat==='did-you-know') html = `<p>${question.text}</p><button class="answer-btn" onclick="answerGenericQuestion(${question.points}, true)">📖 Learn (Earn ${question.points} KP)</button>`;
+        else if(cat==='true-false') html = `<p>${question.text}</p><button class="answer-btn" onclick="answerTF(true, '${question.explanation}', ${question.points})">✔️ True</button><button class="answer-btn" onclick="answerTF(false, '${question.explanation}', ${question.points})">❌ False</button>`;
+        else if(cat==='what-next') html = `<p>${question.setup}</p>${question.options.map((opt,i)=>`<button class="answer-btn" onclick="answerWN(${i},${question.correct},'${question.explanation}',${question.points})">${opt}</button>`).join('')}`;
+        else if(cat==='two-truths') html = `<p>Which is the lie?</p>${question.statements.map((s,i)=>`<button class="answer-btn" onclick="answerTT(${i},${question.lieIndex},'${question.explanation}',${question.points})">${s}</button>`).join('')}`;
+        document.getElementById('cardTextDisplay').innerHTML = html;
+        document.getElementById('answerContainer').innerHTML = '';
+        awaitingAction = true;
+    }
+    window.answerGenericQuestion = (points, correct) => { if(!awaitingAction) return; players[currentPlayerIdx].kp += points; addLog(`${players[currentPlayerIdx].name} earned ${points} KP!`); showResultMessage(true, `Correct! +${points} KP`); awaitingAction=false; endTurnOrExtra(); updateUI(); };
+    window.answerTF = (answer, explanation, points) => { if(!awaitingAction) return; let correct = (answer===true); if(correct) players[currentPlayerIdx].kp += points; showResultMessage(correct, explanation + (correct?` +${points} KP`:' No points')); addLog(`${players[currentPlayerIdx].name} answered ${correct?'correctly':'incorrectly'} on True/False`); awaitingAction=false; endTurnOrExtra(); updateUI(); };
+    window.answerWN = (selected, correctIdx, explanation, points) => { if(!awaitingAction) return; let ok = (selected===correctIdx); if(ok) players[currentPlayerIdx].kp += points; showResultMessage(ok, explanation+(ok?` +${points} KP`:'')); awaitingAction=false; endTurnOrExtra(); updateUI(); };
+    window.answerTT = (selected, lieIdx, explanation, points) => { if(!awaitingAction) return; let ok = (selected===lieIdx); if(ok) players[currentPlayerIdx].kp += points; showResultMessage(ok, explanation+(ok?` +${points} KP`:'')); awaitingAction=false; endTurnOrExtra(); updateUI(); };
+    function showResultMessage(isCorrect, msg) { let resDiv = document.getElementById('resultMessage'); resDiv.innerText = msg; resDiv.className = `fact-result ${isCorrect?'correct':'incorrect'}`; resDiv.style.display='block'; setTimeout(()=>resDiv.style.display='none',1800); }
 
-        // Game State
-        const gameState = {
-            players: [],
-            currentPlayerIndex: 0,
-            gameActive: false,
-            currentCard: null,
-            currentSpace: null,
-            diceRolled: false,
-            questionAnswered: false,
-            properties: BOARD_SPACES.filter(space => space.type === 'property').map(prop => ({
-                ...prop,
-                owner: null,
-                mortgaged: false
-            })),
-            communityChestDeck: [...COMMUNITY_CHEST_CARDS],
-            chanceDeck: [...CHANCE_CARDS]
-        };
-
-        // DOM Elements
-        const playerSetup = document.getElementById('playerSetup');
-        const gameContainer = document.getElementById('gameContainer');
-        const playerCountSelect = document.getElementById('playerCount');
-        const playerForms = document.getElementById('playerForms');
-        const startGameBtn = document.getElementById('startGameBtn');
-        const gameBoard = document.getElementById('gameBoard');
-        const playersPanel = document.getElementById('playersPanel');
-        const dice1 = document.getElementById('dice1');
-        const dice2 = document.getElementById('dice2');
-        const rollDiceBtn = document.getElementById('rollDiceBtn');
-        const nextTurnBtn = document.getElementById('nextTurnBtn');
-        const currentPlayerNameEl = document.getElementById('currentPlayerName');
-        const currentCategoryEl = document.getElementById('currentCategory');
-        const cardTextEl = document.getElementById('cardText');
-        const answerOptionsEl = document.getElementById('answerOptions');
-        const factResultEl = document.getElementById('factResult');
-        const logEntriesEl = document.getElementById('logEntries');
-        const diceResultEl = document.getElementById('diceResult');
-        const winnerBanner = document.getElementById('winnerBanner');
-        const winnerMessage = document.getElementById('winnerMessage');
-
-        // Initialize player forms
-        function initializePlayerForms() {
-            const count = parseInt(playerCountSelect.value);
-            playerForms.innerHTML = '';
-            
-            for (let i = 0; i < count; i++) {
-                playerForms.innerHTML += `
-                    <div class="player-input-group">
-                        <label>Reformer ${i + 1} Name</label>
-                        <input type="text" id="playerName${i}" value="${PLAYER_NAMES[i] || `Reformer ${i + 1}`}">
-                        <label>Choose Color</label>
-                        <select id="playerColor${i}">
-                            ${PLAYER_COLORS.map((color, idx) => 
-                                `<option value="${color}" ${idx === i ? 'selected' : ''}>Color ${idx + 1}</option>`
-                            ).join('')}
-                        </select>
-                        <div class="player-color-preview" id="colorPreview${i}" style="background: ${PLAYER_COLORS[i]}"></div>
-                    </div>
-                `;
-                
-                document.getElementById(`playerColor${i}`).addEventListener('change', (e) => {
-                    document.getElementById(`colorPreview${i}`).style.background = e.target.value;
-                });
-            }
+    // Space resolution
+    async function handleLanding(pos) {
+        let space = BOARD_DATA.find(s=>s.pos===pos);
+        let player = players[currentPlayerIdx];
+        if(!space) { endTurnOrExtra(); return; }
+        if(space.type==='corner') {
+            if(space.action==='go') { player.kp += space.value; addLog(`${player.name} collects ${space.value} KP from GO.`); }
+            else if(space.action==='jail') { /* just visiting */ }
+            else if(space.action==='free') { player.kp += space.value; addLog(`Free Park grants ${space.value} KP.`); }
+            else if(space.action==='gotojail') { player.position=10; player.inJail=true; player.jailTurns=0; addLog(`${player.name} goes to Janissary Crisis!`); updateAllTokens(); updateUI(); }
+            endTurnOrExtra();
+        } 
+        else if(space.type==='property') {
+            let ownerIdx = getPropertyOwner(pos);
+            if(ownerIdx===null) {
+                document.getElementById('cardCategoryTitle').innerHTML = `🏷️ Buy ${space.name}`;
+                document.getElementById('cardTextDisplay').innerHTML = `<p>Price: ${space.price} KP. Do you wish to acquire this reform?</p><button class="answer-btn" onclick="buyPropertyAction(${pos})">Buy (${space.price} KP)</button><button class="answer-btn" onclick="endTurnOrExtra()">Skip</button>`;
+                document.getElementById('answerContainer').innerHTML = '';
+                awaitingAction = true;
+            } else if(ownerIdx===currentPlayerIdx) { addLog(`You already own ${space.name}`); endTurnOrExtra(); }
+            else { let owner = players[ownerIdx]; let rent = space.rent; player.kp -= rent; owner.kp += rent; addLog(`${player.name} pays ${rent} KP rent to ${owner.name} for ${space.name}`); updateUI(); endTurnOrExtra(); }
         }
+        else if(space.type==='tax') { player.kp -= space.value; addLog(`${player.name} pays ${space.value} KP tax.`); updateUI(); endTurnOrExtra(); }
+        else if(space.type==='railroad' || space.type==='utility') { let owner = getPropertyOwner(pos); if(owner!==null && owner!==currentPlayerIdx) { let rent = space.rent||30; players[currentPlayerIdx].kp -= rent; players[owner].kp += rent; addLog(`Rent paid: ${rent} KP`); } else addLog(`Land on ${space.name}`); endTurnOrExtra(); }
+        else if(space.type==='chance') { drawCard('chance'); }
+        else if(space.type==='community-chest') { drawCard('chest'); }
+        else endTurnOrExtra();
+        updateUI(); updateAllTokens();
+    }
 
-        // Generate the Monopoly board with perfect positioning
-        function generateBoard() {
-            // Clear existing cells except center
-            document.querySelectorAll('.board-cell').forEach(cell => {
-                if (!cell.classList.contains('board-center')) {
-                    cell.remove();
-                }
-            });
-            
-            // Create board cells in Monopoly layout
-            BOARD_SPACES.forEach((space) => {
-                const cell = document.createElement('div');
-                cell.className = `board-cell`;
-                cell.dataset.position = space.position;
-                cell.id = `cell-${space.position}`;
-                
-                // Add specific classes based on space type
-                if (space.type === 'corner') {
-                    cell.classList.add('corner-cell');
-                } else if (space.type === 'property') {
-                    cell.classList.add('property-cell');
-                    cell.classList.add(`property-${space.category.replace('-', '')}`);
-                } else if (space.type === 'chance') {
-                    cell.classList.add('horizontal-cell', 'chance-cell');
-                } else if (space.type === 'community-chest') {
-                    cell.classList.add('horizontal-cell', 'community-chest-cell');
-                } else if (space.type === 'railroad') {
-                    cell.classList.add('horizontal-cell', 'railroad-cell');
-                } else if (space.type === 'utility') {
-                    cell.classList.add('horizontal-cell', 'utility-cell');
-                } else if (space.type === 'tax') {
-                    cell.classList.add('horizontal-cell', 'tax-cell');
-                }
-                
-                // Add content
-                cell.innerHTML = `
-                    <div class="cell-number">${space.position}</div>
-                    <div class="cell-title">${space.name}</div>
-                    ${space.description ? `<div class="cell-description">${space.description}</div>` : ''}
-                    ${space.price ? `<div class="cell-description">KP ${space.price}</div>` : ''}
-                `;
-                
-                // Position the cell on the board
-                positionCell(cell, space.position);
-                
-                gameBoard.appendChild(cell);
-            });
-            
-            // Update player tokens
-            updatePlayerTokens();
+    function drawCard(type) {
+        let deck = type==='chance' ? chanceDeck : chestDeck;
+        if(deck.length===0) { deck = shuffle(type==='chance'?[...CHANCE_CARDS]:[...CHEST_CARDS]); }
+        let card = deck.pop();
+        let player = players[currentPlayerIdx];
+        document.getElementById('cardCategoryTitle').innerHTML = type==='chance' ? '🎲 CHANCE' : '📜 COMMUNITY REFORM';
+        document.getElementById('cardTextDisplay').innerHTML = `<p>${card.text}</p><button class="answer-btn" onclick="resolveCardAction('${card.action}', ${card.amount || card.steps || card.target}, ${card.gain||0})">Proceed</button>`;
+        document.getElementById('answerContainer').innerHTML = '';
+        window.cardActionPending = card;
+        awaitingAction = true;
+    }
+    window.resolveCardAction = (action, val, gain) => {
+        let player = players[currentPlayerIdx];
+        if(action==='collect') { player.kp += val; addLog(`${player.name} collects ${val} KP.`); }
+        else if(action==='pay') { player.kp -= val; addLog(`${player.name} pays ${val} KP.`); }
+        else if(action==='moveTo') { player.position = val; if(gain) player.kp+=gain; updateAllTokens(); addLog(`${player.name} moves to ${BOARD_DATA.find(s=>s.pos===val)?.name}`); }
+        else if(action==='moveSteps') { let newPos = (player.position + val + 40)%40; player.position = newPos; updateAllTokens(); addLog(`${player.name} moves ${val} steps.`); }
+        updateUI(); awaitingAction=false; endTurnOrExtra();
+    };
+
+    function endTurnOrExtra() {
+        if(extraTurnFlag && !awaitingAction) { extraTurnFlag=false; addLog(`${players[currentPlayerIdx].name} gets another turn (Doubles!)`); enableRoll(); return; }
+        if(!awaitingAction) { currentPlayerIdx = (currentPlayerIdx+1)%players.length; updateUI(); updateAllTokens(); enableRoll(); addLog(`👉 ${players[currentPlayerIdx].name}'s turn`); }
+    }
+
+    // Movement
+    async function movePlayer(steps) {
+        let player = players[currentPlayerIdx];
+        let old = player.position;
+        let newPos = (old + steps) % 40;
+        player.position = newPos;
+        if(newPos < old && old+steps>=40) { player.kp += 200; addLog(`Passed GO +200 KP`); }
+        updateAllTokens(); updateUI();
+        addLog(`${player.name} moves ${steps} spaces to ${BOARD_DATA.find(s=>s.pos===newPos)?.name}`);
+        await handleLanding(newPos);
+    }
+
+    // Dice roll
+    async function rollAction() {
+        if(awaitingAction || !gameActive) return;
+        let player = players[currentPlayerIdx];
+        if(player.inJail) { // jail logic
+            let d1 = Math.floor(Math.random()*6)+1, d2=Math.floor(Math.random()*6)+1;
+            document.getElementById('diceA').innerHTML = ['⚀','⚁','⚂','⚃','⚄','⚅'][d1-1];
+            document.getElementById('diceB').innerHTML = ['⚀','⚁','⚂','⚃','⚄','⚅'][d2-1];
+            if(d1===d2) { player.inJail=false; addLog(`${player.name} rolls doubles! Escapes Janissary Crisis!`); movePlayer(d1+d2); }
+            else { player.jailTurns = (player.jailTurns||0)+1; if(player.jailTurns>=3) { player.kp -= 50; player.inJail=false; addLog(`Pay 50 KP to leave jail.`); } else addLog(`Still in Crisis.`); endTurnOrExtra(); }
+            updateUI(); return;
         }
+        document.getElementById('rollTurnBtn').disabled = true;
+        let dice1 = Math.floor(Math.random()*6)+1, dice2 = Math.floor(Math.random()*6)+1;
+        let total = dice1+dice2;
+        let double = dice1===dice2;
+        document.getElementById('diceA').classList.add('rolling'); document.getElementById('diceB').classList.add('rolling');
+        setTimeout(()=>{
+            document.getElementById('diceA').classList.remove('rolling'); document.getElementById('diceB').classList.remove('rolling');
+            document.getElementById('diceA').innerHTML = ['⚀','⚁','⚂','⚃','⚄','⚅'][dice1-1];
+            document.getElementById('diceB').innerHTML = ['⚀','⚁','⚂','⚃','⚄','⚅'][dice2-1];
+            document.getElementById('diceFeedback').innerText = `Rolled ${dice1}+${dice2}=${total}`;
+            if(double) extraTurnFlag = true;
+            movePlayer(total);
+            document.getElementById('rollTurnBtn').disabled = false;
+        }, 400);
+    }
 
-        // Position cells on Monopoly board with EXACT coordinates
-        function positionCell(cell, position) {
-            const availableWidth = BOARD_WIDTH - (2 * CORNER_SIZE);
-            const cellWidth = availableWidth / 9; // 9 cells per side
-            
-            // Bottom row (positions 1-9) - Horizontal, right to left
-            if (position >= 1 && position <= 9) {
-                // Position 1 should be just left of GO corner
-                // Position 9 should be just right of JAIL corner
-                const cellIndex = position - 1; // 0-8
-                const x = BOARD_WIDTH - CORNER_SIZE - (cellIndex * cellWidth) - cellWidth;
-                cell.style.left = `${x}px`;
-                cell.style.bottom = '0px';
-                cell.style.width = `${cellWidth}px`;
-                cell.style.height = `${HORIZONTAL_HEIGHT}px`;
-            }
-            // Left side (positions 11-19) - Vertical, bottom to top
-            else if (position >= 11 && position <= 19) {
-                const cellIndex = position - 11; // 0-8
-                const availableHeight = BOARD_HEIGHT - (2 * CORNER_SIZE);
-                const cellHeight = availableHeight / 9;
-                const y = BOARD_HEIGHT - CORNER_SIZE - (cellIndex * cellHeight) - cellHeight;
-                cell.style.left = '0px';
-                cell.style.bottom = `${y}px`;
-                cell.style.width = `${PROPERTY_WIDTH}px`;
-                cell.style.height = `${cellHeight}px`;
-            }
-            // Top row (positions 21-29) - Horizontal, left to right
-            else if (position >= 21 && position <= 29) {
-                const cellIndex = position - 21; // 0-8
-                const x = CORNER_SIZE + (cellIndex * cellWidth);
-                cell.style.left = `${x}px`;
-                cell.style.top = '0px';
-                cell.style.width = `${cellWidth}px`;
-                cell.style.height = `${HORIZONTAL_HEIGHT}px`;
-            }
-            // Right side (positions 31-39) - Vertical, top to bottom
-            else if (position >= 31 && position <= 39) {
-                const cellIndex = position - 31; // 0-8
-                const availableHeight = BOARD_HEIGHT - (2 * CORNER_SIZE);
-                const cellHeight = availableHeight / 9;
-                const y = CORNER_SIZE + (cellIndex * cellHeight);
-                cell.style.right = '0px';
-                cell.style.top = `${y}px`;
-                cell.style.width = `${PROPERTY_WIDTH}px`;
-                cell.style.height = `${cellHeight}px`;
-            }
-            // Corner positions
-            else if (position === 0) { // GO - Bottom right
-                cell.style.right = '0px';
-                cell.style.bottom = '0px';
-                cell.style.width = `${CORNER_SIZE}px`;
-                cell.style.height = `${CORNER_SIZE}px`;
-            } else if (position === 10) { // JAIL - Bottom left
-                cell.style.left = '0px';
-                cell.style.bottom = '0px';
-                cell.style.width = `${CORNER_SIZE}px`;
-                cell.style.height = `${CORNER_SIZE}px`;
-            } else if (position === 20) { // FREE PARK - Top left
-                cell.style.left = '0px';
-                cell.style.top = '0px';
-                cell.style.width = `${CORNER_SIZE}px`;
-                cell.style.height = `${CORNER_SIZE}px`;
-            } else if (position === 30) { // GO TO JAIL - Top right
-                cell.style.right = '0px';
-                cell.style.top = '0px';
-                cell.style.width = `${CORNER_SIZE}px`;
-                cell.style.height = `${CORNER_SIZE}px`;
-            }
+    function enableRoll() { document.getElementById('rollTurnBtn').style.display = 'inline-block'; document.getElementById('endTurnBtn').style.display = 'none'; awaitingAction=false; }
+    function nextTurnMan() { if(!awaitingAction) endTurnOrExtra(); }
+
+    // start
+    function startGameLogic() {
+        const count = parseInt(document.getElementById('playerCountSelect').value);
+        players = [];
+        for(let i=0;i<count;i++) {
+            let nameInput = document.getElementById(`pname_${i}`);
+            let colorInput = document.getElementById(`pcol_${i}`);
+            players.push({ name: nameInput?.value||DEFAULT_NAMES[i], color: colorInput?.value||COLORS[i%COLORS.length], kp: 1500, position:0, properties:0, inJail:false, jailTurns:0 });
         }
+        propertiesOwned = [];
+        initDecks();
+        currentPlayerIdx = 0;
+        gameActive = true;
+        awaitingAction = false;
+        extraTurnFlag = false;
+        renderBoard();
+        updateUI();
+        enableRoll();
+        addLog("Tanzimat Monopoly started! Roll dice to begin.");
+        document.getElementById('setupModal').style.display = 'none';
+        document.getElementById('gameMain').style.display = 'block';
+    }
 
-        // Update player tokens on board
-        function updatePlayerTokens() {
-            // Clear existing tokens
-            document.querySelectorAll('.player-token').forEach(token => token.remove());
-            
-            // Add tokens for each player
-            gameState.players.forEach((player, playerIndex) => {
-                const cell = document.getElementById(`cell-${player.position}`);
-                if (cell) {
-                    const token = document.createElement('div');
-                    token.className = 'player-token';
-                    token.style.background = player.color;
-                    
-                    // Position token based on player index
-                    const positions = [
-                        {top: '3px', left: '3px'},
-                        {top: '3px', right: '3px'},
-                        {bottom: '3px', left: '3px'},
-                        {bottom: '3px', right: '3px'}
-                    ];
-                    
-                    const pos = positions[playerIndex % positions.length];
-                    Object.assign(token.style, pos);
-                    
-                    cell.appendChild(token);
-                    
-                    // Highlight current player's cell
-                    if (playerIndex === gameState.currentPlayerIndex) {
-                        cell.classList.add('active');
-                    } else {
-                        cell.classList.remove('active');
-                    }
-                }
-            });
+    // Player form generator
+    function buildPlayerForms() {
+        let count = parseInt(document.getElementById('playerCountSelect').value);
+        let container = document.getElementById('dynamicPlayerInputs');
+        container.innerHTML = '';
+        for(let i=0;i<count;i++) {
+            container.innerHTML += `<div class="player-input-group"><label>Reformer ${i+1}</label><input id="pname_${i}" value="${DEFAULT_NAMES[i]}" placeholder="Name"><select id="pcol_${i}">${COLORS.map((c,idx)=>`<option value="${c}" ${idx===i?'selected':''}>Color ${idx+1}</option>`).join('')}</select><div class="color-preview" style="background:${COLORS[i]}"></div></div>`;
         }
-
-        // Generate player cards
-        function updatePlayerCards() {
-            playersPanel.innerHTML = '';
-            
-            gameState.players.forEach((player, index) => {
-                const isActive = index === gameState.currentPlayerIndex;
-                const card = document.createElement('div');
-                card.className = `player-card ${isActive ? 'active' : ''}`;
-                card.innerHTML = `
-                    <div class="player-header">
-                        <div class="player-color-indicator" style="background: ${player.color}"></div>
-                        <div class="player-name">${player.name}</div>
-                        ${isActive ? '👑' : ''}
-                    </div>
-                    <div class="player-stats">
-                        <div class="stat-item">
-                            <span>Position:</span>
-                            <span class="stat-value">${player.position}</span>
-                        </div>
-                        <div class="stat-item">
-                            <span>Knowledge:</span>
-                            <span class="stat-value">${player.knowledgePoints}</span>
-                        </div>
-                        <div class="stat-item">
-                            <span>Money:</span>
-                            <span class="stat-value">${player.money}</span>
-                        </div>
-                        <div class="stat-item">
-                            <span>Properties:</span>
-                            <span class="stat-value">${player.propertiesOwned || 0}</span>
-                        </div>
-                    </div>
-                `;
-                playersPanel.appendChild(card);
-            });
-        }
-
-        // Start the game
-        function startGame() {
-            gameState.players = [];
-            const playerCount = parseInt(playerCountSelect.value);
-            
-            for (let i = 0; i < playerCount; i++) {
-                gameState.players.push({
-                    name: document.getElementById(`playerName${i}`).value,
-                    color: document.getElementById(`playerColor${i}`).value,
-                    knowledgePoints: STARTING_KNOWLEDGE,
-                    money: STARTING_MONEY,
-                    position: 0,
-                    turnCount: 0,
-                    correctAnswers: 0,
-                    propertiesOwned: 0,
-                    getOutOfJailFree: false,
-                    inJail: false,
-                    jailTurns: 0
-                });
-            }
-            
-            // Reset properties
-            gameState.properties.forEach(prop => {
-                prop.owner = null;
-                prop.mortgaged = false;
-            });
-            
-            // Shuffle decks
-            shuffleArray(gameState.communityChestDeck);
-            shuffleArray(gameState.chanceDeck);
-            
-            gameState.currentPlayerIndex = 0;
-            gameState.gameActive = true;
-            gameState.diceRolled = false;
-            gameState.questionAnswered = false;
-            
-            playerSetup.style.display = 'none';
-            gameContainer.style.display = 'block';
-            
-            generateBoard();
-            updatePlayerCards();
-            updateCurrentPlayerDisplay();
-            
-            addLog(`Reform Monopoly begins! ${playerCount} reformers competing.`);
-            enableRollDice();
-        }
-
-        // Shuffle array
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-            return array;
-        }
-
-        // Update current player display
-        function updateCurrentPlayerDisplay() {
-            const currentPlayer = gameState.players[gameState.currentPlayerIndex];
-            currentPlayerNameEl.textContent = currentPlayer.name;
-            currentPlayerNameEl.style.color = currentPlayer.color;
-        }
-
-        // Enable/disable dice roll
-        function enableRollDice() {
-            rollDiceBtn.disabled = false;
-            nextTurnBtn.disabled = true;
-            nextTurnBtn.style.display = 'none';
-            rollDiceBtn.style.display = 'block';
-            gameState.diceRolled = false;
-            gameState.questionAnswered = false;
-        }
-
-        // Roll dice
-        async function rollDice() {
-            if (!gameState.gameActive || gameState.diceRolled) return;
-            
-            const currentPlayer = gameState.players[gameState.currentPlayerIndex];
-            
-            // Check if player is in jail
-            if (currentPlayer.inJail) {
-                handleJailTurn(currentPlayer);
-                return;
-            }
-            
-            // Disable roll button during animation
-            rollDiceBtn.disabled = true;
-            rollDiceBtn.textContent = 'Rolling...';
-            
-            // Add rolling animation to both dice
-            dice1.classList.add('rolling');
-            dice2.classList.add('rolling');
-            
-            // Roll animation for 1 second
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            
-            // Generate dice values
-            const dice1Value = Math.floor(Math.random() * 6) + 1;
-            const dice2Value = Math.floor(Math.random() * 6) + 1;
-            const total = dice1Value + dice2Value;
-            
-            // Update dice display
-            dice1.textContent = getDiceFace(dice1Value);
-            dice2.textContent = getDiceFace(dice2Value);
-            
-            // Remove rolling animation
-            dice1.classList.remove('rolling');
-            dice2.classList.remove('rolling');
-            
-            diceResultEl.textContent = `${currentPlayer.name} rolled ${dice1Value} + ${dice2Value} = ${total}!`;
-            
-            gameState.diceRolled = true;
-            
-            // Move player
-            moveCurrentPlayer(total, dice1Value === dice2Value);
-        }
-
-        // Get dice face Unicode character
-        function getDiceFace(value) {
-            const faces = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
-            return faces[value - 1];
-        }
-
-        // Handle jail turn
-        function handleJailTurn(player) {
-            player.jailTurns++;
-            
-            if (player.jailTurns >= 3) {
-                player.money -= 50;
-                player.inJail = false;
-                player.jailTurns = 0;
-                addLog(`${player.name} pays 50 KP to get out of Janissary Crisis!`);
-                enableRollDice();
-            } else {
-                const dice1Value = Math.floor(Math.random() * 6) + 1;
-                const dice2Value = Math.floor(Math.random() * 6) + 1;
-                
-                dice1.textContent = getDiceFace(dice1Value);
-                dice2.textContent = getDiceFace(dice2Value);
-                
-                if (dice1Value === dice2Value) {
-                    player.inJail = false;
-                    player.jailTurns = 0;
-                    addLog(`${player.name} rolls doubles and gets out of Janissary Crisis!`);
-                    moveCurrentPlayer(dice1Value + dice2Value, true);
-                } else {
-                    addLog(`${player.name} fails to roll doubles. Still in Janissary Crisis.`);
-                    gameState.diceRolled = true;
-                    enableNextTurn();
-                }
-            }
-            
-            updatePlayerCards();
-        }
-
-        // Move current player
-        function moveCurrentPlayer(spaces, rolledDoubles = false) {
-            const currentPlayer = gameState.players[gameState.currentPlayerIndex];
-            const oldPosition = currentPlayer.position;
-            
-            // Calculate new position
-            let newPosition = (currentPlayer.position + spaces) % 40;
-            currentPlayer.position = newPosition;
-            
-            // Check if passed GO
-            if (newPosition < oldPosition) {
-                currentPlayer.money += 200;
-                addLog(`${currentPlayer.name} passed GO and collected 200 Knowledge Points!`);
-            }
-            
-            // Update display
-            updatePlayerTokens();
-            updatePlayerCards();
-            
-            addLog(`${currentPlayer.name} moves to position ${newPosition}`);
-            
-            // Land on space
-            setTimeout(() => landOnSpace(newPosition, rolledDoubles), 500);
-        }
-
-        // Land on a space
-        function landOnSpace(position, rolledDoubles) {
-            const space = BOARD_SPACES.find(s => s.position === position);
-            const currentPlayer = gameState.players[gameState.currentPlayerIndex];
-            
-            if (!space) {
-                enableNextTurn();
-                return;
-            }
-            
-            // Mark current space
-            gameState.currentSpace = space;
-            
-            // Handle different space types
-            if (space.type === 'property') {
-                handlePropertySpace(space, currentPlayer);
-            } else if (space.type === 'corner') {
-                handleCornerSpace(space, currentPlayer);
-            } else if (space.type === 'chance') {
-                drawChanceCard(currentPlayer);
-            } else if (space.type === 'community-chest') {
-                drawCommunityChestCard(currentPlayer);
-            } else if (space.type === 'railroad' || space.type === 'utility') {
-                handleRailroadUtilitySpace(space, currentPlayer);
-            } else if (space.type === 'tax') {
-                handleTaxSpace(space, currentPlayer);
-            } else {
-                cardTextEl.innerHTML = `
-                    <h3>${space.name}</h3>
-                    <p>${space.description}</p>
-                `;
-                
-                if (rolledDoubles) {
-                    addLog(`${currentPlayer.name} rolled doubles! Gets another turn.`);
-                    enableRollDice();
-                } else {
-                    enableNextTurn();
-                }
-            }
-        }
-
-        // Handle property space
-        function handlePropertySpace(space, player) {
-            const property = gameState.properties.find(p => p.position === space.position);
-            
-            if (!property) {
-                enableNextTurn();
-                return;
-            }
-            
-            if (!property.owner) {
-                cardTextEl.innerHTML = `
-                    <h3>${space.name}</h3>
-                    <p>${space.description}</p>
-                    <p><strong>Price:</strong> ${space.price} Knowledge Points</p>
-                    <p>Would you like to purchase this property?</p>
-                    <div style="margin-top: 20px;">
-                        <button class="answer-btn" onclick="buyProperty(${space.position})">Buy Property (${space.price} KP)</button>
-                        <button class="answer-btn" onclick="skipProperty()" style="margin-top: 10px;">Skip</button>
-                    </div>
-                `;
-            } else if (property.owner === gameState.currentPlayerIndex) {
-                cardTextEl.innerHTML = `
-                    <h3>${space.name}</h3>
-                    <p>You own this property!</p>
-                `;
-                enableNextTurn();
-            } else {
-                const owner = gameState.players[property.owner];
-                const rent = space.rent;
-                
-                player.money -= rent;
-                owner.money += rent;
-                
-                cardTextEl.innerHTML = `
-                    <h3>${space.name}</h3>
-                    <p>Owned by ${owner.name}</p>
-                    <p>You pay ${rent} Knowledge Points in rent!</p>
-                `;
-                
-                addLog(`${player.name} pays ${rent} KP rent to ${owner.name} for ${space.name}`);
-                updatePlayerCards();
-                enableNextTurn();
-            }
-        }
-
-        // Buy property
-        function buyProperty(position) {
-            const player = gameState.players[gameState.currentPlayerIndex];
-            const property = gameState.properties.find(p => p.position === position);
-            const space = BOARD_SPACES.find(s => s.position === position);
-            
-            if (!property || !space) return;
-            
-            if (player.money >= space.price) {
-                player.money -= space.price;
-                property.owner = gameState.currentPlayerIndex;
-                player.propertiesOwned = (player.propertiesOwned || 0) + 1;
-                
-                const cell = document.getElementById(`cell-${position}`);
-                if (cell) {
-                    cell.classList.add('property-owned');
-                    cell.style.borderLeft = `4px solid ${player.color}`;
-                }
-                
-                addLog(`${player.name} buys ${space.name} for ${space.price} KP!`);
-                updatePlayerCards();
-                
-                showPropertyQuestion(space);
-            } else {
-                cardTextEl.innerHTML = `
-                    <h3>Insufficient Funds!</h3>
-                    <p>You need ${space.price} KP but only have ${player.money} KP.</p>
-                `;
-                setTimeout(enableNextTurn, 2000);
-            }
-        }
-
-        // Skip property
-        function skipProperty() {
-            enableNextTurn();
-        }
-
-        // Show property question
-        function showPropertyQuestion(space) {
-            if (!space.category) {
-                enableNextTurn();
-                return;
-            }
-            
-            gameState.currentCard = getRandomFact(space.category);
-            if (!gameState.currentCard) {
-                enableNextTurn();
-                return;
-            }
-            
-            displayCard(space.category, gameState.currentCard);
-            nextTurnBtn.style.display = 'none';
-            rollDiceBtn.style.display = 'none';
-        }
-
-        // Handle corner space
-        function handleCornerSpace(space, player) {
-            if (space.position === 0) {
-                player.money += 200;
-                addLog(`${player.name} lands on GO and collects 200 KP!`);
-            } else if (space.position === 10) {
-                // Just visiting
-            } else if (space.position === 20) {
-                const freeParkMoney = 100;
-                player.money += freeParkMoney;
-                addLog(`${player.name} collects ${freeParkMoney} KP from Free Park!`);
-            } else if (space.position === 30) {
-                player.position = 10;
-                player.inJail = true;
-                player.jailTurns = 0;
-                addLog(`${player.name} goes to Janissary Crisis!`);
-                updatePlayerTokens();
-            }
-            
-            cardTextEl.innerHTML = `
-                <h3>${space.name}</h3>
-                <p>${space.description}</p>
-            `;
-            updatePlayerCards();
-            enableNextTurn();
-        }
-
-        // Draw chance card
-        function drawChanceCard(player) {
-            if (gameState.chanceDeck.length === 0) {
-                gameState.chanceDeck = [...CHANCE_CARDS];
-                shuffleArray(gameState.chanceDeck);
-            }
-            
-            const card = gameState.chanceDeck.pop();
-            cardTextEl.innerHTML = `
-                <h3>Chance</h3>
-                <p>${card.text}</p>
-            `;
-            
-            if (card.action === 'collect') {
-                player.money += card.amount;
-                addLog(`${player.name} collects ${card.amount} KP!`);
-            } else if (card.action === 'pay') {
-                player.money -= card.amount;
-                addLog(`${player.name} pays ${card.amount} KP!`);
-            }
-            
-            updatePlayerCards();
-            setTimeout(enableNextTurn, 2000);
-        }
-
-        // Draw community chest card
-        function drawCommunityChestCard(player) {
-            if (gameState.communityChestDeck.length === 0) {
-                gameState.communityChestDeck = [...COMMUNITY_CHEST_CARDS];
-                shuffleArray(gameState.communityChestDeck);
-            }
-            
-            const card = gameState.communityChestDeck.pop();
-            cardTextEl.innerHTML = `
-                <h3>Community Reform</h3>
-                <p>${card.text}</p>
-            `;
-            
-            if (card.action === 'collect') {
-                player.money += card.amount;
-                addLog(`${player.name} collects ${card.amount} KP!`);
-            } else if (card.action === 'pay') {
-                player.money -= card.amount;
-                addLog(`${player.name} pays ${card.amount} KP!`);
-            }
-            
-            updatePlayerCards();
-            setTimeout(enableNextTurn, 2000);
-        }
-
-        // Handle railroad/utility space
-        function handleRailroadUtilitySpace(space, player) {
-            cardTextEl.innerHTML = `
-                <h3>${space.name}</h3>
-                <p>${space.description}</p>
-            `;
-            enableNextTurn();
-        }
-
-        // Handle tax space
-        function handleTaxSpace(space, player) {
-            player.money -= space.amount;
-            
-            cardTextEl.innerHTML = `
-                <h3>${space.name}</h3>
-                <p>${space.description}</p>
-                <p>You pay ${space.amount} Knowledge Points!</p>
-            `;
-            
-            addLog(`${player.name} pays ${space.amount} KP in taxes!`);
-            updatePlayerCards();
-            enableNextTurn();
-        }
-
-        // Display card based on category
-        function displayCard(category, card) {
-            answerOptionsEl.style.display = 'none';
-            factResultEl.style.display = 'none';
-            answerOptionsEl.innerHTML = '';
-            
-            const categoryNames = {
-                'did-you-know': 'Did You Know?',
-                'true-false': 'True or False?',
-                'what-next': 'What Happened Next?',
-                'two-truths': 'Two Truths & a Lie'
-            };
-            
-            currentCategoryEl.textContent = categoryNames[category];
-            
-            switch(category) {
-                case 'did-you-know':
-                    cardTextEl.textContent = card.text;
-                    answerOptionsEl.innerHTML = `
-                        <button class="answer-btn" onclick="answerQuestion()">Learn This (Earn ${card.points} points)</button>
-                    `;
-                    answerOptionsEl.style.display = 'block';
-                    break;
-                    
-                case 'true-false':
-                    cardTextEl.textContent = card.text;
-                    answerOptionsEl.innerHTML = `
-                        <button class="answer-btn" onclick="answerTrueFalse(true)">True</button>
-                        <button class="answer-btn" onclick="answerTrueFalse(false)">False</button>
-                    `;
-                    answerOptionsEl.style.display = 'block';
-                    break;
-                    
-                case 'what-next':
-                    cardTextEl.textContent = card.setup;
-                    answerOptionsEl.innerHTML = card.options.map((option, index) => `
-                        <button class="answer-btn" onclick="answerWhatNext(${index})">${option}</button>
-                    `).join('');
-                    answerOptionsEl.style.display = 'block';
-                    break;
-                    
-                case 'two-truths':
-                    cardTextEl.innerHTML = `
-                        <strong>Which statement is the LIE?</strong><br><br>
-                        ${card.statements.map((stmt, idx) => 
-                            `${idx + 1}. ${stmt}<br><br>`
-                        ).join('')}
-                    `;
-                    answerOptionsEl.innerHTML = card.statements.map((stmt, index) => `
-                        <button class="answer-btn" onclick="answerTwoTruths(${index})">Statement ${index + 1}</button>
-                    `).join('');
-                    answerOptionsEl.style.display = 'block';
-                    break;
-            }
-            
-            setTimeout(() => {
-                document.querySelectorAll('.answer-btn').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        document.querySelectorAll('.answer-btn').forEach(b => b.disabled = true);
-                    });
-                });
-            }, 100);
-        }
-
-        // Get random fact from category
-        function getRandomFact(category) {
-            const categoryFacts = facts[category];
-            return categoryFacts[Math.floor(Math.random() * categoryFacts.length)];
-        }
-
-        // Answer handlers
-        function answerQuestion() {
-            if (gameState.questionAnswered) return;
-            
-            const currentPlayer = gameState.players[gameState.currentPlayerIndex];
-            const card = gameState.currentCard;
-            
-            currentPlayer.knowledgePoints += card.points;
-            currentPlayer.correctAnswers = (currentPlayer.correctAnswers || 0) + 1;
-            
-            showResult(true, `Knowledge gained! +${card.points} Knowledge Points`);
-            addLog(`${currentPlayer.name} earns ${card.points} KP for correct answer!`);
-            
-            updatePlayerCards();
-            gameState.questionAnswered = true;
-            
-            setTimeout(enableNextTurn, 1500);
-        }
-
-        function answerTrueFalse(userAnswer) {
-            if (gameState.questionAnswered) return;
-            
-            const currentPlayer = gameState.players[gameState.currentPlayerIndex];
-            const card = gameState.currentCard;
-            const isCorrect = userAnswer === card.answer;
-            
-            if (isCorrect) {
-                currentPlayer.knowledgePoints += card.points;
-                currentPlayer.correctAnswers = (currentPlayer.correctAnswers || 0) + 1;
-                
-                showResult(true, `Correct! ${card.explanation} +${card.points} Knowledge Points`);
-                addLog(`${currentPlayer.name} answers True/False correctly!`);
-            } else {
-                showResult(false, `Incorrect. ${card.explanation}`);
-                addLog(`${currentPlayer.name} answers True/False incorrectly.`);
-            }
-            
-            updatePlayerCards();
-            gameState.questionAnswered = true;
-            
-            setTimeout(enableNextTurn, 1500);
-        }
-
-        function answerWhatNext(selectedIndex) {
-            if (gameState.questionAnswered) return;
-            
-            const currentPlayer = gameState.players[gameState.currentPlayerIndex];
-            const card = gameState.currentCard;
-            const isCorrect = selectedIndex === card.correct;
-            
-            if (isCorrect) {
-                currentPlayer.knowledgePoints += card.points;
-                currentPlayer.correctAnswers = (currentPlayer.correctAnswers || 0) + 1;
-                
-                showResult(true, `Correct! ${card.explanation} +${card.points} Knowledge Points`);
-                addLog(`${currentPlayer.name} predicts historical sequence correctly!`);
-            } else {
-                showResult(false, `Incorrect. ${card.explanation}`);
-                addLog(`${currentPlayer.name} makes wrong historical prediction.`);
-            }
-            
-            updatePlayerCards();
-            gameState.questionAnswered = true;
-            
-            setTimeout(enableNextTurn, 1500);
-        }
-
-        function answerTwoTruths(selectedIndex) {
-            if (gameState.questionAnswered) return;
-            
-            const currentPlayer = gameState.players[gameState.currentPlayerIndex];
-            const card = gameState.currentCard;
-            const isCorrect = selectedIndex === card.lieIndex;
-            
-            if (isCorrect) {
-                currentPlayer.knowledgePoints += card.points;
-                currentPlayer.correctAnswers = (currentPlayer.correctAnswers || 0) + 1;
-                
-                showResult(true, `Correct detective work! ${card.explanation} +${card.points} Knowledge Points`);
-                addLog(`${currentPlayer.name} finds the lie successfully!`);
-            } else {
-                showResult(false, `Not quite. ${card.explanation}`);
-                addLog(`${currentPlayer.name} chooses wrong in Two Truths & a Lie`);
-            }
-            
-            updatePlayerCards();
-            gameState.questionAnswered = true;
-            
-            setTimeout(enableNextTurn, 1500);
-        }
-
-        // Show result
-        function showResult(isCorrect, message) {
-            factResultEl.textContent = message;
-            factResultEl.className = 'fact-result ' + (isCorrect ? 'correct' : 'incorrect');
-            factResultEl.style.display = 'block';
-        }
-
-        // Enable next turn button
-        function enableNextTurn() {
-            nextTurnBtn.disabled = false;
-            nextTurnBtn.style.display = 'block';
-            rollDiceBtn.style.display = 'none';
-        }
-
-        // Next turn
-        function nextTurn() {
-            const currentPlayer = gameState.players[gameState.currentPlayerIndex];
-            currentPlayer.turnCount++;
-            
-            gameState.currentPlayerIndex = (gameState.currentPlayerIndex + 1) % gameState.players.length;
-            
-            nextTurnBtn.style.display = 'none';
-            rollDiceBtn.style.display = 'block';
-            currentCategoryEl.textContent = 'Ready for Next Turn';
-            cardTextEl.textContent = `${gameState.players[gameState.currentPlayerIndex].name}'s turn. Click "Roll Dice" to continue!`;
-            answerOptionsEl.style.display = 'none';
-            factResultEl.style.display = 'none';
-            diceResultEl.textContent = '';
-            
-            updateCurrentPlayerDisplay();
-            updatePlayerCards();
-            enableRollDice();
-            
-            addLog(`${gameState.players[gameState.currentPlayerIndex].name}'s turn to roll!`);
-        }
-
-        // Reset game
-        function resetGame() {
-            winnerBanner.style.display = 'none';
-            playerSetup.style.display = 'flex';
-            gameContainer.style.display = 'none';
-        }
-
-        // Add log entry
-        function addLog(message) {
-            const logEntry = document.createElement('div');
-            logEntry.className = 'log-entry';
-            logEntry.textContent = message;
-            logEntriesEl.prepend(logEntry);
-            
-            const entries = logEntriesEl.querySelectorAll('.log-entry');
-            if (entries.length > 8) {
-                entries[entries.length - 1].remove();
-            }
-        }
-
-        // Event Listeners
-        playerCountSelect.addEventListener('change', initializePlayerForms);
-        startGameBtn.addEventListener('click', startGame);
-        rollDiceBtn.addEventListener('click', rollDice);
-        nextTurnBtn.addEventListener('click', nextTurn);
-
-        // Initialize
-        initializePlayerForms();
-    </script>
+    }
+    document.getElementById('playerCountSelect').addEventListener('change', buildPlayerForms);
+    document.getElementById('startGameFinalBtn').addEventListener('click', startGameLogic);
+    buildPlayerForms();
+    document.getElementById('rollTurnBtn').addEventListener('click', rollAction);
+    document.getElementById('endTurnBtn').addEventListener('click', nextTurnMan);
+    window.endTurnOrExtra = endTurnOrExtra;
+    window.buyPropertyAction = buyPropertyAction;
+</script>
 </body>
 </html>
