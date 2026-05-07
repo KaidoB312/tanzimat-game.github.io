@@ -1,0 +1,12 @@
+{
+  "name": "tanzimat-game",
+  "version": "1.0.4",
+  "description": "Full stack web game built with Node.js, Express, and Socket.IO",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+    },
+    "author": "kaidoB312",
+    "license": "MIT"
+}
